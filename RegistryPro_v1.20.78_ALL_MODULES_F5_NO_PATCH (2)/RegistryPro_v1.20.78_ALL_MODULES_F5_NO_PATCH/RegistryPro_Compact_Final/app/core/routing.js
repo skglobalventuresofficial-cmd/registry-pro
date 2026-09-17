@@ -37,14 +37,20 @@ function displayTitle(type,module){
   return module?.title||`${value} Registry Draft`;
 }
 
-function setEngineType(){
-  try{registrySelectedType='Agriculture Land';}catch(_){window.registrySelectedType='Agriculture Land';}
+/* Keep the legacy calculation engine and the router on the same active type.
+   The old code hard-coded Agriculture Land here, which made every later deed
+   inherit Agriculture visibility, defaults and preview fields. */
+function setEngineType(type=requestedType){
+  const value=normalizeType(type);
+  try{registrySelectedType=value;}catch(_){window.registrySelectedType=value;}
+  window.__registryEngineDraftType=value;
 }
 
 function setRequestedType(type){
   requestedType=normalizeType(type);
   window.__registryRequestedDraftType=requestedType;
   window.__registryActiveDraftType=requestedType;
+  setEngineType(requestedType);
 }
 
 function setLabels(type){
@@ -64,14 +70,15 @@ function clearModuleUI(activeModule){
 }
 
 function applyModuleUI(type){
-  const module=moduleFor(type),view=$('registryView'),theme=module?.theme||fallbackTheme(type);
+  const value=normalizeType(type),module=moduleFor(value),view=$('registryView'),theme=module?.theme||fallbackTheme(value);
+  setRequestedType(value);
   clearModuleUI(module);
   if(view){view.classList.remove(...themeClasses);if(theme)view.classList.add(theme);}
-  setLabels(type);
-  try{module?.beforeOpen?.(type);}catch(error){console.warn('Module beforeOpen',error);}
-  try{module?.applyUI?.(type);}catch(error){console.warn('Module applyUI',error);}
-  try{module?.afterOpen?.(type);}catch(error){console.warn('Module afterOpen',error);}
-  setLabels(type);
+  setLabels(value);
+  try{module?.beforeOpen?.(value);}catch(error){console.warn('Module beforeOpen',error);}
+  try{module?.applyUI?.(value);}catch(error){console.warn('Module applyUI',error);}
+  try{module?.afterOpen?.(value);}catch(error){console.warn('Module afterOpen',error);}
+  setLabels(value);
   document.title=RELEASE_TITLE;
 }
 
@@ -105,18 +112,38 @@ function withoutHeavyRefresh(work){
   finally{for(const name of names){if(saved[name])window[name]=saved[name];else delete window[name];}}
 }
 
-function resetWorkingDraft(){
-  setRequestedType('Agriculture Land');setEngineType();
-  withoutHeavyRefresh(()=>{try{window.RegistryProAgricultureReset?.();}catch(error){console.warn('Draft reset',error);}});
+function clearGenericDraftForm(){
+  const root=$('draftStepsScreen');if(!root)return;
+  root.querySelectorAll('input,textarea,select').forEach(el=>{
+    if(el.readOnly||el.disabled)return;
+    if(el.type==='checkbox'||el.type==='radio'){el.checked=el.type==='checkbox'&&el.id==='rebateNo';return;}
+    if(el.tagName==='SELECT'){el.selectedIndex=0;return;}
+    el.value='';
+  });
+  ['agriGataRows','orchardTreeRows','treeBoringTreeRows','paymentRows'].forEach(id=>{const el=$(id);if(el)el.innerHTML='';});
+  root.querySelectorAll('.additional-party-card').forEach(el=>el.remove());
+  root.querySelectorAll('.captured,.picked').forEach(el=>el.classList.remove('captured','picked'));
 }
 
-function buildSharedLayout(){
-  try{window.toggleAgriElements?.();}catch(_){}
-  try{window.applyDraftTypeFieldVisibility?.();}catch(_){}
-  try{window.v123Build?.();}catch(_){}
-  try{window.v123SyncVisibility?.();}catch(_){}
-  try{window.v124SyncMode?.();}catch(_){}
-  try{window.v1216Apply?.();}catch(_){}
+function resetWorkingDraft(type){
+  const value=normalizeType(type);
+  setRequestedType(value);
+  withoutHeavyRefresh(()=>{
+    try{
+      if(value==='Agriculture Land'&&typeof window.RegistryProAgricultureReset==='function')window.RegistryProAgricultureReset();
+      else clearGenericDraftForm();
+    }catch(error){console.warn('Draft reset',error);clearGenericDraftForm();}
+  });
+}
+
+function buildSharedLayout(type){
+  setEngineType(type);
+  try{window.toggleAgriElements?.();}catch(_){ }
+  try{window.applyDraftTypeFieldVisibility?.();}catch(_){ }
+  try{window.v123Build?.();}catch(_){ }
+  try{window.v123SyncVisibility?.();}catch(_){ }
+  try{window.v124SyncMode?.();}catch(_){ }
+  try{window.v1216Apply?.();}catch(_){ }
 }
 
 function refreshDraftOnce(){
@@ -127,18 +154,18 @@ function refreshDraftOnce(){
 
 function prepareDraftShell(type,{reset=true}={}){
   const target=normalizeType(type);
-  if(reset)resetWorkingDraft();
-  setRequestedType(target);setEngineType();
+  if(reset)resetWorkingDraft(target);
+  setRequestedType(target);
   showRegistryView();activateStepOne();closeChoosers();
-  withoutHeavyRefresh(buildSharedLayout);
-  setRequestedType(target);setEngineType();applyModuleUI(target);
-  try{window.v14EnsureRegistryNo?.();window.updateDraftNumberMini?.();}catch(_){}
-  try{window.scrollTo(0,0);}catch(_){}
+  withoutHeavyRefresh(()=>buildSharedLayout(target));
+  setRequestedType(target);applyModuleUI(target);
+  try{window.v14EnsureRegistryNo?.();window.updateDraftNumberMini?.();}catch(_){ }
+  try{window.scrollTo(0,0);}catch(_){ }
   return target;
 }
 
 function openRequestedDraft(type){
-  try{if(window.v14SessionData?.()?.role==='Staff'){window.toast?.('Staff mode sirf post-registration workflow ke liye hai.');return;}}catch(_){}
+  try{if(window.v14SessionData?.()?.role==='Staff'){window.toast?.('Staff mode sirf post-registration workflow ke liye hai.');return;}}catch(_){ }
   const target=prepareDraftShell(type,{reset:true});
   refreshDraftOnce();
   return target;
@@ -152,7 +179,7 @@ function showTypeChooser(kind='all'){
   if(kind==='agreement'&&$('agreementOptions'))$('agreementOptions').hidden=false;
   if(kind==='saleAfter'&&$('saleAfterOptions'))$('saleAfterOptions').hidden=false;
   document.title=RELEASE_TITLE;
-  try{window.scrollTo(0,0);}catch(_){}
+  try{window.scrollTo(0,0);}catch(_){ }
 }
 
 const baseDraftData=window.draftData;
@@ -167,10 +194,9 @@ if(typeof baseDraftData==='function')window.draftData=function(){
 const baseLoadDraft=window.v14LoadDraftFields;
 if(typeof baseLoadDraft==='function')window.v14LoadDraftFields=function(draft){
   const type=normalizeType(draft?.registryType||'Agriculture Land');
-  setRequestedType(type);setEngineType();
-  const engineDraft={...(draft||{}),registryType:'Agriculture Land'};
-  const result=baseLoadDraft.call(this,engineDraft);
-  setRequestedType(type);setEngineType();buildSharedLayout();applyModuleUI(type);refreshDraftOnce();
+  setRequestedType(type);
+  const result=baseLoadDraft.call(this,{...(draft||{}),registryType:type});
+  setRequestedType(type);buildSharedLayout(type);applyModuleUI(type);refreshDraftOnce();
   return result;
 };
 
@@ -179,7 +205,7 @@ if(typeof baseV19Type==='function')window.v19Type=function(){return normalizeTyp
 
 window.selectPropertyType=function(element){
   const type=normalizeType(element?.dataset?.type||'Residential Plot');
-  setRequestedType(type);setEngineType();setLabels(type);
+  setRequestedType(type);setLabels(type);
   document.querySelectorAll('.property-type-card').forEach(card=>card.classList.toggle('selected',card===element));
 };
 
@@ -197,47 +223,17 @@ window.openSaleAfterAgreementPicker=function(){return showTypeChooser('saleAfter
 window.openSavedRegistry=function(registryNo){
   const draft=window.v14AllDrafts?.().find(item=>item.registryNo===registryNo);
   if(!draft||!window.v14DraftVisible?.(draft)){window.toast?.('Draft access not available for this login');return;}
-  resetWorkingDraft();
-  try{v14LoadingDraft=true;v14ActiveRegistryNo=draft.registryNo;v14LastOpenedDraft=draft;}catch(_){}
-  if(draft.jurisdiction)try{window.v14WriteJSON?.('registryProJurisdiction',draft.jurisdiction);}catch(_){}
+  resetWorkingDraft(draft.registryType||'Agriculture Land');
+  try{v14LoadingDraft=true;v14ActiveRegistryNo=draft.registryNo;v14LastOpenedDraft=draft;}catch(_){ }
+  if(draft.jurisdiction)try{window.v14WriteJSON?.('registryProJurisdiction',draft.jurisdiction);}catch(_){ }
   prepareDraftShell(draft.registryType||'Agriculture Land',{reset:false});
   window.v14LoadDraftFields?.(draft);window.goDraftStep?.(1);window.updateDraftJurisdictionContext?.();window.updateDraftNumberMini?.();
-  try{v14LoadingDraft=false;}catch(_){}
+  try{v14LoadingDraft=false;}catch(_){ }
   applyModuleUI(draft.registryType||'Agriculture Land');window.toast?.(`Opened ${registryNo}`);
 };
 
-window.v116CloneDraft=function(registryNo){
-  const source=window.v14AllDrafts?.().find(item=>item.registryNo===registryNo);
-  if(!source||!window.v14DraftVisible?.(source)){window.toast?.('Source draft not available');return;}
-  const draft=JSON.parse(JSON.stringify(source));
-  draft.sourceRegistryNo=source.registryNo;delete draft.registryNo;delete draft.savedAtISO;delete draft.savedAt;delete draft.id;
-  draft.status='In Progress';draft._workingDraft=true;draft.finalApproved=false;draft.checkingCopy=false;
-  resetWorkingDraft();if(source.jurisdiction)try{window.v14WriteJSON?.('registryProJurisdiction',source.jurisdiction);}catch(_){}
-  try{v14LoadingDraft=true;v14ActiveRegistryNo=null;}catch(_){}
-  prepareDraftShell(source.registryType||'Agriculture Land',{reset:false});window.v14EnsureRegistryNo?.();window.v14LoadDraftFields?.(draft);
-  window.goDraftStep?.(1);window.updateDraftNumberMini?.();try{v14LoadingDraft=false;}catch(_){}window.saveDraftV04?.(false);
-  window.toast?.(`New copy created: ${typeof v14ActiveRegistryNo!=='undefined'?v14ActiveRegistryNo:'Draft'}. Original ${source.registryNo} unchanged.`);
-};
-
-window.createNextSaleFromDraft=function(registryNo){
-  const source=window.v14AllDrafts?.().find(item=>item.registryNo===registryNo);
-  if(!source||!window.v14DraftVisible?.(source)){window.toast?.('Source draft not available');return;}
-  const draft=JSON.parse(JSON.stringify(source));
-  draft.sourceRegistryNo=source.registryNo;
-  try{draft.previousTitleHolderText=window.compactPartiesPlain?.(source.buyers,source.buyer)||'';}catch(_){draft.previousTitleHolderText='';}
-  try{draft.sellers=JSON.parse(JSON.stringify(window.normalizePartyList?.(source.buyers,source.buyer)||[]));}catch(_){draft.sellers=[];}
-  draft.seller=draft.sellers[0]||{};draft.buyers=[{name:'',father:'',relation:'S/O',address:'',pan:'',aadhaar:'',email:'',mobile:''}];draft.buyer=draft.buyers[0];
-  draft.transactionAmount=0;draft.advanceAmount=0;draft.stampDuty=0;draft.payments=[];
-  delete draft.registryNo;delete draft.savedAtISO;delete draft.savedAt;delete draft.id;draft.status='In Progress';draft._workingDraft=true;
-  resetWorkingDraft();try{v14LoadingDraft=true;v14ActiveRegistryNo=null;}catch(_){}
-  prepareDraftShell(source.registryType||'Agriculture Land',{reset:false});window.v14EnsureRegistryNo?.();window.v14LoadDraftFields?.(draft);
-  if($('previousTitleHolderText'))$('previousTitleHolderText').value=draft.previousTitleHolderText||'';
-  window.goDraftStep?.(2);window.updateDraftNumberMini?.();try{v14LoadingDraft=false;}catch(_){}window.saveDraftV04?.(false);
-  window.toast?.(`New draft created: old Buyer is now Seller`);
-};
-
 window.RegistryProRouting={openDraft:openRequestedDraft,openSaved:window.openSavedRegistry,activeType:()=>requestedType,applyModuleUI};
-setRequestedType('Agriculture Land');setEngineType();
+setRequestedType('Agriculture Land');
 if($('selectedTypeLabel'))$('selectedTypeLabel').textContent='Select Deed Type';
 if($('draftTypeMini'))$('draftTypeMini').textContent='Select Deed Type';
 document.querySelectorAll('.property-type-card').forEach(card=>card.classList.remove('selected'));
