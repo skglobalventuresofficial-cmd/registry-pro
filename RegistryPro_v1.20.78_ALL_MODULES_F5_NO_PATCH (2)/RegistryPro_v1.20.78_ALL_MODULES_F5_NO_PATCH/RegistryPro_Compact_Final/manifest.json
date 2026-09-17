@@ -1,0 +1,10 @@
+{
+  "name": "Registry Pro v1.20.78 Clean Source",
+  "short_name": "Registry Pro",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7f8fa",
+  "theme_color": "#12304a",
+  "description": "Registry Pro property deed drafting system with direct module source and deterministic routing.",
+  "version": "1.20.78"
+}

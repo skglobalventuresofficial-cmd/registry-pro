@@ -1,0 +1,70 @@
+/* Registry Pro clean stylesheet module. */
+
+/* ===== Source: residential-plot.css ===== */
+/* Plot-only refinement. Agriculture selectors and deed layout are untouched. */
+.v1212-build-badge{display:inline-flex;margin-left:10px;padding:3px 7px;border-radius:999px;background:#eaf7ef;color:#14733f;font-size:11px;font-weight:800;vertical-align:middle}
+.v1212-draft-name{margin:0 0 12px;padding:10px 16px;border:1px solid #cfe5d7;border-left:5px solid #18864b;border-radius:10px;background:#f2faf5;text-align:center;color:#164b2d;font-size:20px;font-weight:800}
+body.v1211-plot-mode .previous-title-holder-row{display:none!important}
+body.v1211-plot-mode .form-card{padding:18px 20px;margin-bottom:14px;border-radius:14px}
+body.v1211-plot-mode .form-grid{gap:12px 14px}
+body.v1211-plot-mode input,body.v1211-plot-mode select,body.v1211-plot-mode textarea{min-height:44px;padding:9px 12px}
+body.v1211-plot-mode .v123-distance-wrap{display:block!important}
+/* Main-road distance is a required valuation stage for every property workflow. */
+#v123DistanceWrap{display:block!important}
+.v1211-toggle-card{border:1px solid #dbe8df;border-radius:12px;background:#fff;margin:12px 0;overflow:hidden}
+.v1211-toggle-head{display:flex;align-items:center;gap:10px;width:100%;padding:12px 14px;border:0;background:#f4faf6;color:#173d28;font:700 15px/1.35 inherit;cursor:pointer;text-align:left}
+.v1211-toggle-head input{width:18px;height:18px;min-height:18px!important;accent-color:#16834a}.v1211-toggle-head small{margin-left:auto;color:#637168;font-weight:500}
+.v1211-toggle-body{padding:14px}.v1211-toggle-body[hidden]{display:none!important}
+.v1211-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.v1211-grid label{display:block;margin-bottom:5px;font-size:14px;font-weight:700}.v1211-grid input,.v1211-grid select{width:100%}
+.v1211-record-table{width:100%;border-collapse:collapse}.v1211-record-table th,.v1211-record-table td{padding:7px;border:1px solid #dbe5de}.v1211-record-table input{width:100%;min-width:90px}.v1211-add-row{margin-top:10px;float:right}.v1211-clear{clear:both}
+.v1211-road{margin-top:12px;border-top:1px solid #dfe8e2;padding-top:12px}.v1211-road-control{display:grid;grid-template-columns:minmax(0,1fr) 135px;gap:9px}.v1211-road-status{margin-top:8px;padding:9px 11px;border-radius:8px;background:#eef8f1;color:#236a40;font-size:14px}.v1211-road-status.warn{background:#fff4e6;color:#985300}
+body:not(.v1211-plot-mode) .v1211-plot-only{display:none!important}
+.v1211-mutation-table{width:100%;border-collapse:collapse;margin:16px 0}.v1211-mutation-table th,.v1211-mutation-table td{border:1px solid #222;padding:8px;text-align:center}.v1211-mutation-blanks{margin-top:22px}.v1211-mutation-sign{display:flex;justify-content:space-between;margin-top:65px;font-weight:700}
+@media(max-width:800px){.v1211-grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.v1211-grid{grid-template-columns:1fr}.v1211-road-control{grid-template-columns:1fr}}
+
+/* ===== Source: print-fix.css ===== */
+#v1215PrintSurface{display:none}
+.v1215-plot-output .deed-page{font-family:'Nirmala UI','Mangal',sans-serif;font-size:12pt;line-height:1.45}
+.v1215-copy-label{text-align:center;font-weight:bold;color:#555}
+.v1215-mutation{background:white;color:black}
+.v1215-mutation .mutation-sheet{box-sizing:border-box;width:210mm;min-height:297mm;padding:14mm 15mm;margin:12px auto;background:white;font:10.5pt/1.25 'Nirmala UI','Mangal',sans-serif;border:1px solid #ccc}
+.v1215-mutation .mutation-sheet.landscape{width:297mm;min-height:210mm}
+.v1215-mutation p{margin:0 0 7px}.v1215-mutation h2{font-size:13pt;margin:8px 0}.v1215-mutation table{width:100%;border-collapse:collapse;margin:10px 0}.v1215-mutation td{border:1px solid #444;padding:6px;vertical-align:top;font-size:9pt}.v1215-mutation td p{margin:0}.v1215-mutation .landscape td{font-size:8pt}
+@page v1215Portrait{size:A4 portrait;margin:14mm 15mm}
+@page v1215Landscape{size:A4 landscape;margin:14mm 15mm}
+@media print{
+ body.v1215-print> :not(#v1215PrintSurface){display:none!important}
+ body.v1215-print #v1215PrintSurface{display:block!important;position:static!important;margin:0!important;padding:0!important;width:auto!important;visibility:visible!important}
+ body.v1215-print #v1215PrintSurface *{visibility:visible!important}
+ #v1215PrintSurface .deed-page{page:v1215Portrait;width:auto!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;position:relative!important;margin:0!important;padding:0!important;box-shadow:none!important;break-after:page;page-break-after:always}
+ #v1215PrintSurface .deed-page:last-child{break-after:auto;page-break-after:auto}
+ #v1215PrintSurface .mutation-sheet.landscape{page:v1215Landscape}
+ #v1215PrintSurface .mutation-doc{width:auto!important;min-height:0!important;padding:0!important;margin:0!important;border:0!important}
+ #v1215PrintSurface .mutation-sheet{border:0!important}
+ #v1215PrintSurface table,#v1215PrintSurface tr{break-inside:avoid}
+}
+
+/* ===== Source: residential-plot-fields.css ===== */
+/* Registry Pro v1.20.47 — Residential Plot only. Existing design preserved; fields replaced in-place. */
+#registryView.rp-residential-plot-fields .rp-check-label{display:flex;align-items:center;gap:8px;font-weight:700;min-height:34px}
+#registryView.rp-residential-plot-fields .rp-check-label input[type="checkbox"]{width:auto!important;height:auto!important;margin:0!important}
+#registryView.rp-residential-plot-fields .rp-legal-approvals-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}
+#registryView.rp-residential-plot-fields .rp-approval-card{min-width:0;padding:8px;border:1px solid var(--rp-draft-border,#cfd8dc);border-radius:8px;background:var(--rp-draft-row2,#fff)}
+#registryView.rp-residential-plot-fields .rp-inline-details{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+#registryView.rp-residential-plot-fields .rp-plot-dimensions{margin:0 0 8px}
+#registryView.rp-residential-plot-fields .rp-dimension-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+#registryView.rp-residential-plot-fields .rp-area-grid{margin-top:7px}
+#registryView.rp-residential-plot-fields .gata-table td:has(.gata-total-area),
+#registryView.rp-residential-plot-fields .gata-table td:has(.gata-sold-area){min-width:210px}
+#registryView.rp-residential-plot-fields .gata-table .gata-total-area,
+#registryView.rp-residential-plot-fields .gata-table .gata-sold-area,
+#registryView.rp-residential-plot-fields .gata-table .rp-row-m2{display:inline-block!important;width:calc(50% - 4px)!important;min-width:88px!important;margin:0 2px!important;vertical-align:middle}
+#registryView.rp-residential-plot-fields .rp-gis-id{margin-top:7px!important}
+#registryView.rp-residential-plot-fields .rp-gis-details{display:grid;grid-template-columns:minmax(180px,1fr) auto;gap:6px;align-items:center;margin:6px 0 0;padding:7px;border:1px dashed var(--rp-draft-border,#cfd8dc);border-radius:7px}
+@media(max-width:900px){#registryView.rp-residential-plot-fields .rp-dimension-grid,#registryView.rp-residential-plot-fields .rp-legal-approvals-row{grid-template-columns:1fr!important}}
+
+/* v1.20.48 targeted fixes: legal details closed by default; GIS moved into same top row. */
+#registryView.rp-residential-plot-fields .rp-inline-details[hidden]{display:none!important}
+#registryView.rp-residential-plot-fields #rpGisCard .rp-inline-details{grid-template-columns:minmax(120px,1fr) auto}
+#registryView.rp-residential-plot-fields #v1216EnterpriseGis{display:none!important}
+#registryView.rp-residential-plot-fields #rpGisDetails{display:none!important}

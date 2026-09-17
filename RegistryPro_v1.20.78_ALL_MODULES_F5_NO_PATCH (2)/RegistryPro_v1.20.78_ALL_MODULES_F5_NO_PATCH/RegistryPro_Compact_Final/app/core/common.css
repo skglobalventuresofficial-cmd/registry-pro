@@ -1,0 +1,1249 @@
+/* Registry Pro clean stylesheet module. */
+
+/* ===== Source: styles.css ===== */
+:root{
+  --green:#1f7a3e;
+  --green2:#2f9b55;
+  --orange:#ef8b22;
+  --bg:#f6f8f7;
+  --text:#1c2720;
+  --muted:#6b756e;
+  --line:#dfe7e1;
+  --white:#fff;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.view{display:none;min-height:100vh}.view.active{display:block}
+.auth-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;background:linear-gradient(135deg,#f8fbf9,#fff7ed)}
+.brand{display:flex;gap:14px;align-items:center;margin-bottom:20px}
+.brand.small{margin:0}.brand h1{margin:0;color:var(--green);font-size:30px}.brand p{margin:4px 0 0;color:var(--muted)}
+.logo{width:58px;height:58px;border-radius:16px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;box-shadow:0 8px 20px rgba(31,122,62,.18)}
+.brand.small .logo{width:46px;height:46px;border-radius:12px}.brand.small h1{font-size:22px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 8px 28px rgba(20,50,30,.06);margin-bottom:18px}
+.auth-card{width:100%;max-width:430px}
+h2,h3{margin-top:0}
+label{display:block;font-weight:600;margin:12px 0 7px}
+input,select,textarea{width:100%;padding:12px 13px;border:1px solid #cfd9d2;border-radius:10px;font-size:15px;background:#fff}
+input:focus,select:focus,textarea:focus{outline:2px solid rgba(31,122,62,.18);border-color:var(--green)}
+textarea{min-height:90px;resize:vertical}
+.btn{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:700;cursor:pointer}
+.btn.primary{background:var(--green);color:white}.btn.primary:hover{background:var(--green2)}
+.btn.outline{background:white;color:var(--green);border:1px solid var(--green)}
+.auth-card .btn.primary{width:100%;margin-top:18px}
+.row{display:flex;justify-content:space-between;gap:10px}.links{margin-top:10px}
+.link-btn,.back{background:none;border:0;color:var(--green);cursor:pointer;font-weight:700}
+.demo-note,.hint{font-size:13px;color:var(--muted);margin-top:14px}
+.header{display:flex;justify-content:space-between;align-items:center;padding:14px 4%;background:white;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.shell{width:min(1120px,92%);margin:26px auto}.narrow{max-width:760px}.page{padding-top:20px}
+.topbar{display:flex;align-items:center;gap:18px;margin-bottom:18px}
+.welcome{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}
+.welcome h2{margin-bottom:5px}.welcome p{margin:0;color:var(--muted)}
+.badge{background:#fff3e6;color:#a65b08;padding:9px 13px;border-radius:999px;font-weight:700;border:1px solid #ffd6ad}
+.dashboard-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.dash-card{text-align:left;background:white;border:1px solid var(--line);border-radius:18px;padding:24px;cursor:pointer;transition:.15s;min-height:150px}
+.dash-card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(20,50,30,.08);border-color:#b9d9c4}
+.dash-card .icon{display:block;font-size:30px;color:var(--orange);margin-bottom:12px}
+.dash-card strong{display:block;font-size:19px;color:var(--green);margin-bottom:7px}.dash-card small{color:var(--muted);font-size:14px}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 18px}.form-grid .full{grid-column:1/-1}
+.steps{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.step{background:#e8ece9;color:#6d766f;padding:8px 12px;border-radius:999px;font-weight:700;font-size:13px}.step.active{background:var(--green);color:#fff}
+.calc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.calc{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fafcfb}.calc span{display:block;color:var(--muted);font-size:13px;margin-bottom:6px}.calc strong{font-size:20px}.calc.highlight{border-color:#f6c78f;background:#fff7ed}.calc.highlight strong{color:#b85c00}
+.actions{display:flex;justify-content:flex-end;gap:12px;margin:22px 0 35px}
+.toast{position:fixed;right:18px;bottom:18px;background:#1f2d23;color:white;padding:12px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.2s;z-index:99}.toast.show{opacity:1}
+.saved-list{display:grid;gap:14px}.saved-item{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.saved-item h4{margin:0 0 8px;color:var(--green)}.saved-meta{color:var(--muted);font-size:13px}
+@media(max-width:700px){
+  .dashboard-grid,.form-grid,.calc-grid{grid-template-columns:1fr}
+  .welcome{align-items:flex-start;flex-direction:column}
+  .header{padding:12px}
+  .brand.small p{display:none}
+}
+
+
+/* ===== Professional dashboard v0.3 ===== */
+.app-layout{min-height:100vh;display:grid;grid-template-columns:250px 1fr;background:#f8faf8}
+.sidebar{background:#fff;border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;width:250px;z-index:20}
+.sidebar-brand{display:flex;align-items:center;gap:10px;padding:2px 8px 18px}
+.sidebar-logo{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,#176b36,#2b934f);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+.sidebar-logo.small{width:34px;height:34px;border-radius:9px}
+.sidebar-title{font-size:21px;font-weight:800;color:#145c2e}.sidebar-title span{color:var(--orange)}
+.sidebar-brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.side-nav{display:flex;flex-direction:column;gap:5px}
+.side-item{border:0;background:transparent;text-align:left;padding:11px 12px;border-radius:9px;font-weight:700;color:#252b27;cursor:pointer;display:flex;align-items:center;gap:12px}
+.side-item span{width:21px;text-align:center;font-size:17px}
+.side-item:hover{background:#f1f7f3}.side-item.active{background:linear-gradient(90deg,#146b33,#16833d);color:#fff;box-shadow:0 5px 14px rgba(21,110,52,.16)}
+.premium-card{margin-top:auto;background:linear-gradient(145deg,#fffaf3,#fff1df);border:1px solid #fae2c2;border-radius:14px;padding:16px;text-align:left}
+.premium-icon{color:var(--orange);font-size:24px;margin-bottom:6px}.premium-card strong{display:block;font-size:16px}.premium-card small{display:block;color:#525c55;font-size:11px;line-height:1.5;margin:6px 0 12px}
+.premium-card button{width:100%;border:0;border-radius:8px;padding:9px;background:linear-gradient(90deg,#ef8b22,#ff6b00);color:#fff;font-weight:800;cursor:pointer}
+.main-panel{grid-column:2;min-width:0}
+.dash-topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 24px;gap:18px;position:sticky;top:0;z-index:15}
+.menu-btn{border:0;background:#f4f6f4;border-radius:9px;width:38px;height:38px;font-size:20px;cursor:pointer}
+.mobile-brand{display:none;align-items:center;gap:8px;color:var(--green)}
+.search-box{margin:0 auto;max-width:430px;width:100%;position:relative}.search-box span{position:absolute;left:13px;top:10px;color:#707a73}.search-box input{padding-left:38px;background:#fbfcfb}
+.top-actions{display:flex;align-items:center;gap:18px}
+.bell-btn{position:relative;border:0;background:transparent;font-size:21px;cursor:pointer}.bell-btn b{position:absolute;top:-5px;right:-5px;background:var(--orange);color:white;border-radius:99px;font-size:9px;padding:2px 5px}
+.profile-box{display:flex;align-items:center;gap:9px;min-width:160px}.avatar{width:38px;height:38px;border-radius:50%;background:#e8f4eb;color:#176b36;display:flex;align-items:center;justify-content:center;font-weight:800;border:1px solid #c9e2d0}
+.profile-box strong{display:block;font-size:13px}.profile-box small{display:block;color:var(--green);font-size:10px;margin-top:2px}
+.dashboard-content{padding:28px 30px 38px}
+.dashboard-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:25px}.dashboard-heading h1{margin:0;font-size:30px}.dashboard-heading p{margin:6px 0 0;color:var(--muted)}.dashboard-heading p strong{color:var(--green)}
+.new-draft-btn{box-shadow:0 5px 12px rgba(31,122,62,.15)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding-bottom:25px;border-bottom:1px solid var(--line)}
+.stat-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px;display:flex;align-items:center;gap:14px;min-height:118px}
+.stat-card.green{background:linear-gradient(135deg,#fbfffc,#f5fbf7)}.stat-card.orange{background:linear-gradient(135deg,#fffdf9,#fff7ef)}
+.stat-icon{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800}
+.stat-card.green .stat-icon{background:#e7f5ea;color:#198542}.stat-card.orange .stat-icon{background:#fff0e1;color:#ff7400}
+.stat-info small,.stat-info strong,.stat-info em{display:block}.stat-info small{font-weight:700;font-size:12px}.stat-info strong{font-size:26px;margin:5px 0}.stat-info em{font-size:10px;color:#1d8b43;font-style:normal}
+.dash-section-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;margin-top:24px}
+.section-title-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.section-title-row h2{font-size:18px;margin:0}.text-btn{border:0;background:none;color:var(--orange);font-weight:700;cursor:pointer}
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.quick-card{background:#fff;border:1px solid var(--line);border-radius:12px;min-height:145px;padding:16px;text-align:left;cursor:pointer;transition:.15s}
+.quick-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(22,70,36,.08)}
+.quick-icon{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}.quick-icon.green{background:#e8f5eb;color:#188340}.quick-icon.orange{background:#fff0e2;color:#fb7600}
+.quick-card strong,.quick-card small{display:block}.quick-card strong{font-size:12px;margin-bottom:5px}.quick-card small{font-size:10px;color:var(--muted)}
+.recent-list{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;min-height:302px}
+.recent-item{display:grid;grid-template-columns:34px 1fr auto 20px;gap:10px;align-items:center;padding:13px 14px;border-bottom:1px solid #edf1ee}.recent-item:last-child{border-bottom:0}.recent-doc{width:32px;height:38px;border-radius:6px;background:#eff8f1;color:#1a8b44;display:flex;align-items:center;justify-content:center}.recent-main strong{display:block;font-size:12px}.recent-main small{font-size:10px;color:var(--muted)}.status-chip{font-size:9px;border-radius:999px;padding:5px 8px;background:#eaf7ed;color:#18753a;font-weight:700}.status-chip.progress{background:#fff0e2;color:#cf6800}.more-dot{font-weight:800}
+.empty-recent{padding:28px;color:var(--muted);text-align:center;font-size:13px}
+.month-overview{margin-top:28px;background:linear-gradient(90deg,#fcfffc,#fffaf4);border:1px solid var(--line);border-radius:14px;padding:22px}
+.overview-title{font-weight:800;margin-bottom:18px}.overview-grid{display:grid;grid-template-columns:repeat(4,1fr) 180px;gap:0;align-items:stretch}
+.overview-grid>div:not(.deed-illustration){padding:8px 20px;border-right:1px solid #e6ece7}.overview-grid small,.overview-grid strong,.overview-grid em{display:block}.overview-grid small{font-size:10px;color:#4b554e}.overview-grid strong{font-size:24px;margin:8px 0}.overview-grid em{font-size:9px;color:#208a45;font-style:normal}
+.deed-illustration{display:flex;align-items:center;justify-content:center}.paper{width:86px;height:103px;border:4px solid #25884a;border-radius:7px;background:#fff;color:var(--orange);font-weight:900;text-align:center;padding-top:18px;box-shadow:5px 5px 0 #dbeede}.house{color:#24864a;font-size:38px;margin-top:10px}
+.sidebar-overlay{display:none}
+@media(max-width:1100px){
+ .stats-grid{grid-template-columns:repeat(2,1fr)}
+ .dash-section-grid{grid-template-columns:1fr}
+ .overview-grid{grid-template-columns:repeat(4,1fr)}.deed-illustration{display:none}
+}
+@media(max-width:820px){
+ .app-layout{display:block}.main-panel{grid-column:auto}.sidebar{transform:translateX(-105%);transition:.2s;width:250px}.sidebar.open{transform:translateX(0)}
+ .mobile-brand{display:flex}.dash-topbar{padding:0 14px}.search-box{display:none}.profile-box>div:not(.avatar),.profile-box>span{display:none}.profile-box{min-width:0}
+ .dashboard-content{padding:20px 14px}.dashboard-heading{align-items:stretch}.dashboard-heading .new-draft-btn{white-space:nowrap}
+}
+@media(max-width:600px){
+ .stats-grid{grid-template-columns:1fr}
+ .quick-grid{grid-template-columns:repeat(2,1fr)}
+ .overview-grid{grid-template-columns:repeat(2,1fr)}.overview-grid>div:not(.deed-illustration){border-right:0;border-bottom:1px solid #e6ece7}
+ .dashboard-heading{flex-direction:column}.new-draft-btn{width:100%}
+}
+
+
+/* ===== Registry Draft Wizard v0.4 ===== */
+.btn.compact{padding:9px 13px;font-size:12px}
+.draft-title-mini{display:flex;flex-direction:column;gap:2px}.draft-title-mini strong{font-size:15px}.draft-title-mini small{color:var(--muted);font-size:11px}
+.draft-workspace{padding:26px 30px 38px;max-width:1320px;margin:0 auto}
+.draft-screen{display:none}.draft-screen.active{display:block}
+.draft-page-head h1{font-size:28px;margin:0 0 6px}.draft-page-head p{margin:0;color:var(--muted)}
+.property-type-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:24px 0}
+.property-type-card{min-height:150px;border:1px solid var(--line);background:#fff;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:.15s;padding:16px}
+.property-type-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(25,75,40,.08)}
+.property-type-card.selected{border:1.5px solid var(--green);background:linear-gradient(135deg,#fbfffc,#f2faf4);box-shadow:inset 0 0 0 1px rgba(31,122,62,.05)}
+.pt-icon{font-size:35px;color:var(--green);line-height:1}.pt-icon.orange{color:var(--orange)}
+.property-type-card strong{font-size:13px;text-align:center}.property-type-card small{font-size:10px;color:var(--muted)}
+.selection-note{width:max-content;margin:8px auto 0;background:#edf8f0;color:#1d7138;padding:9px 16px;border-radius:999px;font-size:12px}
+.draft-actions{display:flex;justify-content:space-between;margin-top:28px}
+.wizard-steps{background:#fff;border:1px solid var(--line);border-radius:13px;padding:20px 24px;display:flex;align-items:flex-start;justify-content:center;margin-bottom:16px;overflow:auto}
+.wizard-step{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:110px;color:#777;cursor:pointer}
+.wizard-step b{width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e9ecea;color:#4f5752;font-size:11px}
+.wizard-step span{font-size:10px;white-space:nowrap}
+.wizard-step.active b,.wizard-step.done b{background:var(--green);color:#fff}
+.wizard-step.active span,.wizard-step.done span{color:var(--green);font-weight:800}
+.wizard-line{height:2px;background:#e6ebe7;min-width:48px;margin-top:13px;flex:1}
+.draft-step-panel{display:none}.draft-step-panel.active{display:block}
+.form-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:14px;box-shadow:0 3px 12px rgba(20,55,30,.025)}
+.form-card h2{font-size:17px;margin:0 0 5px}.form-card-head p,.form-help{font-size:11px;color:var(--muted);margin:0 0 16px}
+.form-grid.three{grid-template-columns:repeat(3,1fr)}.form-grid.two{grid-template-columns:repeat(2,1fr)}
+.req{color:#d94343}.inline-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:10px 0 4px}
+.text-action{border:0;background:transparent;color:var(--green);font-weight:800;cursor:pointer;font-size:11px}
+.demo-warning{font-size:10px;color:#a25c14;background:#fff7ec;border:1px solid #f9dfba;padding:7px 9px;border-radius:7px}
+.subheading{font-size:13px!important;color:#174f2c;margin:20px 0 7px!important;padding-top:14px;border-top:1px solid #edf0ee}
+.dimension-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.input-unit{display:flex}.input-unit input{border-radius:9px 0 0 9px}.input-unit span{width:45px;border:1px solid #cfd9d2;border-left:0;border-radius:0 9px 9px 0;display:flex;align-items:center;justify-content:center;background:#fafbfa;color:#69736c;font-size:11px}
+.calc-summary{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #e6ebe7;border-radius:10px;margin-top:18px;background:#fbfdfb}
+.calc-summary>div{padding:13px 16px;border-right:1px solid #e6ebe7}.calc-summary>div:last-child{border-right:0}.calc-summary small,.calc-summary strong,.calc-summary em{display:block}.calc-summary small{font-size:10px;color:#5d665f}.calc-summary strong{font-size:18px;color:#18803d;margin:5px 0}.calc-summary em{font-size:9px;color:#777;font-style:normal}
+.check-line{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;margin:10px 0}.check-line input{width:auto}.check-line small{font-weight:400;color:var(--muted)}
+.party-tabs,.witness-tabs{display:grid;grid-template-columns:repeat(2,1fr);background:#fff;border:1px solid var(--line);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.party-tab{border:0;background:#fff;padding:12px;cursor:pointer;font-weight:700;font-size:11px;border-right:1px solid var(--line)}.party-tab:last-child{border-right:0}.party-tab.active{background:#eef8f0;color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}
+.party-panel,.witness-panel{display:none}.party-panel.active,.witness-panel.active{display:block}
+.party-card-title{display:flex;justify-content:space-between;align-items:center}.check-line.mini{margin:0;font-size:10px}
+.verified-row{margin-top:12px;display:flex;justify-content:space-between;align-items:center;background:#f3fbf5;border:1px solid #dcefe1;border-radius:8px;padding:9px 11px;font-size:10px}.verified-row b{color:var(--green)}
+.finger-grid{display:grid;grid-template-columns:85px repeat(5,1fr);gap:7px;align-items:stretch}
+.hand-label{display:flex;align-items:center;font-size:10px;font-weight:800;color:#555}.finger{background:#fbfcfb;border:1px solid var(--line);border-radius:8px;min-height:58px;font-size:9px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px}.finger span{font-size:17px;color:#aaa}.finger.captured{background:#eef9f1;border-color:#94cfa5;color:#176b35}.finger.captured span{color:#198443}
+.payment-table-wrap{overflow:auto;border:1px solid var(--line);border-radius:9px}
+.payment-table{width:100%;border-collapse:collapse;font-size:10px;min-width:720px}.payment-table th{background:#f7faf8;text-align:left;padding:9px;border-bottom:1px solid var(--line)}.payment-table td{padding:6px;border-bottom:1px solid #edf1ee}.payment-table input,.payment-table select{padding:8px;font-size:10px}.payment-table .del-row{border:0;background:#fff0ef;color:#c7443c;border-radius:6px;padding:7px;cursor:pointer}
+.add-payment{margin-top:10px;background:var(--green);color:#fff;padding:8px 12px;font-size:10px}.payment-total{text-align:right;font-size:11px;margin-top:10px}.payment-total strong{color:var(--green);font-size:14px}.match-ok{color:#188043;margin-left:6px}.match-bad{color:#c45c18;margin-left:6px}
+.stamp-grid{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:14px 0 10px}.stamp-grid>div{padding:13px;border-right:1px solid var(--line);background:#fff}.stamp-grid>div:last-child{border-right:0}.stamp-grid small,.stamp-grid strong{display:block}.stamp-grid small{font-size:9px;color:#5f6862}.stamp-grid strong{font-size:16px;margin-top:6px;color:#1c7238}.stamp-grid .applicable{background:#f5fbf7}.stamp-grid .payable{background:#fff6ed}.stamp-grid .payable strong{color:#e26b00}.info-dot{display:inline-flex;width:16px;height:16px;border:1px solid #9bb9a5;border-radius:50%;align-items:center;justify-content:center;font-size:9px;color:#4d775a}
+.upload-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.upload-card{min-height:125px;border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;cursor:pointer;background:#fcfdfc;text-align:center;font-size:25px;color:#777}.upload-card strong{font-size:9px;color:#303833}.upload-card span{font-size:9px;border:1px solid #94caa2;color:#19753a;border-radius:5px;padding:5px 9px}.upload-card input{display:none}.upload-card.picked{background:#f0faf3;border-color:#75b78a}.upload-card.picked span{background:#1f7a3e;color:#fff}
+.review-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:14px}.review-summary{display:grid;gap:9px}.review-block{border:1px solid var(--line);border-radius:9px;padding:12px;background:#fbfdfb}.review-block h3{font-size:11px;margin:0 0 8px;color:var(--green)}.review-row{display:flex;justify-content:space-between;gap:12px;font-size:10px;padding:4px 0;border-bottom:1px dashed #e6ebe7}.review-row:last-child{border-bottom:0}.review-row span{color:#667069}.review-row strong{text-align:right}
+.preview-card{min-height:650px}.preview-toolbar{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:14px}.legal-preview{font-family:Georgia,'Times New Roman',serif;font-size:13px;line-height:1.7;color:#222;background:#fff;border:1px solid #d8ddd9;padding:34px;min-height:560px}.legal-preview h2{text-align:center;font-size:18px;text-decoration:underline}.legal-preview .draft-meta{text-align:center;font-size:11px;color:#555}.legal-preview p{text-align:justify}
+.wizard-footer{display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px 14px;position:sticky;bottom:8px;box-shadow:0 8px 20px rgba(20,60,30,.08);z-index:8}.page-indicator{font-size:11px;color:var(--green);background:#f4faf5;border:1px solid #dcefe1;padding:8px 14px;border-radius:8px}
+@media(max-width:1050px){
+  .property-type-grid{grid-template-columns:repeat(2,1fr)}
+  .form-grid.three,.dimension-grid{grid-template-columns:repeat(2,1fr)}
+  .stamp-grid{grid-template-columns:repeat(2,1fr)}.stamp-grid>div{border-bottom:1px solid var(--line)}
+  .upload-grid{grid-template-columns:repeat(3,1fr)}
+  .review-grid{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .draft-workspace{padding:16px 12px 30px}
+  .property-type-grid{grid-template-columns:1fr 1fr}
+  .wizard-steps{justify-content:flex-start;padding:14px 10px}.wizard-step{min-width:90px}.wizard-line{min-width:22px}
+  .form-grid.three,.form-grid.two,.dimension-grid,.calc-summary{grid-template-columns:1fr}
+  .calc-summary>div{border-right:0;border-bottom:1px solid var(--line)}.calc-summary>div:last-child{border-bottom:0}
+  .finger-grid{grid-template-columns:repeat(2,1fr)}.hand-label{grid-column:1/-1}
+  .upload-grid{grid-template-columns:repeat(2,1fr)}
+  .stamp-grid{grid-template-columns:1fr}.stamp-grid>div{border-right:0}
+  .draft-title-mini{display:none}
+}
+@media print{
+  body *{visibility:hidden!important}
+  #legalDraftPreview,#legalDraftPreview *{visibility:visible!important}
+  #legalDraftPreview{position:absolute;left:0;top:0;width:100%;border:0;padding:20mm;min-height:auto}
+}
+
+
+/* ===== Searchable PDF Circle Rate v0.5 ===== */
+.location-search-wrap{position:relative}
+.location-search-wrap input#villageSearch{padding-right:38px;background:#fff}
+.location-search-wrap:after{content:'⌕';position:absolute;right:13px;top:10px;color:#6e7871;font-size:17px;pointer-events:none}
+.location-suggestions{display:none;position:absolute;z-index:80;left:0;right:0;top:calc(100% + 5px);max-height:330px;overflow:auto;background:#fff;border:1px solid #cfdcd2;border-radius:10px;box-shadow:0 14px 34px rgba(20,55,30,.15)}
+.location-suggestions.show{display:block}
+.location-option{width:100%;border:0;border-bottom:1px solid #edf1ee;background:#fff;padding:10px 12px;text-align:left;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+.location-option:last-child{border-bottom:0}.location-option:hover,.location-option.active{background:#f0f8f2}
+.location-option strong{font-size:12px;color:#203027;display:block}.location-option small{display:block;font-size:9px;color:#6c776f;margin-top:3px}
+.location-option .rate-chip{font-size:10px;font-weight:800;color:#176f37;background:#eaf7ed;border-radius:999px;padding:5px 8px;white-space:nowrap}
+.location-empty{padding:18px;text-align:center;color:#777;font-size:11px}
+.selected-location-meta{font-size:9px;color:#607066;margin-top:6px;min-height:15px;line-height:1.45}
+.selected-location-meta.ready{color:#176f37;font-weight:700;background:#f0faf3;border:1px solid #d6ebdc;border-radius:7px;padding:7px 9px}
+.pdf-source-note{font-size:10px;color:#176f37;background:#eff9f2;border:1px solid #d7eadc;padding:7px 9px;border-radius:7px}
+.rate-auto-badge{display:inline-flex;margin-left:6px;padding:2px 6px;border-radius:999px;background:#eaf7ed;color:#176f37;font-size:8px;font-weight:800}
+@media(max-width:700px){.location-suggestions{max-height:260px}.location-option{grid-template-columns:1fr}.location-option .rate-chip{width:max-content}}
+
+.auto-rate-note{font-size:9px;color:#176f37;margin-top:6px;line-height:1.4}.auto-rate-locked{background:#f0faf3!important;border-color:#b8d9c1!important;color:#176f37!important;font-weight:700}.location-option .rate-chip{max-width:180px;overflow:hidden;text-overflow:ellipsis}.selected-location-meta strong{font-size:11px}
+
+/* ===== v0.6 Select Land Rate popup ===== */
+.circle-rate-picker{width:100%;min-height:42px;border:1px solid #cfd8d2;border-radius:8px;background:#fff;padding:8px 11px;display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;color:#243229;cursor:pointer;font:inherit}
+.circle-rate-picker:disabled{cursor:not-allowed;background:#f5f6f5;color:#8a928d}
+.circle-rate-picker:not(:disabled):hover{border-color:#79aa87;box-shadow:0 0 0 3px rgba(31,122,62,.07)}
+.circle-rate-picker.selected{background:#f0faf3;border-color:#9bcbaa;color:#176f37}
+.circle-rate-picker .picker-main{font-size:12px;font-weight:750;line-height:1.25;min-width:0}
+.circle-rate-picker .picker-main small{display:block;font-size:9px;font-weight:600;color:#66756c;margin-top:3px;white-space:normal}
+.circle-rate-picker.selected .picker-main small{color:#2c7745}
+.circle-rate-picker .picker-arrow{font-size:15px;flex:0 0 auto}
+body.modal-open{overflow:hidden}
+.land-rate-modal{display:none;position:fixed;inset:0;z-index:1000;align-items:center;justify-content:center;padding:24px}
+.land-rate-modal.show{display:flex}
+.land-rate-backdrop{position:absolute;inset:0;background:rgba(14,24,18,.58)}
+.land-rate-dialog{position:relative;width:min(1180px,96vw);max-height:90vh;background:#fff;border-radius:14px;box-shadow:0 24px 70px rgba(0,0,0,.28);overflow:hidden;display:flex;flex-direction:column;border:1px solid #d7ded9}
+.land-rate-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:18px 22px 13px;border-bottom:1px solid #e1e7e3;background:#fbfdfb}
+.land-rate-head h2{margin:0;text-align:center;font-family:Georgia,'Times New Roman',serif;font-size:25px;color:#1d2a22;flex:1}
+.land-rate-head p{margin:4px 0 0;text-align:center;font-size:10px;color:#6a756e}
+.land-rate-head>div{flex:1}
+.land-rate-x{width:34px;height:34px;border:1px solid #d2dad5;border-radius:50%;background:#fff;font-size:22px;line-height:1;cursor:pointer;color:#4e5a53}
+.land-rate-table-wrap{overflow:auto;padding:0 18px 4px}
+.land-rate-table{width:100%;border-collapse:collapse;min-width:920px;margin:14px 0;font-size:11px}
+.land-rate-table th,.land-rate-table td{border:1px solid #aeb9b2;padding:9px 8px;vertical-align:middle}
+.land-rate-table th{background:#f1f4f2;text-align:center;font-size:11px;color:#243129;position:sticky;top:0;z-index:1}
+.land-rate-table td:first-child{min-width:180px}
+.land-rate-table td:nth-child(2){min-width:220px}
+.land-rate-table td:nth-child(3){min-width:165px;text-align:center}
+.land-rate-table td:nth-child(4),.land-rate-table td:nth-child(5),.land-rate-table td:nth-child(6){text-align:center;white-space:nowrap}
+.land-rate-table td strong{display:block;color:#253229}
+.land-rate-table td small{display:block;margin-top:4px;font-size:9px;color:#707b74;line-height:1.35}
+.land-rate-table tr.recommended-rate td{background:#fffaf0}
+.land-rate-table tr.selected-rate td{background:#edf9f0;box-shadow:inset 0 1px 0 #9dccaa,inset 0 -1px 0 #9dccaa}
+.recommended-badge{display:inline-block;margin-top:5px;padding:2px 6px;border-radius:999px;background:#fff0c8;color:#855f00;font-size:8px;font-weight:800}
+.rate-cell{font-size:13px;font-weight:800;color:#1d6e38}
+.rate-select-arrow{width:34px;height:34px;border-radius:50%;border:1.5px solid #66736b;background:#fff;color:#27342c;font-size:18px;cursor:pointer;line-height:1}
+.rate-select-arrow:hover{background:#1f7a3e;color:#fff;border-color:#1f7a3e}
+.land-rate-foot{display:flex;align-items:center;gap:10px;padding:12px 18px;border-top:1px solid #e1e7e3;background:#fafcfb}
+.land-rate-foot>span{font-size:10px;color:#627067;margin-right:auto;line-height:1.4}
+@media(max-width:700px){
+  .land-rate-modal{padding:8px}.land-rate-dialog{width:100%;max-height:94vh;border-radius:10px}.land-rate-head{padding:13px 12px 10px}.land-rate-head h2{font-size:21px}.land-rate-table-wrap{padding:0 8px}.land-rate-foot{padding:9px 10px;flex-wrap:wrap}.land-rate-foot>span{width:100%;margin-right:0}.land-rate-table{font-size:10px}
+}
+
+
+/* ===== v0.7 Road Width on Property Details ===== */
+.road-width-select{font-size:10px;font-weight:700;background:#fff;min-height:42px}
+.road-rate-note{font-size:9px;color:#176f37;margin-top:6px;line-height:1.45;background:#f0faf3;border:1px solid #d6ebdc;border-radius:7px;padding:7px 9px;min-height:31px}
+.road-rate-note strong{color:#0d642f}
+.rate-reference-strip{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end;margin-top:14px}
+.rate-reference-field label{display:block;margin-bottom:5px;font-size:10px;font-weight:750;color:#33443a}
+.rate-reference-field input{background:#f8faf8;color:#435047;font-size:10px}
+.review-rate-breakdown{display:block;font-size:9px;font-weight:600;color:#66756c;margin-top:3px}
+@media(max-width:900px){.rate-reference-strip{grid-template-columns:1fr}.rate-reference-strip .text-action{width:max-content}}
+
+
+/* ===== v0.8 Rebate + Editable Area + Land/Transaction fields ===== */
+.form-grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.rebate-panel{margin-top:12px;border:1px solid #dce5df;border-radius:10px;background:#fbfdfb;padding:10px 12px}
+.rebate-title{font-size:10px;font-weight:800;color:#33443a;margin-bottom:8px}
+.rebate-options{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.rebate-choice{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:700;color:#34433a;cursor:pointer;white-space:nowrap}
+.rebate-choice input{width:15px;height:15px;accent-color:#1f7a3e;margin:0}
+.rebate-choice.active{color:#176f37}
+.rebate-extra{margin-top:10px;padding-top:10px;border-top:1px dashed #d5ded8}
+.rebate-use-wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:10px}
+.rebate-extra-label{font-weight:800;color:#33443a;margin-right:2px}
+.rebate-use-wrap label{display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.rebate-use-wrap input{accent-color:#1f7a3e}
+.mixed-share-wrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px}
+.mixed-share-wrap label{font-size:10px;font-weight:750;color:#33443a}
+.mixed-share-wrap input{width:120px}
+.mixed-share-wrap span{font-size:10px;font-weight:800;color:#176f37;background:#edf8f0;border:1px solid #d3ead9;border-radius:7px;padding:7px 9px}
+.rebate-rule-note{font-size:9px;line-height:1.5;color:#68756d;margin-top:8px}
+.editable-area-row{margin-top:10px;display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:14px}
+.editable-area-field>label{display:block;margin-bottom:5px;font-size:10px;font-weight:750;color:#33443a}
+.editable-area-field label small{font-size:8px;font-weight:600;color:#758078}
+.area-conversion{font-size:9px;color:#176f37;font-weight:700;margin-top:5px}
+.land-record-grid select{max-height:42px}
+.transaction-compact-grid{margin-top:8px}
+.stamp-card-compact{border-left:3px solid #1f7a3e}
+.stamp-rule-breakdown{font-size:9px;line-height:1.5;color:#496154;background:#f4faf5;border:1px solid #dcebe0;border-radius:7px;padding:8px 10px;margin-top:10px}
+.payment-linked-note{font-size:9px;color:#66756c;margin:-2px 0 10px}
+@media(max-width:1100px){.form-grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.form-grid.four{grid-template-columns:1fr}.rebate-options{gap:10px 14px}.rebate-choice{min-width:44%}.editable-area-row{grid-template-columns:1fr}.mixed-share-wrap{align-items:flex-start;flex-direction:column}.mixed-share-wrap input{width:100%}}
+
+/* ===== v0.9 Agriculture deed fields + 5-page supplied-format preview ===== */
+.agri-deed-panel{margin-top:14px;border:1px solid #cfe2d4;border-radius:12px;background:#fbfefc;padding:14px}
+.agri-panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.agri-panel-head h3{margin:0;color:#176f37;font-size:14px}.agri-panel-head p{margin:4px 0 0;font-size:9px;color:#69766e}
+.agri-badge{font-size:9px;font-weight:800;color:#176f37;background:#eaf7ed;border:1px solid #cfe5d5;border-radius:999px;padding:5px 9px;white-space:nowrap}
+.agri-subheading{margin-top:16px!important}
+.gata-table-wrap{overflow:auto;border:1px solid #dce4df;border-radius:9px;background:#fff}
+.gata-table{width:100%;border-collapse:collapse;min-width:650px;font-size:10px}.gata-table th,.gata-table td{border-bottom:1px solid #e5ebe7;padding:7px}.gata-table th{background:#f2f7f3;color:#33443a;text-align:left}.gata-table td:first-child{width:34px;text-align:center;font-weight:800}.gata-table td:last-child{width:45px;text-align:center}.gata-table input{min-height:36px}
+.agri-add-row{margin-top:9px}.agri-total-row{margin-top:12px;display:grid;grid-template-columns:minmax(280px,420px) 1fr}.agri-total-row label{display:block;font-size:10px;font-weight:800;color:#33443a;margin-bottom:5px}.agri-total-row label small{font-size:8px;color:#748079}.agri-total-row>div>small{display:block;margin-top:5px;font-size:9px;color:#176f37;font-weight:700}.agri-transaction-fields{margin-top:10px}
+
+.legal-preview:has(.hindi-deed){padding:0;background:#e7ebe8;border:0;overflow:auto;max-height:78vh}
+.deed-document{font-family:"Nirmala UI","Mangal","Noto Sans Devanagari",Arial,sans-serif;color:#111;background:#e7ebe8;padding:18px}
+.deed-page{box-sizing:border-box;width:210mm;min-height:297mm;margin:0 auto 18px;background:#fff;padding:31mm 28mm 24mm;box-shadow:0 4px 18px rgba(0,0,0,.13);font-size:16px;line-height:1.5;position:relative}
+.deed-page p{margin:4px 0;text-align:justify}.deed-page h1{text-align:center;font-size:26px;line-height:1.2;margin:0 0 10px;text-decoration:underline;font-weight:500}.deed-page h1 span{font-size:17px;text-decoration:none;font-weight:700;margin-left:3px}.deed-top-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:28px;row-gap:2px;margin-bottom:4px}.deed-top-grid>div{font-size:16px;white-space:normal}.deed-small{font-size:12px!important;color:#222}.deed-page .v{font-weight:800}.deed-page .red{color:#e60000}.deed-page .green{color:#00a950}.deed-page .purple{color:#7744b6}.center-clause{text-align:center!important;font-weight:600;margin-top:8px!important}.page2-bottom{position:absolute;left:28mm;right:28mm;bottom:25mm}.deed-page-2 p,.deed-page-3 p,.deed-page-4 p,.deed-page-5 p{font-size:16px;line-height:1.55}.finger-block{margin-top:34px;font-size:14px}.finger-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:4px;font-weight:700}.finger-space{height:74px}.buyer-finger{margin-top:0}.witness-lines{margin-top:125px}.witness-lines p{margin:0 0 68px}.deed-footer-lines{margin-top:58px}.deed-footer-lines p{margin:4px 0}.deed-page-4{padding-top:30mm}.deed-page-5{padding-top:32mm}
+
+@media(max-width:900px){.agri-total-row{grid-template-columns:1fr}.deed-document{padding:8px}.legal-preview:has(.hindi-deed){overflow-x:auto}.deed-page{transform-origin:top left}}
+
+@media print{
+  @page{size:A4;margin:0}
+  html,body{background:#fff!important;margin:0!important;padding:0!important}
+  body *{visibility:hidden!important}
+  #legalDraftPreview,#legalDraftPreview *{visibility:visible!important}
+  #legalDraftPreview{position:absolute!important;left:0!important;top:0!important;width:210mm!important;max-height:none!important;overflow:visible!important;background:#fff!important;border:0!important;padding:0!important;margin:0!important}
+  .deed-document{padding:0!important;background:#fff!important}
+  .deed-page{width:210mm!important;height:297mm!important;min-height:297mm!important;margin:0!important;padding:31mm 28mm 24mm!important;box-shadow:none!important;page-break-after:always!important;break-after:page!important;overflow:hidden!important}
+  .deed-page:last-child{page-break-after:auto!important;break-after:auto!important}
+  .deed-page .red,.deed-page .green,.deed-page .purple{color:#000!important}
+}
+
+/* ===== v1.0 Agriculture partial-sale + payment detail update ===== */
+.mixed-share-wrap[hidden]{display:none!important}
+.gata-table{min-width:860px}
+.gata-table .gata-total-area,.gata-table .gata-sold-area{min-width:125px}
+.gata-table input:invalid{border-color:#d45d4c;background:#fff8f6}
+.stamp-editable small em{font-style:normal;font-size:8px;color:#7a867f;font-weight:600}
+.stamp-edit-input{display:block;width:100%;min-width:130px;margin-top:6px;padding:8px 9px;border:1px solid #cfd9d2;border-radius:7px;background:#fff;font-size:14px;font-weight:800;color:#1c7238}
+.stamp-grid .payable .stamp-edit-input{color:#d86600}
+.stamp-auto-hint{display:block;margin-top:4px;font-size:8px;line-height:1.35;color:#748078;font-weight:600}
+.payment-table{min-width:1020px}
+.payment-table td{vertical-align:top}
+.payment-table .pay-field-label{font-size:8px;font-weight:800;color:#637168;margin-bottom:4px;white-space:nowrap}
+.payment-table .pay-bank-other{margin-top:5px}
+.payment-table input:disabled,.payment-table select:disabled{background:#f4f6f4;color:#9ba39e;cursor:not-allowed}
+.payment-table .pay-mode{min-width:125px}
+.payment-table .pay-bank{min-width:140px}
+.payment-table .pay-branch{min-width:105px}
+.payment-table .pay-ref{min-width:145px}
+@media(max-width:700px){.stamp-edit-input{min-width:0}.payment-table{min-width:1000px}}
+
+/* ===== v1.1 Multiple Seller / Buyer Parties ===== */
+.add-party-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:-2px 0 14px;padding:10px 12px;border:1px dashed #a9c9b8;border-radius:10px;background:#f7fbf8;color:#4c6558;font-size:12px;font-weight:700}
+.add-party-btn{background:#0d6a45;color:#fff;border:1px solid #0d6a45;padding:9px 15px;border-radius:8px;font-weight:800;cursor:pointer}
+.add-party-btn:hover{filter:brightness(.96)}
+.additional-party-card{border-left:4px solid #19875d;position:relative}
+.multi-party-title{margin-bottom:12px}
+.remove-party-btn{border:1px solid #e6b8b8;background:#fff6f6;color:#ad2d2d;border-radius:7px;padding:7px 10px;font-size:11px;font-weight:800;cursor:pointer}
+.remove-party-btn:hover{background:#ffecec}
+@media(max-width:700px){.add-party-bar{align-items:stretch;flex-direction:column}.add-party-btn{width:100%}.multi-party-title{align-items:flex-start;gap:8px}.remove-party-btn{white-space:nowrap}}
+
+/* ===== v1.2 Agriculture valuation + Parties home + biometric note ===== */
+input[readonly],textarea[readonly]{background:#f4f7f5;color:#46534b;cursor:default}
+label small{font-size:8px;color:#77827b;font-weight:700}
+.agri-detail-panel{margin:10px 0 12px;padding:12px;border:1px solid #d8e7dd;border-radius:10px;background:#fff}
+.agri-detail-panel[hidden],#boundaryWallDetails[hidden],#boundarySideCountWrap[hidden],#boringFixedBox[hidden],#treeBoringTreeWrap[hidden],.biometric-note-wrap[hidden]{display:none!important}
+.agri-detail-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:9px}.agri-detail-head strong{font-size:11px;color:#176f37}.agri-detail-head small{font-size:9px;color:#6e7972;text-align:right}
+.agri-mini-table-wrap{overflow:auto;border:1px solid #e0e7e2;border-radius:8px}.agri-mini-table{width:100%;min-width:620px;border-collapse:collapse;font-size:10px}.agri-mini-table th{background:#f3f8f4;text-align:left;color:#34463b;padding:8px}.agri-mini-table td{padding:6px;border-top:1px solid #edf1ee}.agri-mini-table input{min-height:36px}.agri-mini-table td:last-child{width:44px;text-align:center}.agri-mini-table .del-row{border:0;background:#fff0ef;color:#c7443c;border-radius:6px;padding:7px;cursor:pointer}
+.fixed-value-box{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;border:1px solid #cfe5d5;border-radius:9px;background:#f2faf4;margin-bottom:10px}.fixed-value-box span{font-size:10px;font-weight:800;color:#47594e}.fixed-value-box strong{font-size:18px;color:#176f37}
+.boundary-wall-box{margin-top:14px;padding:12px;border:1px solid #d7e5db;border-radius:10px;background:#fbfefc}.boundary-wall-box .subheading{margin-top:0!important;padding-top:0;border-top:0}
+.boundary-side-inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:10px}.boundary-side-row{display:grid;grid-template-columns:55px minmax(120px,1fr) minmax(120px,1fr);gap:8px;align-items:end;padding:9px;border:1px solid #e3eae5;border-radius:8px;background:#fff}.boundary-side-row>label{font-size:9px;font-weight:800;color:#526159;margin-bottom:10px}
+.valuation-strip{display:flex;align-items:center;justify-content:flex-end;gap:18px;flex-wrap:wrap;margin-top:10px;padding:10px 12px;border:1px solid #d7e7dc;border-radius:9px;background:#f4faf5;font-size:10px;color:#56645b}.valuation-strip span{display:flex;align-items:center;gap:6px}.valuation-strip strong{color:#14723a;font-size:12px}.agri-total-valuation{justify-content:space-between;margin:12px 0 2px;background:#eef8f1;border-color:#c9e2d1}.agri-total-valuation span:last-child strong{font-size:14px;color:#d86600}
+.biometric-note-wrap{margin-top:10px;padding:10px;border:1px solid #f0cfac;border-radius:9px;background:#fff9f1}.biometric-note-wrap label{display:block;font-size:10px;font-weight:800;color:#8a571f;margin-bottom:5px}.biometric-note-wrap textarea{width:100%;resize:vertical;background:#fff}.finger-note{margin-top:5px!important;font-size:13px!important;color:#222}
+.parties-home-shell{max-width:1050px}.parties-home-topbar{align-items:flex-start}.parties-home-topbar p{margin:4px 0 0;color:#6d7771;font-size:11px}.party-home-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:26px}.party-home-card{min-height:220px;border:2px solid #dbe6df;border-radius:16px;background:#fff;padding:24px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:8px;box-shadow:0 7px 20px rgba(20,60,30,.05);transition:.15s ease}.party-home-card:hover,.party-home-card.selected{border-color:#1f7a3e;background:#f5fbf7;transform:translateY(-1px)}.party-home-icon{width:52px;height:52px;border-radius:14px;background:#e9f7ee;color:#18703b;display:flex;align-items:center;justify-content:center;font-size:28px}.party-home-icon.orange{background:#fff1e4;color:#d66d13}.party-home-card strong{font-size:20px;color:#27352d}.party-home-card small{font-size:11px;line-height:1.5;color:#69756d}.party-home-card em{font-style:normal;font-size:9px;font-weight:800;color:#1b7740;margin-top:auto}.party-home-actions{display:flex;justify-content:flex-end;margin-top:16px}.party-home-actions .btn:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:800px){.boundary-side-inputs,.party-home-grid{grid-template-columns:1fr}.boundary-side-row{grid-template-columns:50px 1fr}.boundary-side-row .input-unit{grid-column:2}.agri-detail-head{flex-direction:column}.agri-detail-head small{text-align:left}.agri-total-valuation{align-items:flex-start;flex-direction:column}}
+
+/* ===== v1.3 Required Save + Read-only Parties + Finger Boxes + Export ===== */
+.required-save-error{border:2px solid #c6372b!important;background:#fff4f2!important;box-shadow:0 0 0 3px rgba(198,55,43,.10)!important}
+.auto-hindi-done{background:#fbfffc}
+.finger-grid .finger{min-height:72px;border:1.5px solid #8da99a;background:#fff;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-weight:800}
+.finger-grid .finger.captured{background:#eaf7ee;border-color:#187340;color:#116436}
+.finger-print-box-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px}
+.finger-print-box{height:82px;border:1.5px solid #111;display:flex;align-items:flex-end;justify-content:center;padding:5px;box-sizing:border-box;background:#fff}
+.finger-print-box span{font-size:10px;font-weight:700}
+.finger-block{page-break-inside:avoid}
+
+.saved-party-records{margin-top:22px;display:grid;gap:14px}
+.saved-party-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:#f2f8f4;border:1px solid #d6e6db;border-radius:10px}.saved-party-head h3{margin:0;color:#176f3a}.saved-party-head span{font-size:11px;font-weight:800;color:#6d786f}
+.empty-party-records{padding:24px;text-align:center;border:1px dashed #b9cbc0;border-radius:12px;background:#fff;color:#6d786f;font-size:12px}
+.readonly-party-record{background:#fff;border:1px solid #d9e4dc;border-left:4px solid #197445;border-radius:12px;padding:15px;box-shadow:0 5px 16px rgba(20,60,30,.05)}
+.readonly-party-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.readonly-party-title strong{font-size:18px;color:#26372e}.readonly-party-title span{font-size:9px;font-weight:900;letter-spacing:.5px;color:#6a746e;background:#eef2ef;border:1px solid #d4ddd7;border-radius:999px;padding:5px 8px}
+.readonly-party-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.readonly-party-grid label{font-size:9px;font-weight:800;color:#5e6d64}.readonly-party-grid label.full{grid-column:1/-1}.readonly-party-grid input{width:100%;box-sizing:border-box;margin-top:4px;background:#f7f9f7;border:1px solid #dce3de;color:#29352e;cursor:not-allowed}
+.readonly-party-source{margin-top:10px;padding-top:9px;border-top:1px dashed #d7e0da;color:#6d786f;font-size:10px}
+
+.save-success-modal{display:none;position:fixed;inset:0;z-index:1200;align-items:center;justify-content:center;padding:20px}.save-success-modal.show{display:flex}.save-success-backdrop{position:absolute;inset:0;background:rgba(22,35,27,.48)}.save-success-card{position:relative;z-index:1;width:min(460px,95vw);background:#fff;border-radius:16px;padding:26px;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.22)}.save-success-icon{width:58px;height:58px;margin:0 auto 12px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e6f6eb;color:#14713a;font-size:30px;font-weight:900}.save-success-card h2{margin:0 0 7px;color:#22412e}.save-success-card p{margin:0;color:#6c776f;font-size:12px;line-height:1.5}.save-success-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}.save-success-close{margin-top:12px;border:0;background:transparent;color:#758078;font-weight:700;cursor:pointer}
+
+@media(max-width:760px){.readonly-party-grid{grid-template-columns:1fr}.readonly-party-grid label.full{grid-column:auto}.save-success-actions{grid-template-columns:1fr}.finger-print-box-row{grid-template-columns:repeat(2,1fr)}}
+
+@media print{
+  .finger-print-box-row{display:grid!important;grid-template-columns:repeat(5,1fr)!important;gap:6px!important}.finger-print-box{height:24mm!important;border:1px solid #000!important}
+}
+
+/* ===== v1.4 Final Discussion UI ===== */
+:root{--blue:#2878c7;--blue-soft:#eaf4ff;--green-soft:#eaf8ef;--orange-soft:#fff2e3;--light-green:#8fd3a8}
+body{background:linear-gradient(180deg,#f7fbff 0,#f8fbf7 46%,#fffaf4 100%)}
+.btn.soft-blue{background:var(--blue-soft);color:#155d9f;border:1px solid #b8d8f4}.btn.soft-blue:hover{background:#dceeff}
+.pt-icon.blue{background:var(--blue-soft)!important;color:var(--blue)!important}.pt-icon.green{background:var(--green-soft)!important;color:var(--green)!important}
+
+.jurisdiction-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;background:radial-gradient(circle at 20% 20%,#e7f8ed,transparent 33%),radial-gradient(circle at 86% 22%,#eaf4ff,transparent 34%),linear-gradient(145deg,#fff,#fff9f0)}
+.jurisdiction-brand{width:min(900px,96vw)}.jurisdiction-card{width:min(900px,96vw);border-top:5px solid var(--green);box-shadow:0 20px 60px rgba(26,70,45,.10)}
+.jurisdiction-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}.jurisdiction-head h2{margin-bottom:5px;color:#19492b}.jurisdiction-head p{margin:0;color:var(--muted);font-size:13px}.jurisdiction-badge{background:var(--blue-soft);color:#175d9b;border:1px solid #bfdcf5;padding:7px 10px;border-radius:999px;font-weight:800;font-size:10px;white-space:nowrap}
+.jurisdiction-rate-status{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--green-soft);border:1px solid #cde7d5;color:#27623c;font-size:11px}.office-profile-panel{margin-top:18px;padding:15px;border-radius:14px;background:linear-gradient(135deg,#fffaf3,#f8fcff);border:1px solid #e5e9e7}.office-security-note{margin:10px 0 0;color:#68736c;font-size:10px;line-height:1.55}.jurisdiction-actions{margin-bottom:0}
+
+.deed-type-scroll{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-height:58vh;overflow:auto;padding:4px 4px 10px}.deed-parent-card{min-height:128px;border:1px solid #dce5df;border-radius:14px;background:#fff;padding:18px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:6px;box-shadow:0 5px 18px rgba(30,65,40,.05);transition:.15s}.deed-parent-card:hover,.deed-parent-card.open{transform:translateY(-1px);border-color:#f2b269;background:#fffaf4}.deed-parent-card>span{font-size:24px}.deed-parent-card strong{font-size:15px;color:#29372f}.deed-parent-card small{color:#778078}.deed-parent-card.gift{border-top:4px solid var(--orange)}.deed-parent-card.agreement{border-top:4px solid var(--blue)}.deed-parent-card.sale-after{border-top:4px solid var(--green)}
+.deed-child-list{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:12px;border-radius:14px;background:linear-gradient(135deg,#f9fcfa,#fffaf5);border:1px dashed #cfded4}.deed-child-list[hidden]{display:none!important}.property-type-card.child{min-height:76px;padding:12px 14px}.property-type-card.child strong{font-size:12px}
+.jurisdiction-context-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.jurisdiction-context-strip>span{display:flex;flex-direction:column;padding:10px 12px;background:#fff;border:1px solid var(--line);border-radius:10px}.jurisdiction-context-strip small{color:#7a837d;font-size:8px;font-weight:800;text-transform:uppercase}.jurisdiction-context-strip strong{margin-top:3px;font-size:12px}.jurisdiction-context-strip .rate-ready{background:var(--blue-soft);border-color:#c8def1;color:#155d9f}.draft-number-mini{display:block;font-style:normal;font-size:9px;color:#d16b0c;margin-top:2px;font-weight:800}
+.deed-template-notice{margin:12px 0 4px;padding:9px 11px;border-radius:9px;font-size:10px;line-height:1.45}.deed-template-notice.mapped{background:var(--green-soft);border:1px solid #cbe6d3;color:#205e37}.deed-template-notice.pending{background:var(--orange-soft);border:1px solid #f1d1aa;color:#845322}.previous-title-holder-row{margin-top:10px}.previous-title-holder-row textarea{min-height:62px;background:#f8faf9}
+.party-writing-style{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin:0 0 10px}.party-writing-style label{margin:0;font-size:9px;color:#657168}.party-writing-style select{width:min(370px,100%);padding:8px 10px;font-size:10px;background:#f7fbf8}
+
+.hindi-suggest-popover{display:none;position:fixed;z-index:3000;background:#fff;border:1px solid #bed6c7;border-radius:11px;box-shadow:0 16px 42px rgba(20,55,30,.18);overflow:hidden}.hindi-suggest-popover.show{display:block}.hindi-suggest-head{display:flex;justify-content:space-between;align-items:center;padding:7px 9px;background:linear-gradient(90deg,#edf8f1,#eef6ff);border-bottom:1px solid #dbe7df}.hindi-suggest-head strong{font-size:9px;color:#2a5f3b}.hindi-suggest-head small{font-size:8px;color:#6d7771}.hindi-suggest-option{width:100%;display:flex;align-items:center;gap:9px;border:0;border-bottom:1px solid #eef2ef;background:#fff;text-align:left;padding:8px 10px;cursor:pointer}.hindi-suggest-option:last-child{border-bottom:0}.hindi-suggest-option b{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#f0f4f1;color:#657168;font-size:9px}.hindi-suggest-option span{font-family:"Nirmala UI","Mangal",sans-serif;font-size:16px}.hindi-suggest-option.active{background:#edf8f1}.hindi-suggest-option.active b{background:var(--green);color:#fff}
+
+.saved-drafts-shell{max-width:1280px}.saved-search-card{position:sticky;top:92px;z-index:3;border-top:4px solid var(--blue)}.saved-filter-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 12px}.saved-filter-grid label{font-size:9px;margin:0 0 4px}.saved-filter-grid input,.saved-filter-grid select{padding:9px 10px;font-size:11px}.saved-search-actions{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;border-top:1px solid #edf1ee}.saved-search-actions span{font-size:10px;font-weight:800;color:#607067}
+.saved-draft-card{background:#fff;border:1px solid #dbe5de;border-left:5px solid var(--green);border-radius:14px;padding:16px;box-shadow:0 7px 20px rgba(20,55,30,.05)}.saved-draft-top{display:flex;justify-content:space-between;gap:12px}.saved-draft-top h3{margin:6px 0 3px;font-size:16px}.saved-draft-top p{margin:0;color:#6b766f;font-size:10px}.registry-no-chip{display:inline-flex;background:var(--orange-soft);color:#9a5817;border:1px solid #f0d2ac;border-radius:999px;padding:4px 8px;font-size:9px;font-weight:900}.saved-draft-parties{display:grid;grid-template-columns:2fr 2fr 1fr;gap:10px;margin:12px 0;padding:10px;border-radius:10px;background:#f8fbf9}.saved-draft-parties span{font-size:10px}.saved-draft-parties small{display:block;color:#77827b;font-size:8px;font-weight:800;margin-bottom:3px}.saved-draft-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.management-shell,.mutation-shell{max-width:1180px}.management-card{border-top:4px solid var(--orange)}.management-list{display:grid;gap:10px}.management-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 15px;background:#fff;border:1px solid #dce5df;border-radius:11px}.management-row strong{display:block;color:#2a3830}.management-row small{display:block;margin-top:3px;color:#738078}.management-row>span{font-size:10px;font-weight:800;color:#225f85;background:var(--blue-soft);padding:6px 9px;border-radius:999px}.report-mini-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.report-mini-grid>div{padding:18px;border-radius:12px;background:linear-gradient(135deg,#f0faf3,#eef6ff);border:1px solid #d9e8df}.report-mini-grid small{display:block;color:#6f7b73}.report-mini-grid strong{display:block;margin-top:7px;font-size:22px;color:#176f3b}
+
+.mutation-check{display:flex;align-items:center;gap:8px;text-align:left;margin:16px 0 0;padding:10px;border-radius:10px;background:linear-gradient(90deg,#f1faf4,#eef6ff);border:1px solid #d9e9df;font-size:11px}.mutation-check input{width:16px;height:16px;margin:0;accent-color:var(--green)}.save-success-actions.three-actions{grid-template-columns:1fr 1fr}.save-success-actions.three-actions .soft-blue{grid-column:1/-1}.mutation-toolbar{display:flex;align-items:end;justify-content:space-between;gap:18px}.mutation-toolbar>div:first-child{flex:1}.mutation-toolbar-actions{display:flex;gap:8px}.mutation-document-preview{background:#edf2ef;padding:18px}.mutation-doc{position:relative;width:210mm;min-height:277mm;margin:0 auto;background:#fff;padding:24mm 22mm 20mm;border:4px double #3a8f5d;box-shadow:0 5px 20px rgba(0,0,0,.10);font-family:"Nirmala UI","Mangal",Arial,sans-serif;line-height:1.65}.mutation-doc:after{content:'';position:absolute;inset:7mm;border:1px solid #a7cdb4;pointer-events:none}.mutation-doc>*{position:relative;z-index:1}.mutation-doc h1{text-align:center;text-decoration:underline;color:#1b4e2c}.mutation-meta{text-align:center;font-size:11px;margin-bottom:22px}.mutation-doc p{text-align:justify}.mutation-template-badge{text-align:center;color:#9a5f1d;background:#fff5e8;border:1px solid #f0d3af;border-radius:999px;padding:5px;font-size:8px;font-weight:900;margin-bottom:12px}.mutation-placeholder-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}.mutation-placeholder-fields label{font-size:10px}.mutation-note{margin-top:25px;padding:10px;background:#f4f8f5;border-left:4px solid var(--green);font-size:10px}.party-id-trail{font-size:.86em;font-weight:500}
+
+/* Draft page border modeled on the supplied reference: clean double green border with corner accents. */
+.deed-page{border:3px double #2f8f5b!important;outline:1px solid #a9d1b7;outline-offset:-7mm;padding-bottom:28mm!important}
+.deed-page:before{content:'';position:absolute;left:8mm;right:8mm;top:8mm;bottom:8mm;border:1px solid rgba(47,143,91,.42);pointer-events:none;z-index:0}.deed-page>*{position:relative;z-index:1}.deed-page:after{content:'◆';position:absolute;top:5.5mm;left:50%;transform:translateX(-50%);color:#ef8b22;background:#fff;padding:0 4px;font-size:8px;z-index:2}
+.registry-page-footer{position:absolute!important;left:11mm;right:11mm;bottom:9mm;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;border-top:1px solid #b8cfc0;padding-top:4px;font-family:Segoe UI,Arial,sans-serif;font-size:8px;color:#3f5046;z-index:3}.registry-page-footer>strong{color:#176f3a;letter-spacing:.3px}.registry-page-footer>span:last-child{text-align:right}.stamp-reserve{height:62mm;border:1px dashed #d6e5da;border-radius:8px;margin-bottom:7mm;display:flex;align-items:center;justify-content:center;color:#a4afa8;font:700 9px Segoe UI,Arial,sans-serif;letter-spacing:1px}.stamp-selected-page{background:linear-gradient(#fff,#fff)!important}.stamp-normal-page .page2-bottom{position:static!important;margin-top:0!important}.stamp-selected-page.deed-page-2 .page2-bottom{position:absolute!important}
+
+@media(max-width:980px){.deed-type-scroll,.deed-child-list{grid-template-columns:repeat(2,1fr)}.saved-filter-grid{grid-template-columns:repeat(2,1fr)}.saved-draft-parties{grid-template-columns:1fr 1fr}.report-mini-grid{grid-template-columns:repeat(2,1fr)}.mutation-doc{width:100%;min-height:0}.jurisdiction-context-strip{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.deed-type-scroll,.deed-child-list,.saved-filter-grid,.saved-draft-parties,.report-mini-grid{grid-template-columns:1fr}.jurisdiction-head,.mutation-toolbar{flex-direction:column;align-items:stretch}.mutation-toolbar-actions{flex-direction:column}.jurisdiction-context-strip{grid-template-columns:1fr 1fr}.party-writing-style{align-items:stretch;flex-direction:column}.party-writing-style select{width:100%}.management-row{align-items:flex-start;flex-direction:column}.save-success-actions.three-actions{grid-template-columns:1fr}.save-success-actions.three-actions .soft-blue{grid-column:auto}}
+
+@media print{
+  @page{size:A4;margin:0}
+  .deed-page{border:3px double #2f8f5b!important;outline:1px solid #a9d1b7!important;outline-offset:-7mm!important;padding-bottom:28mm!important;overflow:hidden!important}
+  .deed-page:before,.deed-page:after,.registry-page-footer{visibility:visible!important}
+  .stamp-reserve span{visibility:hidden!important}
+  body.print-mutation *{visibility:hidden!important}
+  body.print-mutation #mutationDocumentPreview,body.print-mutation #mutationDocumentPreview *{visibility:visible!important}
+  body.print-mutation #mutationDocumentPreview{position:absolute!important;left:0!important;top:0!important;width:100%!important;margin:0!important;padding:0!important;border:0!important;background:#fff!important}
+  body.print-mutation .mutation-doc{width:210mm!important;min-height:297mm!important;margin:0!important;box-shadow:none!important;border:3px double #2f8f5b!important;padding:24mm 22mm 20mm!important}
+}
+@media print{body.print-mutation #legalDraftPreview,body.print-mutation #legalDraftPreview *{visibility:hidden!important}}
+.registry-footer-center{text-align:center;display:flex;flex-direction:column;line-height:1.15}.registry-footer-center strong{color:#176f3a;font-size:9px}.registry-footer-center small{color:#5e6d64;font-size:7px;margin-top:2px}
+
+
+/* ===== v1.5 ALL FIXES ===== */
+.v15-hidden{display:none!important}
+#registryView .v15-registry-brand{display:flex!important;align-items:center;gap:8px;margin-right:auto}
+#registryView .dash-topbar{gap:12px}
+#registryView .top-actions{margin-left:auto}
+
+/* Editable jurisdiction selector on deed-type screen */
+.jurisdiction-context-strip{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:10px;background:linear-gradient(90deg,#f8fcf9,#fffaf4,#f4f8ff)}
+.jurisdiction-inline-control{padding:8px 10px;border:1px solid #dce8df;border-radius:10px;background:#fff;min-width:0}
+.jurisdiction-inline-control label{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.5px;color:#718078;font-weight:800;margin-bottom:4px}
+.jurisdiction-inline-control select{width:100%;border:0;background:transparent;padding:5px 2px;font-weight:800;color:#26362e;outline:none}
+.rate-source-btn{width:100%;border:0;background:transparent;text-align:left;padding:1px;cursor:pointer}.rate-source-btn b,.rate-source-btn small{display:block}.rate-source-btn b{color:#2678b9}.rate-source-btn small{font-size:8px;color:#718078;margin-top:3px}
+
+/* Smaller deed cards so future deed types fit */
+.deed-type-scroll{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;max-height:60vh}
+.deed-type-scroll .property-type-card,.deed-type-scroll .deed-parent-card{min-height:88px!important;padding:11px 12px!important;border-radius:11px!important;gap:3px!important}
+.deed-type-scroll .property-type-card .pt-icon,.deed-type-scroll .deed-parent-card>span{font-size:19px!important}
+.deed-type-scroll .property-type-card strong,.deed-type-scroll .deed-parent-card strong{font-size:12px!important}
+.deed-type-scroll .property-type-card small,.deed-type-scroll .deed-parent-card small{font-size:8px!important}
+.deed-child-list{grid-template-columns:repeat(4,minmax(0,1fr));padding:9px;gap:7px}.property-type-card.child{min-height:58px!important;padding:8px!important}
+
+/* Parties: simple two columns, not giant cards */
+.party-master-card{margin-bottom:14px;border-top:3px solid var(--orange)}.party-master-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}.party-master-head h3{margin:0}.party-master-head p{margin:3px 0 0;color:var(--muted);font-size:10px}
+.party-simple-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.party-simple-col{border:1px solid #d9e5dd;border-radius:12px;background:#fff;overflow:hidden}.party-simple-title{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;font-size:14px}.party-simple-title.seller{background:#eef9f2;color:#176f3a}.party-simple-title.buyer{background:#fff5e8;color:#a45b12}.party-simple-title span{border-radius:999px;background:#fff;padding:3px 8px;font-size:9px}
+.party-search-line{display:flex;align-items:center;gap:7px;padding:9px 10px;border-bottom:1px solid #e7eee9}.party-search-line input{border:0!important;padding:6px!important;outline:none;background:transparent!important}.party-simple-list{max-height:48vh;overflow:auto}.party-compact-row{display:grid;grid-template-columns:1fr auto;gap:10px;padding:10px 12px;border-bottom:1px solid #edf2ee}.party-compact-row:last-child{border-bottom:0}.party-compact-row strong,.party-compact-row small,.party-compact-meta span{display:block}.party-compact-row strong{font-size:11px}.party-compact-row small{font-size:8px;color:#6a776f;margin-top:3px}.party-compact-meta{text-align:right;font-size:8px;color:#53645a}.party-simple-empty{padding:22px;text-align:center;color:#7a847e;font-size:10px}
+
+/* Property ledger */
+.property-ledger-shell{padding-bottom:35px}.property-add-card{border-top:3px solid var(--green)}.property-ledger-tools{display:flex;align-items:end;justify-content:space-between;gap:12px}.property-ledger-tools>div{flex:1}.property-table-wrap,.report-table-wrap{overflow:auto;margin-top:12px}.property-ledger-table,.report-detail-table{width:100%;border-collapse:collapse;min-width:900px;font-size:9px}.property-ledger-table th,.property-ledger-table td,.report-detail-table th,.report-detail-table td{border:1px solid #dbe4de;padding:8px;text-align:left;vertical-align:top}.property-ledger-table th,.report-detail-table th{background:#eef7f1;color:#2c4936;font-weight:900}.property-ledger-table td small{display:block;color:#728079;margin-top:3px}.buy-cell{color:#14723a}.sale-cell{color:#b25135}.balance-cell{background:#f1faf4;color:#0f6433;font-weight:900}.report-subtitle{margin:22px 0 7px;color:#28543a}
+
+/* Print deed payment table */
+.payment-deed-section{margin-top:8px;page-break-inside:avoid}.payment-deed-section>p{margin:5px 0}.payment-deed-table{width:100%;border-collapse:collapse;margin:6px 0 8px;font-size:11px;table-layout:fixed}.payment-deed-table th,.payment-deed-table td{border:1px solid #222;padding:4px 5px;text-align:center;word-break:break-word}.payment-deed-table th{background:#f3f6f4;font-weight:800}.payment-deed-table th:nth-child(1){width:5%}.payment-deed-table th:nth-child(2){width:16%}.payment-deed-table th:nth-child(3){width:14%}.payment-deed-table th:nth-child(4){width:18%}.payment-deed-table th:nth-child(5){width:14%}.payment-deed-table th:nth-child(6){width:13%}.payment-deed-table th:nth-child(7){width:20%}.payment-deed-total{font-weight:800;background:#f2f7f3}.payment-deed-empty{border:1px solid #222;padding:8px;margin:6px 0}
+
+/* 10 fingerprints per party */
+.party-finger-person{margin-top:12px!important;page-break-inside:avoid}.finger-hand-block{margin-top:7px}.finger-hand-title{display:block;font-size:11px;margin-bottom:3px}.finger-print-box-row{grid-template-columns:repeat(5,1fr)!important}.finger-print-box{height:54px!important}.finger-note{margin-top:4px!important}
+
+/* Photo boxes */
+.party-photo-section{margin-top:14px;page-break-inside:avoid}.party-photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px}.party-photo-grid.many{grid-template-columns:repeat(5,1fr)}.party-photo-box{border:1px solid #222;min-height:92px;padding:5px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center}.photo-placeholder{flex:1;width:100%;display:flex;align-items:center;justify-content:center;color:#a0a0a0;font:700 10px Arial}.party-photo-box strong{font-size:9px}.party-photo-box small{font-size:8px;margin-top:2px}
+
+/* Witness details in two boxes */
+.witness-box-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.witness-detail-box{border:1px solid #222;min-height:105px;padding:9px}.witness-detail-box>strong{font-size:13px;text-decoration:underline}.witness-detail-box p{margin:5px 0!important;font-size:12px!important;text-align:left!important}
+
+/* Stamp selected page: outer page border removed; only written matter bordered */
+.deed-page.stamp-selected-page{border:0!important;outline:0!important}.deed-page.stamp-selected-page:before,.deed-page.stamp-selected-page:after{display:none!important}.stamp-written-content-border{border:2px double #2f8f5b;padding:8mm!important;box-sizing:border-box;background:#fff}.deed-page-2 .page2-bottom.stamp-written-content-border{left:28mm;right:28mm;bottom:25mm;padding:7mm!important}.stamp-reserve{border:0!important;background:transparent!important;height:62mm!important}.stamp-reserve span{display:none!important}
+
+@media(max-width:980px){.deed-type-scroll,.deed-child-list{grid-template-columns:repeat(3,1fr)}.jurisdiction-context-strip{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){.deed-type-scroll,.deed-child-list{grid-template-columns:repeat(2,1fr)}.party-simple-grid{grid-template-columns:1fr}.jurisdiction-context-strip{grid-template-columns:1fr 1fr}.property-ledger-tools{flex-direction:column;align-items:stretch}}
+
+@media print{
+  .payment-deed-table{font-size:9pt!important}.payment-deed-table th,.payment-deed-table td{padding:2.5mm 1.5mm!important}
+  .party-finger-person{margin-top:4mm!important}.finger-print-box{height:19mm!important}.finger-hand-title{font-size:9pt!important}.finger-print-box span{font-size:8pt!important}
+  .party-photo-section{margin-top:5mm!important}.party-photo-box{min-height:28mm!important}.party-photo-grid{gap:2mm!important}
+  .witness-box-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:3mm!important}.witness-detail-box{min-height:31mm!important;padding:3mm!important}
+  .deed-page.stamp-selected-page{border:0!important;outline:0!important}.deed-page.stamp-selected-page:before,.deed-page.stamp-selected-page:after{display:none!important}.stamp-written-content-border{border:2px double #2f8f5b!important}
+}
+
+.party-add-launch{display:flex;justify-content:flex-end;margin-bottom:10px}.party-master-card[hidden]{display:none!important}
+
+.report-print-bar{display:flex;justify-content:flex-end;margin-bottom:10px}
+
+.deed-page-extra-finger,.deed-page-witness-final{padding-top:28mm!important}.finger-cont-heading{text-align:left!important;margin-bottom:8mm!important}.deed-page-witness-final .witness-box-grid{margin-top:20mm}
+
+.deed-page-photo{padding-top:28mm!important}.photo-page-title{text-align:center;margin:0 0 14mm;font-size:19px;text-decoration:underline}.deed-page-photo .party-photo-section>b{display:none}.deed-page-photo .party-photo-grid{grid-template-columns:repeat(4,1fr);gap:10mm 7mm}.deed-page-photo .party-photo-box{min-height:58mm}.deed-page-photo .party-photo-grid.many{grid-template-columns:repeat(4,1fr)}
+@media print{.deed-page-photo .party-photo-box{min-height:52mm!important}.deed-page-photo .party-photo-grid{gap:7mm 5mm!important}}
+
+
+/* ===== v1.6 Party row + PDF layout ===== */
+.party-official-grid{display:grid;grid-template-columns:1.25fr .72fr 1.25fr 1.8fr .95fr 1.35fr .9fr 1.05fr;gap:8px;align-items:end;margin-top:10px}
+.party-official-grid>div{min-width:0}.party-official-grid label{display:block;font-size:9px;font-weight:800;color:#34493d;margin-bottom:4px;white-space:nowrap}.party-official-grid input,.party-official-grid select{width:100%;min-width:0;box-sizing:border-box;height:38px;padding:7px 8px;font-size:12px}
+.party-official-grid .party-field-name{order:1}.party-official-grid .party-field-relation{order:2}.party-official-grid .party-field-father{order:3}.party-official-grid .party-field-address{order:4}.party-official-grid .party-field-mobile{order:5}.party-official-grid .party-field-email{order:6}.party-official-grid .party-field-idtype{order:7}.party-official-grid .party-field-idno{order:8}.party-official-grid .party-field-pan{order:9;grid-column:1/span 2}.party-official-grid .party-field-aadhaar{order:10;grid-column:3/span 2}
+.party-field-error{display:none;margin-top:3px;font-size:8px;line-height:1.2;color:#b42318;font-weight:700}.party-invalid{border-color:#d92d20!important;background:#fff4f3!important;box-shadow:0 0 0 1px rgba(217,45,32,.12)}
+.party-identity-line{text-align:left!important;word-spacing:0!important;letter-spacing:normal!important}.party-id-trail{display:inline!important;word-spacing:0!important;letter-spacing:0!important}.party-id-trail *{word-spacing:0!important}
+.deed-page-3 .photo-after-final-clause{margin-top:8mm!important}.deed-page-3 .party-photo-grid{grid-template-columns:repeat(4,1fr)!important;gap:5mm 4mm!important}.deed-page-3 .party-photo-box{min-height:44mm!important}.deed-page-3 .party-photo-grid.many .party-photo-box{min-height:36mm!important}.deed-page-photo{display:none!important}
+.party-finger-person .finger-print-box{height:92px!important}.party-finger-person .finger-print-box span{font-size:11px!important}.party-finger-person .finger-hand-title{font-size:12px!important;margin:8px 0 5px!important}.deed-page-5>.witness-box-grid,.deed-page-witness-final>.witness-box-grid{margin-top:70px!important}.witness-detail-box{min-height:145px!important;padding:12px!important}.witness-detail-box p{font-size:13px!important;line-height:1.45!important}
+@media(max-width:1150px){.party-official-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.party-official-grid .party-field-pan{grid-column:auto}.party-official-grid .party-field-aadhaar{grid-column:auto}}
+@media(max-width:720px){.party-official-grid{grid-template-columns:1fr 1fr}.party-official-grid .party-field-address{grid-column:1/-1}.party-official-grid .party-field-pan,.party-official-grid .party-field-aadhaar{grid-column:auto}}
+@media(max-width:480px){.party-official-grid{grid-template-columns:1fr}.party-official-grid .party-field-address{grid-column:auto}}
+@media print{
+ .party-identity-line{text-align:left!important;word-spacing:0!important}.party-id-trail{word-spacing:0!important}
+ .deed-page-3 .photo-after-final-clause{margin-top:5mm!important}.deed-page-3 .party-photo-box{min-height:41mm!important}.deed-page-3 .party-photo-grid.many .party-photo-box{min-height:33mm!important}
+ .party-finger-person .finger-print-box{height:26mm!important}.party-finger-person .finger-hand-title{font-size:10pt!important;margin-top:3mm!important}.party-finger-person{margin-top:5mm!important}
+ .deed-page-5>.witness-box-grid,.deed-page-witness-final>.witness-box-grid{margin-top:18mm!important}.witness-detail-box{min-height:42mm!important;padding:4mm!important}
+}
+
+
+/* ===== v1.7 BATCH FIXES ===== */
+:root{--sidebar-w:205px}
+
+/* Compact, colorful, less-heavy sidebar */
+.app-layout{grid-template-columns:var(--sidebar-w) 1fr!important}
+.sidebar{
+  width:var(--sidebar-w)!important;
+  padding:14px 10px!important;
+  background:
+    linear-gradient(180deg,rgba(230,247,235,.96),rgba(255,255,255,.98) 32%,rgba(238,246,255,.98) 70%,rgba(255,244,232,.98))!important;
+  border-right:1px solid #dce9df!important;
+  box-shadow:8px 0 26px rgba(30,90,55,.05)
+}
+.sidebar-brand{padding:2px 6px 14px!important;gap:8px!important}
+.sidebar-logo{width:38px!important;height:38px!important;border-radius:10px!important;font-size:14px!important}
+.sidebar-title{font-size:18px!important;font-weight:750!important;letter-spacing:-.2px}
+.sidebar-brand small{font-size:9px!important}
+.side-nav{gap:3px!important}
+.side-item{
+  padding:8px 9px!important;
+  border-radius:9px!important;
+  font-size:12px!important;
+  font-weight:600!important;
+  gap:8px!important;
+  border:1px solid transparent!important
+}
+.side-item span{width:18px!important;font-size:14px!important}
+.side-item:nth-child(4n+1){color:#176b36}
+.side-item:nth-child(4n+2){color:#b86513}
+.side-item:nth-child(4n+3){color:#2668a7}
+.side-item:nth-child(4n){color:#6f5aa6}
+.side-item:hover{
+  background:rgba(255,255,255,.85)!important;
+  border-color:#d9e7dd!important;
+  transform:translateX(1px)
+}
+.side-item.active{color:#fff!important}
+
+/* Main panel gets the reclaimed width */
+.main-panel{grid-column:2!important}
+
+/* Seller/Buyer/Witness official compact rows */
+.party-official-grid{
+  grid-template-columns:1.15fr .68fr 1.15fr 1.7fr .92fr 1.2fr .82fr 1.02fr!important;
+  gap:7px!important
+}
+.party-official-grid .party-field-pan{grid-column:1/span 2!important}
+.party-official-grid .party-field-aadhaar{display:none!important}
+.witness-official-grid{grid-template-columns:1.15fr .72fr 1.2fr 1.8fr .95fr .9fr 1.1fr!important}
+.witness-official-grid .party-field-address{grid-column:auto!important}
+
+/* Auto compact secondary party: common fields stay visible but read-only */
+.additional-party-card.compact-linked .party-field-relation select,
+.additional-party-card.compact-linked .party-field-father input,
+.additional-party-card.compact-linked .party-field-address input,
+.additional-party-card.compact-linked .party-field-idtype select{
+  background:#f2f5f3!important;color:#667269!important;border-style:dashed!important
+}
+.additional-party-card.compact-linked .party-field-pan{display:none!important}
+
+/* Payment table should fit normal desktop without horizontal crop */
+.payment-table-wrap{overflow-x:auto!important}
+.payment-table{min-width:830px!important;width:100%!important;table-layout:fixed!important;font-size:9px!important}
+.payment-table th,.payment-table td{padding:5px!important}
+.payment-table th:nth-child(1),.payment-table td:nth-child(1){width:28px}
+.payment-table th:nth-child(2),.payment-table td:nth-child(2){width:92px}
+.payment-table th:nth-child(3),.payment-table td:nth-child(3){width:92px}
+.payment-table th:nth-child(4),.payment-table td:nth-child(4){width:132px}
+.payment-table th:nth-child(5),.payment-table td:nth-child(5){width:142px}
+.payment-table th:nth-child(6),.payment-table td:nth-child(6){width:100px}
+.payment-table th:nth-child(7),.payment-table td:nth-child(7){width:120px}
+.payment-table th:nth-child(8),.payment-table td:nth-child(8){width:44px}
+.payment-table input,.payment-table select{font-size:9px!important;padding:7px 6px!important;min-width:0!important;width:100%!important}
+.payment-table .pay-mode,.payment-table .pay-bank,.payment-table .pay-branch,.payment-table .pay-ref{min-width:0!important}
+.payment-total.payment-error{background:#fff3ef;border:1px solid #efb4a4;border-radius:8px;padding:9px 12px}
+.payment-total.payment-ok{background:#eff9f2;border:1px solid #b9dfc3;border-radius:8px;padding:9px 12px}
+
+/* Photo layout: Seller left, Buyer right, extra parties continue under their side */
+.deed-page-3 .party-photo-grid{
+  grid-template-columns:1fr 1fr!important;
+  gap:7mm 18mm!important;
+  align-items:start!important
+}
+.deed-page-3 .party-photo-box{
+  min-height:48mm!important;
+  width:100%!important;
+  max-width:58mm!important;
+  justify-self:center!important
+}
+.deed-page-3 .party-photo-box.photo-seller{grid-column:1}
+.deed-page-3 .party-photo-box.photo-buyer{grid-column:2}
+
+/* Keep every complete 10-fingerprint block together. JS moves it to a continuation page if needed. */
+.party-finger-person{
+  break-inside:avoid!important;
+  page-break-inside:avoid!important;
+  margin-top:7mm!important
+}
+.party-finger-person .finger-print-box{height:27mm!important}
+.deed-page-finger-continuation{padding-top:28mm!important}
+.deed-page-finger-continuation .party-finger-person{margin-top:0!important}
+
+/* Witness detail boxes sit clearly below fingerprint section */
+.deed-page-5>.witness-box-grid,.deed-page-witness-final>.witness-box-grid{
+  margin-top:24mm!important
+}
+.witness-detail-box{min-height:44mm!important}
+
+/* Special Page-1 stamp paper: mostly blank; only the first three registry lines at bottom. */
+.deed-page.stamp-page-one-special{
+  border:0!important;outline:0!important
+}
+.deed-page.stamp-page-one-special:before,
+.deed-page.stamp-page-one-special:after{display:none!important}
+.stamp-page-one-lines{
+  position:absolute!important;
+  left:28mm!important;right:28mm!important;bottom:26mm!important;
+  border:2px double #2f8f5b!important;
+  padding:6mm 7mm!important;background:#fff!important;
+  box-sizing:border-box!important
+}
+.stamp-page-one-lines h1{font-size:22px!important;margin-bottom:5px!important}
+.stamp-page-one-lines .deed-top-grid{grid-template-columns:1fr 1fr!important}
+.stamp-page-one-lines .deed-top-grid>div{font-size:14px!important}
+.deed-page-page1-continuation{padding-top:28mm!important}
+
+/* Property party holding browser */
+.property-party-browser{margin-top:14px;border:1px solid #dbe9df;background:linear-gradient(135deg,#f2fbf5,#f8fbff);border-radius:12px;padding:14px}
+.property-party-browser-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.property-party-browser-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:10px}
+.property-holding-list{margin-top:10px;display:grid;gap:7px}
+.property-holding-item{display:grid;grid-template-columns:1fr 1fr .9fr .9fr;gap:8px;align-items:center;background:#fff;border:1px solid #e1e9e4;border-radius:9px;padding:8px 10px;font-size:10px}
+.property-holding-item b{color:#176b36}
+.property-holding-item .remaining{font-weight:900;color:#0b6a33}
+.property-master-head{display:flex!important;justify-content:space-between!important;gap:12px!important;align-items:center!important}
+
+/* Settings stamp table */
+.stamp-settings-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:11px}
+.stamp-settings-table th,.stamp-settings-table td{border:1px solid #dde8e0;padding:9px;text-align:left}
+.stamp-settings-table th{background:#eff8f2;color:#275038}
+.stamp-settings-table select{min-width:150px}
+
+/* Dashboard stat property record is live, no 'coming next' state. */
+#statPropertyRecords{color:#176b36}
+
+@media(max-width:900px){
+  .sidebar{width:230px!important}
+  .main-panel{grid-column:auto!important}
+  .party-official-grid,.witness-official-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .party-official-grid .party-field-address,.witness-official-grid .party-field-address{grid-column:1/-1!important}
+  .property-party-browser-grid{grid-template-columns:1fr}
+}
+
+/* ===== v1.8 FINAL MASTER UPDATE ===== */
+:root{
+  --v18-navy:#0d2b4f;--v18-navy2:#153b69;--v18-green:#0f8f5f;--v18-green2:#23b26d;
+  --v18-blue:#2d73da;--v18-purple:#7145d6;--v18-amber:#d88713;--v18-red:#d54b54;
+  --v18-bg:#f6f8fc;--v18-line:#dfe6ef;--v18-text:#172437;--v18-muted:#6b7686;
+}
+body{background:var(--v18-bg)}
+.app-layout{display:block!important;min-height:100vh}
+.sidebar{position:fixed!important;left:-310px!important;top:0;bottom:0;width:286px!important;z-index:1200!important;transition:left .22s ease;box-shadow:18px 0 45px rgba(11,35,65,.16);overflow:auto;background:linear-gradient(180deg,#0c2748,#102f55)!important}
+.sidebar.open{left:0!important}
+.main-panel{margin-left:0!important;width:100%!important;min-width:0!important}
+.drawer-backdrop{position:fixed;inset:0;background:rgba(9,24,45,.38);z-index:1190;display:none}
+.drawer-backdrop.show{display:block}
+.sidebar .side-nav{padding-bottom:120px}
+.sidebar .side-item{color:#f3f7fb!important;border-radius:12px;margin:4px 10px;width:calc(100% - 20px)!important;text-align:left}
+.sidebar .side-item:hover{background:rgba(255,255,255,.10)!important}
+.sidebar .side-item span{width:28px;display:inline-block}
+.v18-upgrade-drawer{position:sticky;bottom:10px;margin:18px 12px 8px;padding:16px;border-radius:18px;background:linear-gradient(135deg,#a96509,#70480b);color:white;border:1px solid rgba(255,255,255,.18)}
+.v18-upgrade-drawer strong{display:block;font-size:17px;margin-bottom:5px}.v18-upgrade-drawer small{display:block;opacity:.9;margin-bottom:10px}.v18-upgrade-drawer button{width:100%}
+.v18-clean-layout{background:linear-gradient(180deg,#f7f9fd,#f5f7fb)}
+.v18-topbar{min-height:78px;padding:12px 22px;gap:20px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid #e8edf4;position:sticky;top:0;z-index:40}
+.v18-top-left{display:flex;align-items:center;gap:12px}.v18-brand-mark{display:flex;align-items:center;gap:10px}.v18-brand-mark>div:last-child{display:flex;flex-direction:column;line-height:1.1}.v18-brand-mark strong{font-size:18px;color:var(--v18-navy)}.v18-brand-mark small{font-size:10px;color:var(--v18-muted);margin-top:3px}
+.v18-welcome{margin-right:auto;display:flex;flex-direction:column}.v18-welcome strong{font-size:20px;color:var(--v18-text)}.v18-welcome small{color:var(--v18-muted);margin-top:3px}
+.v18-profile{cursor:pointer}.v18-dashboard-content{max-width:1500px;margin:0 auto;padding:22px}
+.v18-context-bar{display:grid;grid-template-columns:1fr 1fr 1fr 1.15fr 1.15fr .9fr;gap:12px;padding:14px;border:1px solid var(--v18-line);box-shadow:0 9px 28px rgba(20,49,84,.06)}
+.v18-context-bar label,.v18-context-button{display:flex;flex-direction:column;gap:5px;padding:10px 12px;background:#fff;border:1px solid #e0e6ee;border-radius:12px;min-width:0}
+.v18-context-bar label span,.v18-context-button span{font-size:11px;color:var(--v18-muted);font-weight:700}.v18-context-bar select{border:0;background:transparent;font-weight:800;color:var(--v18-text);outline:0;padding:1px 0}.v18-context-button{text-align:left;cursor:pointer}.v18-context-button strong{color:var(--v18-navy);font-size:14px}.v18-context-button small{font-size:10px;color:var(--v18-muted)}.v18-context-button.rule{background:linear-gradient(135deg,#fff9ee,#fff)}
+.v18-stats-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px;margin:18px 0}
+.v18-stat-card{border:1px solid var(--v18-line);background:#fff;border-radius:17px;padding:16px;text-align:left;display:grid;grid-template-columns:42px 1fr;grid-template-rows:auto auto;column-gap:11px;cursor:pointer;box-shadow:0 8px 24px rgba(17,45,77,.05)}
+.v18-stat-card>span{grid-row:1/3;width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:20px}.v18-stat-card small{color:var(--v18-muted);font-weight:700}.v18-stat-card strong{font-size:24px;color:var(--v18-text);line-height:1}.v18-stat-card.green>span{background:#e4f7ed;color:var(--v18-green)}.v18-stat-card.blue>span{background:#e9f1ff;color:var(--v18-blue)}.v18-stat-card.purple>span{background:#f0eafd;color:var(--v18-purple)}.v18-stat-card.amber>span{background:#fff2dc;color:var(--v18-amber)}.v18-stat-card.red>span{background:#ffecee;color:var(--v18-red)}
+.v18-continue-card{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:14px;padding:14px 16px;background:linear-gradient(100deg,#effbf5,#fffdf6);border:1px solid #d9eadf;margin-bottom:20px}.v18-continue-icon{width:46px;height:46px;border-radius:50%;background:var(--v18-green);color:white;display:grid;place-items:center;font-size:20px}.v18-continue-card>div:nth-child(2){display:flex;flex-direction:column}.v18-continue-card small{color:var(--v18-muted);margin-top:4px}
+.v18-create-title{margin:8px 2px 12px}.v18-create-title p,.v18-recent p{margin:3px 0 0;color:var(--v18-muted);font-size:12px}
+.v18-deed-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}.v18-deed-card{background:#fff;border:1px solid #dfe5ed;border-radius:17px;min-height:166px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 7px 24px rgba(12,38,68,.05);transition:.18s ease}.v18-deed-card:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(12,38,68,.10);border-color:#b9c9db}.v18-deed-card strong{color:var(--v18-text);font-size:15px}.v18-deed-card small{text-align:center;color:var(--v18-muted);line-height:1.35}.v18-deed-art{height:76px;width:100%;max-width:150px;border-radius:13px;display:grid;place-items:center;font-size:38px;background:linear-gradient(135deg,#eef7f2,#f7fbff)}.v18-deed-art.plot{background:linear-gradient(135deg,#dff3e6,#eef9f1)}.v18-deed-art.building{background:linear-gradient(135deg,#e8f1ff,#f6f9ff)}.v18-deed-art.agri{background:linear-gradient(135deg,#e2f6df,#f3fbec)}.v18-deed-art.gift{background:linear-gradient(135deg,#fff0ec,#fff8f5)}.v18-deed-art.commercial{background:linear-gradient(135deg,#e6efff,#f8fbff)}.v18-deed-art.industrial{background:linear-gradient(135deg,#e9eef4,#f7f9fb)}.v18-deed-art.agreement{background:linear-gradient(135deg,#fff1e5,#fff9f4)}.v18-deed-art.lease{background:linear-gradient(135deg,#f3eeff,#faf8ff)}.v18-deed-art.saleafter{background:linear-gradient(135deg,#e8f8f1,#f5fbf8)}.v18-deed-art.more{background:linear-gradient(135deg,#eaf1ff,#f8faff)}
+.v18-recent{margin-top:18px;padding:16px;border:1px solid var(--v18-line)}
+.v18-warning-box{margin:12px 0;border:1px solid #f1cc86;background:#fff9ed;border-radius:14px;padding:12px 14px}.v18-warning-box h3{margin:0 0 7px;color:#8b5808;font-size:14px}.v18-warning-box ul{margin:0;padding-left:20px;color:#77541f}.v18-warning-ok{border-color:#bde3cd;background:#effaf4;color:#166c46}
+.v18-checking-banner{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;padding:12px 14px;border-radius:13px;background:#fff6df;border:1px solid #e9c675}.v18-checking-banner.final{background:#eaf9f0;border-color:#b7dfc6}.v18-checking-banner strong{color:#77530d}.v18-checking-banner.final strong{color:#156c45}.v18-review-actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}
+.legal-preview.v18-checking-copy{position:relative}.legal-preview.v18-checking-copy .deed-page{position:relative}.legal-preview.v18-checking-copy .deed-page:before{content:'CHECKING COPY';position:absolute;left:50%;top:46%;transform:translate(-50%,-50%) rotate(-32deg);font-size:54px;font-weight:900;letter-spacing:5px;color:rgba(185,116,0,.10);pointer-events:none;z-index:1;white-space:nowrap}.legal-preview.v18-final-copy .deed-page:before{display:none!important}
+.v18-agreement-panel,.v18-rule-panel,.v18-road-map-panel{border:1px solid #dbe4ef;border-radius:15px;background:#fbfcfe;padding:14px;margin-bottom:14px}.v18-panel-title{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}.v18-panel-title h3{margin:0}.v18-panel-title small{color:var(--v18-muted)}
+.v18-balance-box{display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:12px;background:#edf8f2;border:1px solid #cfe8d9;margin-top:10px}.v18-balance-box strong{font-size:20px;color:var(--v18-green)}
+.v18-khasra-auto-note{margin-top:7px;color:var(--v18-muted);font-size:11px}.v18-khasra-auto-note.matched{color:#14734b}.v18-khasra-auto-note.manual{color:#96610b}
+.v18-add-witness-row{display:flex;justify-content:flex-end;margin-top:10px}.v18-extra-witness{border:1px dashed #c9d6e6;border-radius:13px;padding:12px;margin-top:10px;background:#fbfdff}.v18-extra-witness-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.v18-extra-witness-head strong{color:var(--v18-navy)}
+.v18-subscription-chip{font-size:11px;padding:4px 8px;border-radius:999px;background:#fff1ca;color:#7a5607;font-weight:800}.v18-subscription-chip.active{background:#dff5e8;color:#166c45}
+.v18-rule-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.v18-rule-item{padding:12px;border:1px solid #e0e7ef;border-radius:12px;background:#fff}.v18-rule-item b{display:block;color:var(--v18-navy);margin-bottom:4px}.v18-rule-item small{color:var(--v18-muted);line-height:1.45}
+.v18-plan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:15px}.v18-plan{border:1px solid #dde5ee;border-radius:16px;padding:15px;background:#fff}.v18-plan.recommended{border-color:#8bc9a8;box-shadow:0 0 0 2px #e2f5eb inset}.v18-plan strong{font-size:18px;color:var(--v18-navy)}.v18-plan .price{font-size:25px;font-weight:900;margin:10px 0;color:var(--v18-green)}
+.v18-terms{line-height:1.65;color:#314055}.v18-terms h3{color:var(--v18-navy);margin-top:18px}
+.v18-agreement-deed .agreement-title{text-align:center}.v18-agreement-deed .agreement-amount-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}.v18-agreement-deed .agreement-amount-grid>div{border:1px solid #bbb;padding:8px;text-align:center}.v18-agreement-deed .agreement-amount-grid small{display:block}.v18-agreement-deed .clause-list{padding-left:20px}.v18-agreement-deed .clause-list li{margin-bottom:8px;text-align:justify}
+@media(max-width:1100px){.v18-context-bar{grid-template-columns:repeat(3,1fr)}.v18-deed-grid{grid-template-columns:repeat(3,1fr)}.v18-stats-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:720px){.v18-dashboard-content{padding:12px}.v18-topbar{padding:10px 12px}.v18-welcome{display:none}.v18-context-bar{grid-template-columns:1fr 1fr}.v18-stats-grid{grid-template-columns:1fr 1fr}.v18-deed-grid{grid-template-columns:1fr 1fr}.v18-deed-card{min-height:142px}.v18-continue-card{grid-template-columns:46px 1fr}.v18-continue-card button{grid-column:1/3}.v18-profile div:nth-child(2){display:none}.v18-rule-grid,.v18-plan-grid{grid-template-columns:1fr}.v18-agreement-deed .agreement-amount-grid{grid-template-columns:1fr}}
+
+/* ===== v1.9 FINAL ALL FIXES ===== */
+.v19-two-field-rulebook{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.v19-covered-panel{border-top:3px solid #2f8f5b}
+.v19-area-error{background:#fff3f2!important}.v19-area-error input{border-color:#c62828!important;background:#fff8f8!important}
+.v19-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:4mm!important;max-width:150mm;margin-left:auto;margin-right:auto}
+.v19-photo-grid[data-count="1"]{grid-template-columns:1fr!important;max-width:68mm}
+.v19-photo-grid[data-count="3"]{grid-template-columns:repeat(3,minmax(0,1fr))!important;max-width:174mm}
+.v19-photo-grid[data-count="4"]{grid-template-columns:repeat(4,minmax(0,1fr))!important;max-width:none}
+.v19-photo-grid[data-count="5"],.v19-photo-grid[data-count="6"],.v19-photo-grid[data-count="7"],.v19-photo-grid[data-count="8"]{grid-template-columns:repeat(4,minmax(0,1fr))!important;max-width:none}
+.v19-photo-grid .party-photo-box{min-height:26mm!important;padding:3mm!important}.v19-photo-grid .photo-placeholder{min-height:16mm!important}.v19-photo-grid .party-photo-box strong{font-size:8.5px!important}.v19-photo-grid .party-photo-box small{font-size:7.5px!important}
+.deed-page-3 .v19-photo-grid .party-photo-box{min-height:28mm!important}
+.v19-checking-deed .deed-page{padding-top:18mm!important}.v19-checking-deed h1{text-align:center;text-decoration:underline;font-size:20px}.v19-checking-deed h2{font-size:15px;margin:7mm 0 3mm}.v19-check-summary{border:1px solid #b8cfc0;background:#fbfdfb;padding:4mm;margin:4mm 0}.v19-checking-deed .payment-deed-table{font-size:9px}
+.v19-agreement-search-head{display:flex;gap:18px;justify-content:space-between;align-items:end;margin-bottom:14px}.v19-agreement-search-head input{min-width:360px}.v19-agreement-row{gap:15px}
+.v19-advocate-row{gap:16px}.v19-advocate-name{border:0;background:transparent;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:3px;flex:1;color:inherit;padding:0}.v19-advocate-name strong{font-size:15px}.v19-advocate-name small{color:#6c776f}.v19-advocate-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.v19-advocate-actions button,.v19-adv-tabs button,.v19-adv-controls>button{border:1px solid #c9d8ce;background:#fff;border-radius:9px;padding:8px 12px;cursor:pointer;font-weight:800;color:#18382a}.v19-advocate-actions button:hover,.v19-adv-tabs button.active,.v19-adv-controls>button.active{background:#eaf7ed;border-color:#2f8f5b;color:#176f37}.v19-advocate-actions span{font-size:10px;color:#567064;background:#eef5f0;padding:7px 9px;border-radius:999px}
+.v19-adv-workspace{display:grid;gap:14px}.v19-adv-top{display:flex;align-items:center;justify-content:space-between}.v19-adv-top h3{margin:0}.v19-adv-total{background:#eaf7ed;border:1px solid #bedec8;border-radius:13px;padding:9px 16px;text-align:center}.v19-adv-total small{display:block;color:#50705d}.v19-adv-total strong{font-size:24px;color:#176f37}.v19-adv-tabs{display:flex;gap:8px}.v19-adv-controls{display:flex;gap:8px;align-items:end;flex-wrap:wrap}.v19-adv-controls input{min-width:260px}.v19-adv-controls label{font-size:10px;font-weight:800;display:flex;flex-direction:column;gap:4px}.v19-adv-controls label input{min-width:150px}.v19-adv-report-page{background:#fff;border:1px solid #d6e3d9;border-radius:12px;padding:18px}.v19-adv-report-page h2{text-align:center;margin:0 0 5px}.v19-adv-report-page>p{text-align:center;font-size:11px}.v19-adv-report-page table{width:100%;border-collapse:collapse;font-size:11px}.v19-adv-report-page th,.v19-adv-report-page td{border:1px solid #7f8a82;padding:7px;text-align:left;vertical-align:top}.v19-adv-report-page th{background:#eef7f0}.v19-report-total{margin-top:10px;font-weight:900;font-size:14px}
+.v19-residential-deed .deed-page,.v19-agreement-final .deed-page{font-size:13px;line-height:1.48}.v19-residential-deed .deed-page p,.v19-agreement-final .deed-page p{margin:0 0 8px}.v19-residential-deed h1,.v19-agreement-final h1{text-align:center;text-decoration:underline}.v19-agreement-final .clause-list{padding-left:25px}.v19-agreement-final .clause-list li{margin-bottom:8px}
+@media(max-width:800px){.v19-two-field-rulebook{grid-template-columns:1fr!important}.v19-agreement-search-head{flex-direction:column;align-items:stretch}.v19-agreement-search-head input{min-width:0}.v19-adv-controls{align-items:stretch}.v19-adv-controls input{min-width:0;width:100%}.v19-photo-grid,.v19-photo-grid[data-count]{grid-template-columns:repeat(2,minmax(0,1fr))!important;max-width:none}}
+@media print{
+  .v19-photo-grid .party-photo-box{min-height:24mm!important}
+  body.print-advocate-report *{visibility:hidden!important}
+  body.print-advocate-report #v19AdvocatePrintable,body.print-advocate-report #v19AdvocatePrintable *{visibility:visible!important}
+  body.print-advocate-report #v19AdvocatePrintable{position:absolute!important;left:0!important;top:0!important;width:210mm!important;min-height:297mm!important;padding:15mm!important;margin:0!important;border:0!important;border-radius:0!important;box-sizing:border-box!important}
+  body.print-advocate-report #legalDraftPreview,body.print-advocate-report #legalDraftPreview *{visibility:hidden!important}
+}
+
+/* ===== Registry Pro v1.10 consolidated Agriculture final layout ===== */
+.v110-agri-final .deed-page{font-size:13px!important;line-height:1.42!important;padding:22mm 20mm 24mm!important;overflow:hidden!important}
+.v110-agri-final .deed-page p{font-size:13px!important;line-height:1.42!important;margin:3px 0!important;text-align:justify}
+.v110-agri-final .deed-page h1{font-size:23px!important;margin-bottom:7px!important}
+.v110-agri-final .deed-top-grid{column-gap:18px!important;row-gap:1px!important;margin-bottom:3px!important}
+.v110-agri-final .deed-top-grid>div{font-size:13px!important;line-height:1.32!important}
+.v110-agri-final .v110-summary-page{padding-top:20mm!important}
+.v110-agri-final .v110-legal-page{padding-top:24mm!important}
+.v110-agri-final .v110-property-payment-page{padding-top:22mm!important}
+.v110-agri-final .payment-deed-table{font-size:8.7px!important;line-height:1.15!important}
+.v110-agri-final .payment-deed-table th,.v110-agri-final .payment-deed-table td{padding:4px 5px!important}
+
+/* Dedicated stamp sheet: no deed wording, no border/footer. Screen hint is CSS-only and never enters Word. */
+.v110-agri-final .v110-stamp-only{border:0!important;outline:0!important;background:#fff!important;padding:0!important}
+.v110-agri-final .v110-stamp-only:before{content:'STAMP PAPER';display:flex!important;position:absolute!important;inset:0!important;align-items:center!important;justify-content:center!important;border:0!important;color:#d8ded9!important;font:700 12px Segoe UI,Arial,sans-serif!important;letter-spacing:2px!important;transform:none!important;background:none!important}
+.v110-agri-final .v110-stamp-only:after{display:none!important}
+.v110-agri-final .v110-stamp-only .registry-page-footer{display:none!important}
+
+/* Actual-party photos only; compact and scalable. */
+.v110-agri-final .v110-photo-section{margin-top:5mm!important;break-inside:avoid!important;page-break-inside:avoid!important}
+.v110-agri-final .v110-photo-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:4mm 14mm!important;margin-top:3mm!important}
+.v110-agri-final .v110-photo-grid .party-photo-box{min-height:30mm!important;max-width:62mm!important;width:100%!important;justify-self:center!important;padding:4px!important}
+.v110-agri-final .v110-photo-grid[data-count="1"]{grid-template-columns:1fr!important;max-width:65mm;margin-left:auto!important;margin-right:auto!important}
+.v110-agri-final .v110-photo-grid[data-count="3"],.v110-agri-final .v110-photo-grid[data-count="4"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.v110-agri-final .v110-photo-continuation{padding-top:24mm!important}
+.v110-agri-final .v110-photo-continuation .v110-photo-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8mm 5mm!important}
+.v110-agri-final .v110-photo-continuation .party-photo-box{min-height:45mm!important;max-width:none!important}
+
+/* Two complete people per fingerprint page in the normal case; extra parties create continuation pages automatically. */
+.v110-agri-final .v110-fingerprint-page{padding-top:20mm!important}
+.v110-agri-final .v110-finger-person{margin:0 0 4mm!important;break-inside:avoid!important;page-break-inside:avoid!important}
+.v110-agri-final .v110-finger-person>b{display:block;font-size:11px!important;line-height:1.2!important;margin-bottom:1mm!important}
+.v110-agri-final .v110-finger-person .finger-hand-block{margin:1.5mm 0!important;break-inside:avoid!important;page-break-inside:avoid!important}
+.v110-agri-final .v110-finger-person .finger-hand-title{font-size:9.5pt!important;margin:0 0 2px!important}
+.v110-agri-final .v110-finger-person .finger-print-box-row{display:grid!important;grid-template-columns:repeat(5,1fr)!important;gap:3px!important;margin-top:2px!important}
+.v110-agri-final .v110-finger-person .finger-print-box{height:18mm!important;padding:2px!important}
+.v110-agri-final .v110-finger-person .finger-print-box span{font-size:7.5pt!important}
+.v110-agri-final .v110-witness-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:3mm!important;margin-top:3mm!important;break-inside:avoid!important;page-break-inside:avoid!important}
+.v110-agri-final .v110-witness-grid .witness-detail-box{min-height:24mm!important;padding:2.5mm!important;font-size:9.5pt!important;line-height:1.15!important}
+.v110-agri-final .v110-witness-grid .witness-detail-box p{font-size:9.5pt!important;line-height:1.15!important;margin:2px 0!important;text-align:left!important}
+.v110-agri-final .v110-final-lines{margin-top:3mm!important;break-inside:avoid!important;page-break-inside:avoid!important}
+.v110-agri-final .v110-final-lines p{font-size:10.5pt!important;margin:2px 0!important}
+.v110-agri-final .v110-witness-page{padding-top:24mm!important}
+
+@media print{
+  .v110-agri-final .deed-page{width:210mm!important;height:297mm!important;min-height:297mm!important;padding:20mm 18mm 23mm!important;overflow:hidden!important;page-break-after:always!important;break-after:page!important}
+  .v110-agri-final .v110-stamp-only:before{visibility:hidden!important;content:''!important}
+  .v110-agri-final .v110-stamp-only{border:0!important;outline:0!important}
+  .v110-agri-final .v110-finger-person .finger-print-box{height:17mm!important}
+  .v110-agri-final .v110-photo-grid .party-photo-box{min-height:28mm!important}
+}
+
+/* ===== Registry Pro v1.11 ===== */
+.v111-checking-deed>.deed-page{font-size:11px!important;line-height:1.28!important;padding:16mm 16mm 22mm!important;overflow:hidden!important}
+.v111-checking-deed>.deed-page p{font-size:11px!important;line-height:1.28!important;margin:2px 0!important}
+.v111-checking-deed>.deed-page h1{font-size:20px!important;margin:0 0 4mm!important;text-align:center;text-decoration:underline}
+.v111-checking-deed>.deed-page h2{font-size:13px!important;margin:3mm 0 1.5mm!important}
+.v111-checking-deed .v19-check-summary{padding:3mm!important;margin:2mm 0!important}
+.v111-checking-deed .payment-deed-table{font-size:8px!important;line-height:1.08!important;margin:1.5mm 0!important}
+.v111-checking-deed .payment-deed-table th,.v111-checking-deed .payment-deed-table td{padding:2px 3px!important}
+.v111-checking-deed .v111-party-table td:last-child{max-width:48mm;white-space:normal}
+.v111-checking-deed ul{margin:1mm 0 0 5mm;padding-left:3mm;font-size:9.5px;line-height:1.2}
+.v111-checking-deed .registry-page-footer{font-size:8px!important}
+.pay-bank-other:not([hidden]){display:block!important;width:100%!important;margin-top:5px!important}
+@media print{
+  .v111-checking-deed>.deed-page{width:210mm!important;height:297mm!important;min-height:297mm!important;page-break-after:always!important;break-after:page!important;overflow:hidden!important;padding:14mm 14mm 20mm!important}
+  .v111-checking-deed>.deed-page:last-child{page-break-after:auto!important;break-after:auto!important}
+  .v111-checking-deed>.deed-page:before{font-size:45px!important}
+  .v110-agri-final .v110-fingerprint-page{overflow:hidden!important}
+}
+
+/* ===== Registry Pro v1.12 ===== */
+/* Better use of A4 space in Final copy. */
+.v112-final-enhanced .v110-summary-page{font-size:12.2pt!important;line-height:1.34!important;padding-top:16mm!important}
+.v112-final-enhanced .v110-summary-page p{font-size:12.2pt!important;line-height:1.34!important;margin:4px 0!important}
+.v112-final-enhanced .v110-summary-page .deed-top-grid>div{font-size:12pt!important;line-height:1.28!important;margin:3px 0!important}
+.v112-final-enhanced .v110-legal-page{font-size:11.8pt!important;line-height:1.34!important;padding-top:18mm!important}
+.v112-final-enhanced .v110-legal-page p{font-size:11.8pt!important;line-height:1.34!important;margin:5px 0!important}
+.v112-final-enhanced .v110-property-payment-page{font-size:11.5pt!important;line-height:1.28!important;padding-top:16mm!important}
+.v112-final-enhanced .v110-property-payment-page p{font-size:11.5pt!important;line-height:1.28!important;margin:4px 0!important}
+.v112-final-enhanced .v110-property-payment-page .payment-deed-table{font-size:9.5pt!important;line-height:1.12!important;margin:3mm 0!important}
+.v112-final-enhanced .v110-property-payment-page .payment-deed-table th,.v112-final-enhanced .v110-property-payment-page .payment-deed-table td{padding:4px 5px!important}
+.v112-final-enhanced .v110-stamp-only{position:relative!important;overflow:hidden!important}
+.v112-final-enhanced .v112-stamp-bottom{position:absolute!important;left:18mm!important;right:18mm!important;bottom:24mm!important;border:1.2px solid #2f8f5b!important;padding:5mm!important;background:#fff!important}
+.v112-final-enhanced .v112-stamp-bottom p{font-size:11.5pt!important;line-height:1.3!important;margin:0!important;text-align:justify!important}
+
+/* Full deed Checking Copy — exactly two pages, no party photos/fingerprints. */
+.v112-checking-deed>.v112-check-page{position:relative!important;font-size:9pt!important;line-height:1.1!important;padding:7mm 9mm 17mm!important;overflow:hidden!important}
+.v112-checking-deed .v112-check-body{position:relative;z-index:2;transform-origin:top left}
+.v112-checking-deed .v112-check-watermark{position:absolute;z-index:1;top:45%;left:14%;right:14%;text-align:center;font-size:38px;font-weight:800;color:rgba(130,130,130,.14);transform:rotate(-27deg);pointer-events:none}
+.v112-checking-deed p{font-size:9pt!important;line-height:1.1!important;margin:1.5px 0!important;text-align:justify!important}
+.v112-checking-deed h1{font-size:16px!important;line-height:1.1!important;margin:0 0 3mm!important;text-align:center!important;text-decoration:underline!important}
+.v112-checking-deed h2{font-size:11px!important;line-height:1.1!important;margin:2.5mm 0 1mm!important}
+.v112-checking-deed .deed-top-grid>div{font-size:8.8pt!important;line-height:1.08!important;margin:1px 0!important}
+.v112-checking-deed .payment-deed-table{font-size:7.2pt!important;line-height:1.02!important;margin:1.5mm 0!important}
+.v112-checking-deed .payment-deed-table th,.v112-checking-deed .payment-deed-table td{padding:2px 3px!important}
+.v112-checking-deed .witness-detail-box{font-size:8pt!important;line-height:1.05!important;min-height:0!important;padding:4px!important}
+.v112-checking-deed .party-photo-section,.v112-checking-deed .party-finger-person,.v112-checking-deed .photo-page-title{display:none!important}
+.v112-checking-deed .registry-page-footer{font-size:7.5px!important}
+
+@media print{
+  .v112-final-enhanced .deed-page:not(.v110-stamp-only){padding:15mm 15mm 22mm!important;overflow:hidden!important}
+  .v112-final-enhanced .v110-summary-page{font-size:12.2pt!important}
+  .v112-final-enhanced .v110-property-payment-page{font-size:11.5pt!important}
+  .v112-final-enhanced .v110-stamp-only{height:297mm!important;min-height:297mm!important;padding:0!important}
+  .v112-final-enhanced .v112-stamp-bottom{bottom:23mm!important}
+  .v112-checking-deed>.v112-check-page{width:210mm!important;height:297mm!important;min-height:297mm!important;padding:6mm 8mm 16mm!important;page-break-after:always!important;break-after:page!important;overflow:hidden!important}
+  .v112-checking-deed>.v112-check-page:last-child{page-break-after:auto!important;break-after:auto!important}
+}
+
+/* ===== v1.13 targeted layout adjustments: checking copy + fingerprint page only ===== */
+/* Checking Copy: larger, clearer type. JS auto-fit keeps the entire deed within exactly two pages. */
+.v112-checking-deed>.v112-check-page{padding:8mm 10mm 16mm!important;font-size:10.8pt!important;line-height:1.24!important}
+.v112-checking-deed p{font-size:10.8pt!important;line-height:1.24!important;margin:3px 0!important}
+.v112-checking-deed h1{font-size:18pt!important;line-height:1.18!important;margin:0 0 4mm!important}
+.v112-checking-deed h2{font-size:12.5pt!important;line-height:1.18!important;margin:3mm 0 1.5mm!important}
+.v112-checking-deed .deed-top-grid>div{font-size:10.4pt!important;line-height:1.18!important;margin:2px 0!important}
+.v112-checking-deed .payment-deed-table{font-size:8.8pt!important;line-height:1.12!important;margin:2.5mm 0!important}
+.v112-checking-deed .payment-deed-table th,.v112-checking-deed .payment-deed-table td{padding:3px 4px!important}
+.v112-checking-deed .witness-detail-box{font-size:9.6pt!important;line-height:1.18!important;padding:6px!important}
+.v112-checking-deed .witness-detail-box p{font-size:9.6pt!important;line-height:1.18!important;margin:2px 0!important}
+
+/* Final fingerprint page: use the available lower half instead of leaving it empty. */
+.v110-agri-final .v110-fingerprint-page{padding-top:13mm!important}
+.v110-agri-final .v110-finger-person{margin-top:3.5mm!important}
+.v110-agri-final .v110-finger-person .finger-hand-block{margin-top:2.2mm!important}
+.v110-agri-final .v110-finger-person .finger-print-box{height:24mm!important;padding:2px!important}
+.v110-agri-final .v110-finger-person .finger-print-box span{font-size:8.5pt!important}
+.v110-agri-final .v110-witness-grid{margin-top:7mm!important}
+.v110-agri-final .v110-witness-grid .witness-detail-box{min-height:28mm!important;padding:3mm!important}
+.v110-agri-final .v110-final-lines{margin-top:7mm!important}
+.v110-agri-final .v110-final-lines p{font-size:10.5pt!important;margin:3px 0!important}
+
+@media print{
+  .v112-checking-deed>.v112-check-page{padding:7mm 9mm 15mm!important}
+  .v110-agri-final .v110-finger-person .finger-print-box{height:23mm!important}
+  .v110-agri-final .v110-witness-grid{margin-top:6mm!important}
+  .v110-agri-final .v110-final-lines{margin-top:6mm!important}
+}
+
+/* ===== Source: dashboard-ui-latest.css ===== */
+/* Registry Pro - Dashboard styles
+   Extracted safely from root styles.css
+   Keep styles.css loaded before this file. */
+
+/* ===== Professional dashboard v0.3 ===== */
+.app-layout{min-height:100vh;display:grid;grid-template-columns:250px 1fr;background:#f8faf8}
+.sidebar{background:#fff;border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;width:250px;z-index:20}
+.sidebar-brand{display:flex;align-items:center;gap:10px;padding:2px 8px 18px}
+.sidebar-logo{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,#176b36,#2b934f);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+.sidebar-logo.small{width:34px;height:34px;border-radius:9px}
+.sidebar-title{font-size:21px;font-weight:800;color:#145c2e}.sidebar-title span{color:var(--orange)}
+.sidebar-brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.side-nav{display:flex;flex-direction:column;gap:5px}
+.side-item{border:0;background:transparent;text-align:left;padding:11px 12px;border-radius:9px;font-weight:700;color:#252b27;cursor:pointer;display:flex;align-items:center;gap:12px}
+.side-item span{width:21px;text-align:center;font-size:17px}
+.side-item:hover{background:#f1f7f3}.side-item.active{background:linear-gradient(90deg,#146b33,#16833d);color:#fff;box-shadow:0 5px 14px rgba(21,110,52,.16)}
+.premium-card{margin-top:auto;background:linear-gradient(145deg,#fffaf3,#fff1df);border:1px solid #fae2c2;border-radius:14px;padding:16px;text-align:left}
+.premium-icon{color:var(--orange);font-size:24px;margin-bottom:6px}.premium-card strong{display:block;font-size:16px}.premium-card small{display:block;color:#525c55;font-size:11px;line-height:1.5;margin:6px 0 12px}
+.premium-card button{width:100%;border:0;border-radius:8px;padding:9px;background:linear-gradient(90deg,#ef8b22,#ff6b00);color:#fff;font-weight:800;cursor:pointer}
+.main-panel{grid-column:2;min-width:0}
+.dash-topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 24px;gap:18px;position:sticky;top:0;z-index:15}
+.menu-btn{border:0;background:#f4f6f4;border-radius:9px;width:38px;height:38px;font-size:20px;cursor:pointer}
+.mobile-brand{display:none;align-items:center;gap:8px;color:var(--green)}
+.search-box{margin:0 auto;max-width:430px;width:100%;position:relative}.search-box span{position:absolute;left:13px;top:10px;color:#707a73}.search-box input{padding-left:38px;background:#fbfcfb}
+.top-actions{display:flex;align-items:center;gap:18px}
+.bell-btn{position:relative;border:0;background:transparent;font-size:21px;cursor:pointer}.bell-btn b{position:absolute;top:-5px;right:-5px;background:var(--orange);color:white;border-radius:99px;font-size:9px;padding:2px 5px}
+.profile-box{display:flex;align-items:center;gap:9px;min-width:160px}.avatar{width:38px;height:38px;border-radius:50%;background:#e8f4eb;color:#176b36;display:flex;align-items:center;justify-content:center;font-weight:800;border:1px solid #c9e2d0}
+.profile-box strong{display:block;font-size:13px}.profile-box small{display:block;color:var(--green);font-size:10px;margin-top:2px}
+.dashboard-content{padding:28px 30px 38px}
+.dashboard-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:25px}.dashboard-heading h1{margin:0;font-size:30px}.dashboard-heading p{margin:6px 0 0;color:var(--muted)}.dashboard-heading p strong{color:var(--green)}
+.new-draft-btn{box-shadow:0 5px 12px rgba(31,122,62,.15)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding-bottom:25px;border-bottom:1px solid var(--line)}
+.stat-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px;display:flex;align-items:center;gap:14px;min-height:118px}
+.stat-card.green{background:linear-gradient(135deg,#fbfffc,#f5fbf7)}.stat-card.orange{background:linear-gradient(135deg,#fffdf9,#fff7ef)}
+.stat-icon{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800}
+.stat-card.green .stat-icon{background:#e7f5ea;color:#198542}.stat-card.orange .stat-icon{background:#fff0e1;color:#ff7400}
+.stat-info small,.stat-info strong,.stat-info em{display:block}.stat-info small{font-weight:700;font-size:12px}.stat-info strong{font-size:26px;margin:5px 0}.stat-info em{font-size:10px;color:#1d8b43;font-style:normal}
+.dash-section-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;margin-top:24px}
+.section-title-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.section-title-row h2{font-size:18px;margin:0}.text-btn{border:0;background:none;color:var(--orange);font-weight:700;cursor:pointer}
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.quick-card{background:#fff;border:1px solid var(--line);border-radius:12px;min-height:145px;padding:16px;text-align:left;cursor:pointer;transition:.15s}
+.quick-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(22,70,36,.08)}
+.quick-icon{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}.quick-icon.green{background:#e8f5eb;color:#188340}.quick-icon.orange{background:#fff0e2;color:#fb7600}
+.quick-card strong,.quick-card small{display:block}.quick-card strong{font-size:12px;margin-bottom:5px}.quick-card small{font-size:10px;color:var(--muted)}
+.recent-list{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;min-height:302px}
+.recent-item{display:grid;grid-template-columns:34px 1fr auto 20px;gap:10px;align-items:center;padding:13px 14px;border-bottom:1px solid #edf1ee}.recent-item:last-child{border-bottom:0}.recent-doc{width:32px;height:38px;border-radius:6px;background:#eff8f1;color:#1a8b44;display:flex;align-items:center;justify-content:center}.recent-main strong{display:block;font-size:12px}.recent-main small{font-size:10px;color:var(--muted)}.status-chip{font-size:9px;border-radius:999px;padding:5px 8px;background:#eaf7ed;color:#18753a;font-weight:700}.status-chip.progress{background:#fff0e2;color:#cf6800}.more-dot{font-weight:800}
+.empty-recent{padding:28px;color:var(--muted);text-align:center;font-size:13px}
+.month-overview{margin-top:28px;background:linear-gradient(90deg,#fcfffc,#fffaf4);border:1px solid var(--line);border-radius:14px;padding:22px}
+.overview-title{font-weight:800;margin-bottom:18px}.overview-grid{display:grid;grid-template-columns:repeat(4,1fr) 180px;gap:0;align-items:stretch}
+.overview-grid>div:not(.deed-illustration){padding:8px 20px;border-right:1px solid #e6ece7}.overview-grid small,.overview-grid strong,.overview-grid em{display:block}.overview-grid small{font-size:10px;color:#4b554e}.overview-grid strong{font-size:24px;margin:8px 0}.overview-grid em{font-size:9px;color:#208a45;font-style:normal}
+.deed-illustration{display:flex;align-items:center;justify-content:center}.paper{width:86px;height:103px;border:4px solid #25884a;border-radius:7px;background:#fff;color:var(--orange);font-weight:900;text-align:center;padding-top:18px;box-shadow:5px 5px 0 #dbeede}.house{color:#24864a;font-size:38px;margin-top:10px}
+.sidebar-overlay{display:none}
+@media(max-width:1100px){
+ .stats-grid{grid-template-columns:repeat(2,1fr)}
+ .dash-section-grid{grid-template-columns:1fr}
+ .overview-grid{grid-template-columns:repeat(4,1fr)}.deed-illustration{display:none}
+}
+@media(max-width:820px){
+ .app-layout{display:block}.main-panel{grid-column:auto}.sidebar{transform:translateX(-105%);transition:.2s;width:250px}.sidebar.open{transform:translateX(0)}
+ .mobile-brand{display:flex}.dash-topbar{padding:0 14px}.search-box{display:none}.profile-box>div:not(.avatar),.profile-box>span{display:none}.profile-box{min-width:0}
+ .dashboard-content{padding:20px 14px}.dashboard-heading{align-items:stretch}.dashboard-heading .new-draft-btn{white-space:nowrap}
+}
+@media(max-width:600px){
+ .stats-grid{grid-template-columns:1fr}
+ .quick-grid{grid-template-columns:repeat(2,1fr)}
+ .overview-grid{grid-template-columns:repeat(2,1fr)}.overview-grid>div:not(.deed-illustration){border-right:0;border-bottom:1px solid #e6ece7}
+ .dashboard-heading{flex-direction:column}.new-draft-btn{width:100%}
+}
+
+/* Final compact dashboard: matches the approved horizontal card layout. */
+.v18-dashboard-content{padding:18px 24px 28px}
+.v18-stats-grid{gap:10px;margin:12px 0}
+.v18-stat-card{min-height:76px;border-radius:13px;padding:11px 12px;grid-template-columns:36px 1fr;column-gap:9px}
+.v18-stat-card>span{width:36px;height:36px;border-radius:10px;font-size:17px}
+.v18-stat-card small{font-size:11px}
+.v18-stat-card strong{font-size:20px}
+.v18-continue-card{min-height:66px;padding:10px 14px;margin:10px 0 14px}
+.v18-create-title{margin-bottom:9px}
+.v18-deed-grid{gap:10px}
+.v18-deed-card{min-height:84px;border-radius:13px;padding:10px 12px;display:grid;grid-template-columns:54px minmax(0,1fr);grid-template-rows:auto auto;column-gap:10px;row-gap:2px;align-content:center;justify-content:stretch;text-align:left}
+.v18-deed-card strong{font-size:13px;align-self:end;white-space:normal}
+.v18-deed-card small{text-align:left;font-size:10px;align-self:start}
+.v18-deed-art{grid-row:1/3;width:54px;height:54px;border-radius:11px;font-size:26px}
+.v18-recent{margin-top:16px}
+@media(max-width:1100px){
+  .v18-deed-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:720px){
+  .v18-dashboard-content{padding:12px}
+  .v18-deed-grid{grid-template-columns:1fr 1fr}
+  .v18-deed-card{min-height:78px;grid-template-columns:46px minmax(0,1fr);padding:9px}
+  .v18-deed-art{width:46px;height:46px;font-size:22px}
+}
+
+/* ===== Source: final.css ===== */
+/* Registry Pro v1.14 final overlay */
+.v114-auth-card{max-width:520px}.v114-signup-grid,.v114-forgot-grid{gap:14px}.v114-otp-row{display:grid!important;grid-template-columns:auto minmax(140px,1fr) auto;gap:10px;align-items:end}.v114-test-otp{padding:10px 12px;border-radius:10px;background:#fff6df;border:1px dashed #e1a32a;color:#7d5700;min-height:42px}.v114-role-switch{min-width:250px;padding:8px 10px;border:1px solid #dce8e1;border-radius:14px;background:#fff}.v114-role-switch>span{display:block;font-size:11px;font-weight:800;color:#60736a;margin-bottom:5px}.v114-role-buttons{display:flex;gap:5px}.v114-role-buttons button{border:1px solid #c9ddd2;background:#f7fbf8;border-radius:9px;padding:7px 10px;font-weight:800;cursor:pointer;flex:1}.v114-role-buttons button.active{background:#1f8a55;color:#fff;border-color:#1f8a55}.v114-role-buttons button:disabled{opacity:.38;cursor:not-allowed}.v114-role-switch small{display:block;margin-top:4px;color:#718079;font-size:10px}.v114-court-drawer{margin-top:6px!important;border:1px solid rgba(255,255,255,.14)!important}.v114-court-drawer span{font-size:12px!important}.v114-rate-manager h3{margin-top:0}.v114-pending-box{padding:16px;border:1px dashed #e0a23a;background:#fff8e8;border-radius:12px;margin:14px 0}.v114-court-ai{max-width:960px}.v114-ai-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;border-bottom:1px solid #e6eee9;padding-bottom:12px}.v114-ai-head h3{margin:0 0 4px}.v114-ai-head p{margin:0;color:#66776e}.v114-local-badge{background:#fff3d2;color:#7e5a00;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800;white-space:nowrap}.v114-ai-chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.v114-ai-chips button{border:1px solid #cfe2d7;background:#f5fbf7;border-radius:999px;padding:7px 12px;cursor:pointer;font-weight:700}.v114-chat{min-height:320px;max-height:480px;overflow:auto;background:#f7faf8;border:1px solid #dde8e1;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px}.v114-msg{max-width:85%;padding:11px 13px;border-radius:14px;line-height:1.55;white-space:normal}.v114-msg.ai{align-self:flex-start;background:#fff;border:1px solid #dce8e1}.v114-msg.user{align-self:flex-end;background:#e9f6ee;border:1px solid #c9e7d5}.v114-ai-input{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:12px;align-items:end}.v114-ai-input textarea{resize:vertical;min-height:90px}.v114-draft-back{position:sticky;top:10px;left:12px;z-index:40;margin:10px 0 8px 12px;border:1px solid #cbdcd3;background:#fff;color:#173d2d;border-radius:10px;padding:9px 14px;font-weight:800;box-shadow:0 4px 16px rgba(24,74,50,.08);cursor:pointer}#registryView .wizard-footer>.btn.outline:first-child{display:none!important}#registryView #draftTypeScreen>.draft-actions>.btn.outline:first-child{display:none!important}#registryView .dash-topbar .top-actions>.btn[onclick*="showDashboard"]{display:none!important}.v114-final-back{position:absolute;left:18px;top:18px;border:1px solid #cbdcd3;background:#fff;border-radius:9px;padding:7px 11px;font-weight:800;cursor:pointer}.save-success-card{position:relative}.v114-context-note{font-size:11px;color:#66776e}
+@media(max-width:900px){.v18-context-bar{align-items:stretch}.v114-role-switch{min-width:100%}.v114-otp-row{grid-template-columns:1fr}.v114-ai-input{grid-template-columns:1fr}.v114-msg{max-width:96%}.v114-draft-back{top:6px;margin-left:6px}}
+
+.v114-working-advocate{width:100%;margin-top:6px;border:1px solid #c9ddd2;border-radius:9px;padding:7px 9px;background:#fff;font-size:12px;font-weight:700}
+
+.v114-open-full-rate{margin-top:8px;width:100%;justify-content:center}.v114-open-full-rate:disabled{opacity:.5;cursor:not-allowed}
+
+/* ===== Source: fixes.css ===== */
+/* Registry Pro v1.15 final fixes */
+.v114-role-switch.v115-role-switch{min-width:245px}.v114-role-switch.v115-role-switch select{width:100%;min-height:39px;border:1px solid #c9ddd2;border-radius:9px;background:#f7fbf8;padding:7px 10px;font-weight:800;color:#183c2d}.v114-working-advocate{margin-top:6px}
+#registryView .draft-workspace{position:relative;padding-top:0!important}
+#v114DraftBack.v115-draft-back{position:sticky!important;top:8px!important;left:0!important;right:auto!important;z-index:120!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;margin:8px 0 12px 0!important;transform:none!important;float:none!important;min-width:92px!important;border:1px solid #bdd3c7!important;background:#fff!important;color:#16412e!important;border-radius:10px!important;padding:9px 14px!important;font-weight:850!important;box-shadow:0 4px 14px rgba(25,70,48,.10)!important}
+#registryView .wizard-footer>button.btn.outline:first-child,#registryView #draftTypeScreen .draft-actions>button.btn.outline:first-child,#registryView .dash-topbar .top-actions>button[onclick="showDashboard()"]{display:none!important}
+#registryView .wizard-footer{grid-template-columns:1fr auto!important}.wizard-footer .page-indicator{justify-self:start}
+.v115-rate-manager{max-width:1180px}.v115-rate-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.v115-rate-head h3{margin:0 0 4px}.v115-rate-head p{margin:0;color:#66776e}.v115-notice{margin:14px 0;padding:12px 14px;border:1px solid #cde1d6;background:#f2faf5;border-radius:12px;line-height:1.5;color:#315443}.v115-rate-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0}.v115-rate-tools input{flex:1;min-width:260px;min-height:42px;border:1px solid #cfdcd4;border-radius:10px;padding:9px 12px}.v115-rate-tools span{font-size:12px;font-weight:800;color:#51675c}.v115-rate-table-wrap{max-height:520px;overflow:auto;border:1px solid #dce7e0;border-radius:12px}.v115-rate-table{width:100%;border-collapse:collapse;font-size:12px}.v115-rate-table th{position:sticky;top:0;z-index:2;background:#edf8f1;color:#234837;text-align:left;padding:9px;border-bottom:1px solid #cfe0d6}.v115-rate-table td{padding:8px 9px;border-bottom:1px solid #edf1ee;vertical-align:top}.v115-rate-table td small{display:block;color:#718078;margin-top:3px;max-width:420px}.v115-rate-table tr:hover td{background:#fbfdfc}.v115-empty{padding:18px!important;text-align:center;color:#6e7d75}.v115-page-section{margin-top:20px;border-top:1px solid #e2e9e5;padding-top:16px}.v115-page-section h4{margin:0}.v115-page-index{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:8px;max-height:360px;overflow:auto}.v115-page-index button{border:1px solid #d5e3db;background:#fff;border-radius:10px;padding:10px;text-align:left;cursor:pointer}.v115-page-index button:hover{background:#f0f8f3;border-color:#9fc9af}.v115-page-index b{display:block;color:#1d6841}.v115-page-index span{display:block;font-size:10px;color:#718078;margin-top:3px}.location-suggestions{max-height:430px!important}.v115-page-hit{background:#fffaf0!important}.v114-final-back{left:18px!important;right:auto!important;top:18px!important}
+@media(max-width:800px){.v115-rate-head{flex-direction:column}.v115-rate-tools input{min-width:100%}.v115-rate-table{min-width:780px}#v114DraftBack.v115-draft-back{top:6px!important;margin-left:0!important}.v114-role-switch.v115-role-switch{min-width:100%}}
+
+/* ===== Source: fixes.css ===== */
+/* Registry Pro v1.16 final UI fixes */
+#v114DraftBack.v116-fixed-back{position:fixed!important;top:112px!important;left:22px!important;right:auto!important;z-index:10020!important;margin:0!important;transform:none!important;float:none!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:104px!important;padding:10px 16px!important;border:1px solid #b9d1c4!important;border-radius:11px!important;background:#fff!important;color:#153f2d!important;font-weight:900!important;box-shadow:0 6px 18px rgba(24,70,48,.16)!important}
+#registryView .v116-duplicate-nav{display:none!important}
+#registryView .draft-workspace{padding-top:58px!important}
+.v116-inline-manual{margin-top:7px;border:0;background:transparent;color:#167344;font-size:12px;font-weight:850;cursor:pointer;padding:4px 2px;text-align:left}
+.v116-inline-manual:hover{text-decoration:underline}.v116-manual-option{border-top:1px dashed #bad5c5!important;background:#f7fcf8!important}.v116-manual-option strong{color:#136d40!important}.v116-manual-rate{margin-top:8px;padding:12px;border:1px solid #cfe0d6;background:#f7fbf8;border-radius:12px}.v116-manual-grid{display:grid;grid-template-columns:1.4fr 1fr auto;gap:10px;align-items:end}.v116-manual-grid label{font-size:12px;font-weight:800;color:#456154}.v116-manual-grid input,.v116-manual-grid select{display:block;width:100%;margin-top:5px;min-height:40px;border:1px solid #cbdcd2;border-radius:9px;background:#fff;padding:8px 10px}.v116-manual-rate>small{display:block;margin-top:7px;color:#6a7d72}.v116-manual-selected{border-color:#e3ad58!important;background:#fffaf1!important}.v116-manual{background:#fff9ee!important;border-color:#edcd95!important}
+.v114-role-switch.v115-role-switch{overflow:visible!important}.v116-adv-panel{position:relative;margin-top:8px}.v116-adv-panel>label{display:block;font-size:11px;font-weight:850;color:#4e655a}.v116-adv-panel input{width:100%;min-height:40px;margin-top:4px;border:1px solid #c9ddd2;border-radius:9px;background:#fff;padding:8px 10px;font-weight:750}.v116-adv-suggest{display:none;position:absolute;left:0;right:0;top:59px;z-index:1000;max-height:260px;overflow:auto;border:1px solid #cbded3;border-radius:10px;background:#fff;box-shadow:0 10px 28px rgba(25,70,48,.17)}.v116-adv-suggest.show{display:block}.v116-adv-suggest button{display:block;width:100%;border:0;border-bottom:1px solid #eef2ef;background:#fff;padding:9px 11px;text-align:left;cursor:pointer;font-weight:750}.v116-adv-suggest button:hover{background:#eef8f2}.v116-adv-suggest small{display:block;padding:10px;color:#6c7c73}.v116-adv-docrow{display:grid;grid-template-columns:1fr auto;gap:7px;margin-top:7px}.v116-adv-docrow select{width:100%;min-height:40px;border:1px solid #c9ddd2;border-radius:9px;background:#f8fbf9;padding:8px 10px;font-weight:800}
+.v116-search-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}.v116-search-head h3{margin:0 0 3px}.v116-search-head small{color:#697a71}.v116-search-grid{display:grid;grid-template-columns:repeat(5,minmax(150px,1fr));gap:10px}.v116-search-grid label{font-size:12px;font-weight:800;color:#51675c}.v116-search-grid input,.v116-search-grid select{display:block;width:100%;margin-top:5px;min-height:42px;border:1px solid #d0ddd6;border-radius:10px;background:#fff;padding:8px 10px}.saved-draft-actions{flex-wrap:wrap}.saved-draft-card .saved-draft-parties span{min-width:150px}
+.location-option small{max-width:720px}.location-suggestions{max-height:470px!important;overflow:auto!important}
+@media(max-width:900px){#v114DraftBack.v116-fixed-back{top:86px!important;left:10px!important;min-width:88px!important;padding:8px 12px!important}.v116-manual-grid,.v116-search-grid{grid-template-columns:1fr}.v116-search-head{flex-direction:column}.v116-adv-docrow{grid-template-columns:1fr}.v114-role-switch.v115-role-switch{min-width:100%!important}#registryView .draft-workspace{padding-top:50px!important}}
+
+/* v1.17.1 Saved Drafts compact patch */
+#savedView .header{justify-content:flex-start;gap:14px;padding:10px 4%;}
+#savedView .header .btn{order:-1;flex:0 0 auto;}
+#savedView .header .brand{order:0;}
+#savedView .saved-drafts-shell{max-width:1450px;}
+#savedView .saved-search-card{position:sticky;top:72px;z-index:3;padding:10px 12px;border-top-width:3px;}
+.v1171-saved-toolbar{display:flex;align-items:end;gap:8px;flex-wrap:nowrap;min-height:52px;}
+.v1171-scope-note{align-self:center;font-size:11px;font-weight:800;color:#315d45;white-space:nowrap;max-width:230px;overflow:hidden;text-overflow:ellipsis;}
+.v1171-field{display:flex;flex-direction:column;gap:3px;min-width:170px;margin:0;}
+.v1171-field span{font-size:10px;font-weight:800;color:#52665b;line-height:1;}
+.v1171-field input,.v1171-field select{height:36px;min-height:36px;padding:6px 9px;border:1px solid #d0ddd6;border-radius:9px;background:#fff;font-size:12px;}
+.v1171-criterion{width:185px;min-width:185px;}
+.v1171-query{flex:1;min-width:260px;}
+.v1171-search-btn,.v1171-clear-btn{height:36px;min-height:36px;padding:6px 14px;white-space:nowrap;}
+.v1171-result-count{margin-left:auto;align-self:center;font-size:10px;font-weight:800;color:#607067;white-space:nowrap;}
+#savedView #savedList{display:block;max-height:calc(100vh - 230px);overflow:auto;border:1px solid #dfe8e2;border-radius:12px;background:#fff;}
+.v1171-saved-table{min-width:1180px;}
+.v1171-saved-head,.v1171-saved-row{display:grid;grid-template-columns:145px 135px 1fr 1fr 145px 110px 105px 300px;align-items:center;gap:8px;padding:8px 10px;}
+.v1171-saved-head{position:sticky;top:0;z-index:2;background:#eef8f2;border-bottom:1px solid #dbe7df;font-size:10px;font-weight:900;color:#385746;}
+.v1171-saved-row{min-height:48px;border-bottom:1px solid #edf2ef;font-size:11px;background:#fff;}
+.v1171-saved-row:last-child{border-bottom:0;}
+.v1171-saved-row>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.v1171-draftno{font-weight:900;color:#8a5a1f;}
+.v1171-row-actions{display:flex;gap:6px;justify-content:flex-end;overflow:visible!important;}
+.v1171-row-actions .btn{font-size:10px;padding:6px 9px;min-height:32px;}
+.v1171-empty-row{padding:18px;text-align:center;color:#6d7b73;font-weight:700;}
+@media(max-width:900px){
+  #savedView .header{padding:8px 10px;}
+  #savedView .saved-search-card{top:64px;padding:8px;}
+  .v1171-saved-toolbar{flex-wrap:wrap;align-items:end;}
+  .v1171-field,.v1171-criterion,.v1171-query{width:auto;min-width:calc(50% - 6px);flex:1 1 calc(50% - 6px);}
+  .v1171-search-btn,.v1171-clear-btn{flex:0 0 auto;}
+  .v1171-result-count{width:100%;margin-left:0;}
+  #savedView #savedList{max-height:none;overflow:auto;}
+}
+
+/* ===== Source: final.css ===== */
+/* Registry Pro v1.17 final UI */
+#v116AdvocatePanel{display:none!important}
+.v117-card{background:#fff;border:1px solid #e4e9ee;border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 6px 20px rgba(30,60,80,.05)}
+.v117-section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.v117-section-head span{background:#eef7f1;color:#176b43;border-radius:999px;padding:4px 10px;font-weight:700}
+.v117-adv-list{max-height:520px;overflow:auto;border-top:1px solid #edf0f2}.v117-adv-row{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:14px 4px;border-bottom:1px solid #edf0f2}.v117-adv-row strong{display:block}.v117-adv-row small{display:block;color:#68747f;margin-top:4px}.v117-adv-actions{display:flex;gap:8px;flex-wrap:wrap}
+.v117-searchbar{display:grid;grid-template-columns:minmax(180px,240px) minmax(260px,1fr) auto;gap:12px;align-items:end;margin-bottom:16px}.v117-searchbar label{display:flex;flex-direction:column;gap:6px}.v117-searchbar input,.v117-searchbar select{height:42px;border:1px solid #cfd8df;border-radius:9px;padding:0 10px}
+.v117-result-list{display:grid;gap:10px}.v117-result-row{border:1px solid #e3e8ec;border-radius:12px;padding:13px;display:flex;justify-content:space-between;gap:14px;align-items:center}.v117-result-row small{display:block;color:#67737c;margin-top:4px}.v117-result-actions{display:flex;gap:6px;flex-wrap:wrap}.v117-result-actions button,.v117-periods button{border:1px solid #cad5dd;background:#fff;border-radius:8px;padding:8px 10px;cursor:pointer;font-weight:650}.v117-result-actions button:hover,.v117-periods button:hover{border-color:#2f8f5b;color:#176b43}
+.v117-table-wrap{overflow:auto}.v117-table{width:100%;border-collapse:collapse;min-width:850px}.v117-table th,.v117-table td{border:1px solid #dfe5e9;padding:9px 10px;text-align:left;vertical-align:top}.v117-table th{background:#f6f8f9;white-space:nowrap}.v117-table td small{display:block;color:#6a7680;margin-top:3px}.v117-green-tick{color:#138a4b;font-weight:800}.v117-green-tick.big{font-size:46px}.v117-due{color:#b42318!important;font-weight:700}.v117-success{text-align:center;padding:30px 10px}.v117-success .draft-actions{justify-content:center}
+.v117-periods{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.v117-report-grid{grid-template-columns:repeat(5,minmax(130px,1fr))!important}.v117-report-card{border:1px solid #dce4e8;background:#fff;border-radius:12px;padding:14px;text-align:left;cursor:pointer}.v117-report-card small,.v117-report-card strong{display:block}.v117-report-card.typist{background:#f0f7ff;border-color:#cfe2f6}.v117-click-row{cursor:pointer}.v117-click-row:hover{background:#f5faf7}
+.v117-property-actions{display:flex;gap:10px}.v18-stat-card.teal{background:linear-gradient(135deg,#e9fbf7,#f7fffd);border-color:#bce9df}.v117-mutation-card small{white-space:normal}
+@media(max-width:900px){.v117-searchbar{grid-template-columns:1fr}.v117-adv-row,.v117-result-row{align-items:flex-start;flex-direction:column}.v117-report-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+
+/* v1.17.2 compact dashboard + advocate management */
+#dashboardView .v114-role-switch.v115-role-switch{display:none!important}
+#dashboardView .v18-context-bar{grid-template-columns:1fr 1fr 1fr 1.15fr 1.15fr .9fr!important}
+.v117-adv-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px;padding:10px 2px}
+.v117-adv-toolbar>span{background:#eef7f1;color:#176b43;border-radius:999px;padding:7px 12px;font-weight:800;white-space:nowrap}
+.v117-adv-list-card{padding-top:14px}
+.v117-adv-edit-card{max-width:1480px;margin-left:auto;margin-right:auto}
+.v117-form-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+@media(max-width:1100px){#dashboardView .v18-context-bar{grid-template-columns:repeat(3,1fr)!important}}
+@media(max-width:720px){#dashboardView .v18-context-bar{grid-template-columns:1fr 1fr!important}.v117-adv-toolbar{align-items:stretch}.v117-adv-toolbar .btn{width:100%}}
+
+/* ===== Source: final.css ===== */
+/* Registry Pro v1.18 final patch */
+.v118-card{background:#fff;border:1px solid #dce7e0;border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 4px 16px rgba(20,60,40,.05)}
+.v118-toolbar{display:flex;justify-content:flex-end;gap:8px;margin:0 0 10px}
+.v118-section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}.v118-section-head h3{margin:0}.v118-section-head small{color:#65736b}
+.v118-property-add .form-grid{align-items:end}.v118-manual-party{display:grid;gap:6px}.v118-manual-party[hidden]{display:none!important}
+.v118-property-table th,.v118-property-table td{white-space:nowrap}.v118-actions{display:flex;gap:5px}.v118-actions button,.v118-open-same{border:1px solid #b8c8be;background:#fff;border-radius:7px;padding:6px 9px;cursor:pointer}.v118-actions button:hover,.v118-open-same:hover{background:#eff8f2;border-color:#2d7a50}
+.v118-party-search{max-width:900px}.v118-party-search-row{display:grid;grid-template-columns:190px minmax(240px,1fr) 120px;gap:10px;align-items:end}.v118-party-search-row select,.v118-party-search-row input{height:42px}
+@media(max-width:780px){.v118-party-search-row{grid-template-columns:1fr}.v118-toolbar{justify-content:flex-start}.v118-property-table{min-width:980px}}
+
+/* ===== Source: final.css ===== */
+/* Registry Pro v1.18.1 final correction styles */
+.v119-row-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-width:110px}
+.v119-adv-count{margin:10px 0 8px;color:#52635a;font-size:12px}
+.v119-adv-count b{color:#143a2a;font-size:14px}
+#savedList .v1171-row-actions{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+#savedList .v1171-row-actions .btn{white-space:nowrap}
+.v119-pdf-toolbar{position:sticky;top:0;z-index:9999;display:flex;align-items:center;gap:10px;padding:10px 16px;background:#fff;border-bottom:1px solid #d8e1dc;box-shadow:0 2px 8px rgba(0,0,0,.08);font-family:Arial,sans-serif}
+.v119-pdf-toolbar button{border:1px solid #1f6e45;border-radius:8px;background:#1f6e45;color:#fff;padding:8px 13px;font-weight:700;cursor:pointer}
+.v119-pdf-toolbar button+button{background:#fff;color:#1f6e45}
+.v119-pdf-toolbar span{margin-left:auto;font-size:12px;font-weight:700;color:#33443a}
+.v119-pdf-document{max-width:1000px;margin:18px auto;background:#fff}
+@media print{.v119-pdf-toolbar{display:none!important}.v119-pdf-document{max-width:none;margin:0}.v119-pdf-document .deed-page{box-shadow:none!important}}
+@media(max-width:900px){.v119-row-actions{min-width:0}.v119-pdf-toolbar{flex-wrap:wrap}.v119-pdf-toolbar span{width:100%;margin-left:0}}
+
+/* ===== Source: final.css ===== */
+/* Registry Pro v1.19 final patch */
+.v120-profile-box{gap:10px;cursor:default!important;min-width:245px}.v120-profile-main{cursor:pointer;min-width:92px}.v120-profile-main:hover strong{text-decoration:underline}.v120-mode-select{border:1px solid #cfe0d5;background:#f7fbf8;color:#174b32;border-radius:10px;padding:8px 28px 8px 10px;font-weight:800;max-width:112px}
+body[data-rp-mode="advocate"] #continueLastDraftCard,body[data-rp-mode="advocate"] .v18-create-title,body[data-rp-mode="advocate"] .v18-deed-grid,body[data-rp-mode="advocate"] .v18-recent{display:none!important}
+.v120-draft-jurisdiction{display:grid;grid-template-columns:repeat(3,minmax(180px,1fr)) auto;gap:12px;align-items:end;padding:12px 16px;margin:0 0 14px;border-left:4px solid #1d8648}.v120-draft-jurisdiction label{display:flex;flex-direction:column;gap:5px}.v120-draft-jurisdiction label span{font-size:12px;font-weight:800;color:#5f6f68}.v120-draft-jurisdiction select{height:42px;border:1px solid #d8e2dc;border-radius:10px;padding:0 12px;background:#fff;font-weight:800}.v120-draft-jurisdiction>small{align-self:center;color:#6d7b75;font-weight:700;white-space:nowrap}
+.v120-mine-readonly input[readonly]{background:#f4f7f5;color:#24362d;border-color:#dce5df}.v120-mine-actions{margin-top:14px}.v120-row-actions,.v119-row-actions{display:flex!important;gap:7px;align-items:center;flex-wrap:wrap}.v120-mutation-sent{display:inline-flex;align-items:center;gap:4px;color:#14813f;font-weight:900;white-space:nowrap}.v120-mutation-action{display:inline-flex;align-items:center;margin-left:5px}
+.v120-open-draft-mutation{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:10px 14px;margin:0 0 12px;border:1px solid #cce7d6;border-radius:12px;background:#f4fbf6;color:#24573a}.v120-open-draft-mutation span{display:flex;gap:8px;align-items:center}.v120-open-draft-mutation[hidden]{display:none!important}
+.v120-advocate-english{margin-top:12px;padding:10px 12px;border:1px solid #b9d8c2;background:#fbfefc;font-family:Arial,sans-serif!important;font-size:11px;line-height:1.45;color:#183b28}.v120-pdf-toolbar{position:sticky;top:0;z-index:50;display:flex;gap:10px;align-items:center;padding:10px 18px;background:#143d2b;color:#fff;font-family:Arial,sans-serif}.v120-pdf-toolbar button{border:0;border-radius:8px;padding:9px 14px;font-weight:800;cursor:pointer}.v120-pdf-toolbar span{margin-left:auto;font-weight:700}.v120-pdf-document{max-width:900px;margin:18px auto;background:#fff}.v120-pdf-document .deed-page{margin:0 auto 18px}
+@media print{.v120-pdf-toolbar{display:none!important}.v120-pdf-document{max-width:none;margin:0}.v120-pdf-document .deed-page{margin:0!important;break-after:page;page-break-after:always}.v120-pdf-document .deed-page:last-child{break-after:auto;page-break-after:auto}}
+@media(max-width:900px){.v120-draft-jurisdiction{grid-template-columns:1fr 1fr}.v120-draft-jurisdiction>small{grid-column:1/-1}.v120-profile-box{min-width:0}.v120-mode-select{max-width:100px}}
+
+/* ===== Source: final-fixes.css ===== */
+/* Registry Pro v1.20.3 targeted final fixes */
+body.v125-direct-opening #draftTypeScreen{visibility:hidden!important;opacity:0!important;pointer-events:none!important}
+.v125-advocate-lines{margin-top:5mm;font-family:Arial,Segoe UI,sans-serif!important;font-size:11pt!important;line-height:1.45!important;color:#111!important;break-inside:avoid!important;page-break-inside:avoid!important}
+.v125-advocate-lines>div{margin:1px 0!important;text-align:left!important}
+.v125-advocate-lines b{font-weight:800!important}
+.payment-total.payment-error{border-color:#d44747!important;background:#fff5f5!important}
+.payment-total.payment-ok{border-color:#309357!important;background:#f2fff6!important}
+#paymentMatch.match-bad{color:#b3261e!important;font-weight:800!important}
+#paymentMatch.match-ok{color:#16723b!important;font-weight:800!important}
+#v125PrintRoot{display:none}
+@media print{
+  @page{size:A4;margin:0}
+  body.v125-print-clean{margin:0!important;padding:0!important;background:#fff!important}
+  body.v125-print-clean>*:not(#v125PrintRoot){display:none!important}
+  body.v125-print-clean #v125PrintRoot,body.v125-print-clean #v125PrintRoot *{visibility:visible!important}
+  body.v125-print-clean #v125PrintRoot{display:block!important;position:static!important;width:210mm!important;margin:0!important;padding:0!important;background:#fff!important;overflow:visible!important}
+  body.v125-print-clean #v125PrintRoot .deed-document{display:block!important;width:210mm!important;margin:0!important;padding:0!important;background:#fff!important}
+  body.v125-print-clean #v125PrintRoot .deed-page{box-sizing:border-box!important;width:210mm!important;height:296.6mm!important;min-height:296.6mm!important;max-height:296.6mm!important;margin:0!important;overflow:hidden!important;page-break-after:always!important;break-after:page!important}
+  body.v125-print-clean #v125PrintRoot .deed-page:last-child,
+  body.v125-print-clean #v125PrintRoot .v110-agri-final>.deed-page:last-child,
+  body.v125-print-clean #v125PrintRoot .v112-checking-deed>.v112-check-page:last-child,
+  body.v125-print-clean #v125PrintRoot .v111-checking-deed>.deed-page:last-child{page-break-after:auto!important;break-after:auto!important}
+  body.v125-print-clean #v125PrintRoot .v120-advocate-english{display:none!important}
+  body.v125-print-clean #v125PrintRoot .v125-advocate-lines{font-size:10pt!important;line-height:1.35!important;margin-top:4mm!important}
+}
+
+/* ===== Source: official-district-index.css ===== */
+/* Registry Pro v1.20.7 — scoped styles for official district data views. */
+.v128-manager .v115-rate-table-wrap{max-height:58vh}
+.v128-rate-table{min-width:1240px}
+.v128-rate-table td small{display:block;margin-top:4px;color:#64748b;line-height:1.3}
+.v128-source-limit{margin-top:14px;padding:13px 15px;border:1px solid #f1c76a;border-radius:10px;background:#fff9e9;color:#6b4d08;line-height:1.5}
+.v128-official-banner{margin:10px 0 0;padding:12px 14px;border:1px solid #f0c36d;border-radius:10px;background:#fff8e7;color:#714f00;font-weight:700;line-height:1.45}
+.v128-rules .v18-rule-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.v128-page-link{border:0;background:transparent;color:#0f766e;text-decoration:underline;cursor:pointer;font-weight:800;padding:0 2px}
+.v128-rules .management-list{max-height:54vh;overflow:auto}
+.v128-over-200 td{background:#fff9e9;color:#6b4d08}
+@media(max-width:760px){.v128-manager .v115-rate-table-wrap{max-height:52vh}.v128-rate-table{min-width:1120px}}
+
+/* ===== Source: draft-name-theme.css ===== */
+/* Registry Pro v1.20.40 — cosmetic header-row themes only. */
+#registryView.v1216-agri-active.rp-theme-residential-plot #v120DraftJurisdiction,
+#registryView.v1216-agri-active #v120DraftJurisdiction.rp-theme-residential-plot{background:#e8f3ff!important;border-radius:10px!important;padding:8px 10px!important;}
+#registryView.v1216-agri-active.rp-theme-residential-building #v120DraftJurisdiction,
+#registryView.v1216-agri-active #v120DraftJurisdiction.rp-theme-residential-building{background:#ffe9e9!important;border-radius:10px!important;padding:8px 10px!important;}
+#registryView.v1216-agri-active.rp-theme-gift #v120DraftJurisdiction,
+#registryView.v1216-agri-active #v120DraftJurisdiction.rp-theme-gift{background:#fff8d9!important;border-radius:10px!important;padding:8px 10px!important;}
+#registryView.v1216-agri-active.rp-theme-commercial #v120DraftJurisdiction,
+#registryView.v1216-agri-active #v120DraftJurisdiction.rp-theme-commercial{background:#f0f1f3!important;border-radius:10px!important;padding:8px 10px!important;}
+#registryView.v1216-agri-active.rp-theme-industrial #v120DraftJurisdiction,
+#registryView.v1216-agri-active #v120DraftJurisdiction.rp-theme-industrial{background:#fff0dc!important;border-radius:10px!important;padding:8px 10px!important;}
+#registryView.v1216-agri-active.rp-theme-agreement #v120DraftJurisdiction,
+#registryView.v1216-agri-active #v120DraftJurisdiction.rp-theme-agreement{background:#f3e9ff!important;border-radius:10px!important;padding:8px 10px!important;}
+#registryView.v1216-agri-active.rp-theme-lease #v120DraftJurisdiction,
+#registryView.v1216-agri-active #v120DraftJurisdiction.rp-theme-lease{background:#e9f8ea!important;border-radius:10px!important;padding:8px 10px!important;}
+#registryView.v1216-agri-active.rp-theme-sale-after #v120DraftJurisdiction,
+#registryView.v1216-agri-active #v120DraftJurisdiction.rp-theme-sale-after{background:#e5e7eb!important;border-radius:10px!important;padding:8px 10px!important;}
+
+/* v1.20.41 — extend each non-Agriculture draft theme to the internal
+   Agriculture-style section bars and valuation/summary strips only.
+   Agriculture has no rp-theme-* class, so it remains byte-for-byte visually untouched. */
+#registryView.rp-theme-residential-plot{--rp-draft-row:#e8f3ff;--rp-draft-row2:#f3f8ff;--rp-draft-border:#b9d8f6;--rp-draft-text:#173b59;}
+#registryView.rp-theme-residential-building{--rp-draft-row:#ffe9e9;--rp-draft-row2:#fff3f3;--rp-draft-border:#f1c2c2;--rp-draft-text:#5b2525;}
+#registryView.rp-theme-gift{--rp-draft-row:#fff8d9;--rp-draft-row2:#fffbea;--rp-draft-border:#eadb98;--rp-draft-text:#574c17;}
+#registryView.rp-theme-commercial{--rp-draft-row:#f0f1f3;--rp-draft-row2:#f7f8f9;--rp-draft-border:#d2d5da;--rp-draft-text:#363a40;}
+#registryView.rp-theme-industrial{--rp-draft-row:#fff0dc;--rp-draft-row2:#fff7ec;--rp-draft-border:#edcfaa;--rp-draft-text:#603b12;}
+#registryView.rp-theme-agreement{--rp-draft-row:#f3e9ff;--rp-draft-row2:#faf5ff;--rp-draft-border:#d9c0f1;--rp-draft-text:#4b2a68;}
+#registryView.rp-theme-lease{--rp-draft-row:#e9f8ea;--rp-draft-row2:#f3fbf3;--rp-draft-border:#bfe0c1;--rp-draft-text:#24512a;}
+#registryView.rp-theme-sale-after{--rp-draft-row:#e5e7eb;--rp-draft-row2:#f1f2f4;--rp-draft-border:#c4c7cc;--rp-draft-text:#25282d;}
+
+#registryView[class*="rp-theme-"] .form-card-head,
+#registryView[class*="rp-theme-"] .v1216-section-head,
+#registryView[class*="rp-theme-"] .v1216-stamp-card>h2{
+  background:var(--rp-draft-row)!important;
+  border-bottom-color:var(--rp-draft-border)!important;
+  color:var(--rp-draft-text)!important;
+}
+#registryView[class*="rp-theme-"] #draftStep1>.form-card,
+#registryView[class*="rp-theme-"] .v1216-property-card>.form-card-head,
+#registryView[class*="rp-theme-"] .v1216-location-grid,
+#registryView[class*="rp-theme-"] .v1216-rebate,
+#registryView[class*="rp-theme-"] .v1216-section{
+  border-color:var(--rp-draft-border)!important;
+}
+#registryView[class*="rp-theme-"] .agri-total-valuation,
+#registryView[class*="rp-theme-"] .v1216-calc-summary{
+  background:var(--rp-draft-row2)!important;
+  border-color:var(--rp-draft-border)!important;
+}
+#registryView[class*="rp-theme-"] .agri-total-valuation>* ,
+#registryView[class*="rp-theme-"] .v1216-calc-summary>div{
+  border-color:var(--rp-draft-border)!important;
+}
+
+
+/* v1.20.42 — make every colored row in non-Agriculture drafts follow the same
+   selected draft theme color as the title row. Agriculture has no rp-theme-* class,
+   so its original green appearance remains untouched. */
+#registryView[class*="rp-theme-"] #v120DraftJurisdiction,
+#registryView[class*="rp-theme-"] .form-card-head,
+#registryView[class*="rp-theme-"] .form-card-head h2,
+#registryView[class*="rp-theme-"] .v1216-section-head,
+#registryView[class*="rp-theme-"] .v1216-stamp-card>h2{
+  background:var(--rp-draft-row)!important;
+  background-image:none!important;
+  color:var(--rp-draft-text)!important;
+  border-color:var(--rp-draft-border)!important;
+}
+#registryView[class*="rp-theme-"] .agri-total-valuation,
+#registryView[class*="rp-theme-"] .v1216-calc-summary,
+#registryView[class*="rp-theme-"] .agri-total-valuation>span,
+#registryView[class*="rp-theme-"] .v1216-calc-summary>div{
+  background:var(--rp-draft-row2)!important;
+  background-image:none!important;
+  color:var(--rp-draft-text)!important;
+  border-color:var(--rp-draft-border)!important;
+}
+#registryView[class*="rp-theme-"] .form-card-head *,
+#registryView[class*="rp-theme-"] .v1216-section-head *,
+#registryView[class*="rp-theme-"] .v1216-stamp-card>h2 *,
+#registryView[class*="rp-theme-"] .agri-total-valuation *,
+#registryView[class*="rp-theme-"] .v1216-calc-summary *{
+  color:inherit!important;
+}

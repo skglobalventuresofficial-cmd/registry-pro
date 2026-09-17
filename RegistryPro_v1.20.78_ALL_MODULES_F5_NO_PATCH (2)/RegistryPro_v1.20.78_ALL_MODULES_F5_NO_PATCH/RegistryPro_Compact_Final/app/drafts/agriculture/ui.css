@@ -1,0 +1,265 @@
+/* Registry Pro clean stylesheet module. */
+
+/* ===== Source: agri.css ===== */
+/* Registry Pro v1.20 Agriculture compact layout */
+#draftStep1.v123-agri-active .v123-rate-grid{grid-template-columns:minmax(250px,1.15fr) minmax(230px,1fr) minmax(245px,1.05fr) minmax(245px,1.05fr);align-items:start}
+.v123-distance-wrap select{font-weight:750;color:#163524}.v123-distance-hint{margin-top:7px;padding:8px 9px;border-radius:8px;background:#f1f9f3;color:#426653;font-size:12px;line-height:1.35}
+.v123-circle-summary{margin:12px 0 14px;padding:10px 12px;border:1px solid #bfe1c8;border-radius:12px;background:linear-gradient(90deg,#f0fbf3,#fbfdfb)}
+.v123-summary-title{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:8px}.v123-summary-title strong{color:#176c39}.v123-summary-title small{color:#60756a}
+.v123-summary-grid{display:grid;grid-template-columns:.9fr 1fr 1fr .8fr .8fr 1fr;gap:8px}.v123-summary-grid>div{min-width:0}.v123-summary-grid label{font-size:11px;margin-bottom:4px;color:#647468}.v123-summary-grid input{height:38px;padding:7px 9px;font-weight:700;background:#fff}.v123-summary-grid #v123DistanceRate{border-color:#8ac69b;background:#fff}.v123-summary-grid #v123FinalRateView{color:#d66b0c;background:#fff8f0;border-color:#f2d3b0}
+.v123-route-note{font-size:11px;color:#527060;margin-top:6px;min-height:0}.v123-route-note.warn{color:#9a6200}
+#agricultureDeedFields{display:flex;flex-direction:column;gap:10px}
+#agricultureDeedFields>.v123-main-road-row{order:1;margin:0;padding:0}.v123-main-road-row textarea{min-height:42px!important;height:42px!important;resize:vertical;padding:9px 12px!important}
+#agricultureDeedFields>#v123GataBlock{order:2}.v123-gata-block{border:1px solid #d6e6da;border-radius:12px;padding:9px 10px;background:#fff}.v123-gata-block .agri-subheading{margin:0 0 7px!important}.v123-gata-block .form-grid{margin-bottom:7px!important}.v123-gata-block .form-grid input{height:38px}.v123-gata-block .gata-table-wrap{margin-top:3px}.v123-gata-block .gata-table th,.v123-gata-block .gata-table td{padding:7px 8px}.v123-gata-block .agri-add-row{margin-top:7px}
+#agricultureDeedFields>.v123-road-map-compact{order:3;margin:0!important;padding:9px 10px!important;border-radius:12px!important}.v123-road-map-compact .v18-panel-title{margin-bottom:7px!important}.v123-road-map-compact .v18-panel-title h3{font-size:17px}.v123-road-map-compact .v18-panel-title small{font-size:11px}.v123-road-map-compact .form-grid{gap:8px!important}.v123-road-map-compact label{font-size:12px}.v123-road-map-compact input,.v123-road-map-compact select{height:38px;padding:7px 9px}.v123-road-map-compact .v18-khasra-auto-note{margin-top:5px!important;font-size:11px!important}.v123-road-map-compact #v122OfficialRuleBanner{padding:8px 10px!important;margin-top:6px!important;font-size:11px!important}
+#agricultureDeedFields>.agri-panel-head{order:4;margin-top:4px}#agricultureDeedFields>.agri-panel-head~*:not(.v123-main-road-row):not(#v123GataBlock):not(.v123-road-map-compact):not(#v123PreviousTitleHolder){order:5}
+#agricultureDeedFields>.boundary-wall-box{margin-top:4px}
+.v123-prev-card{order:99;border:1px solid #cfe2d4;border-radius:12px;background:#fff;padding:11px 12px;margin-top:4px}.v123-prev-head h3{margin:0;color:#1b5f37}.v123-prev-head small{color:#6a7b70}.v123-prev-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:9px;align-items:end}.v123-prev-grid>div{min-width:0}.v123-prev-grid label{font-size:11px;margin-bottom:4px}.v123-prev-grid input{height:38px;padding:7px 9px}.v123-prev-name{grid-column:span 2}.v123-prev-address{grid-column:span 4}
+#draftStep1.v123-agri-active .previous-title-holder-row{display:none!important}
+@media(max-width:1250px){#draftStep1.v123-agri-active .v123-rate-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.v123-summary-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.v123-prev-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.v123-prev-name,.v123-prev-address{grid-column:span 2}}
+@media(max-width:760px){#draftStep1.v123-agri-active .v123-rate-grid,.v123-summary-grid,.v123-prev-grid{grid-template-columns:1fr}.v123-prev-name,.v123-prev-address{grid-column:span 1}.v123-summary-title{align-items:flex-start;flex-direction:column;gap:3px}}
+
+/* v1.20.1 render guarantee: Main Road Distance is a first-class grid field between Circle Rate and Road Width. */
+#draftStep1.v123-agri-active #v123DistanceWrap{display:block!important;min-width:0}
+#draftStep1:not(.v123-agri-active) #v123DistanceWrap{display:none!important}
+#v123DistanceWrap label{display:block;margin-bottom:7px}
+#v123DistanceWrap select{width:100%;min-height:52px}
+
+/* ===== Source: agri-stability.css ===== */
+/* Registry Pro v1.20.2 — Agriculture final stability/layout */
+.v124-live-rule-warning{margin-top:6px;color:#9a6200;font-weight:700;line-height:1.35}
+.v124-gata-actions{display:flex;justify-content:flex-end;align-items:center;margin-top:7px}
+.v124-gata-actions .agri-add-row{margin:0!important}
+.v123-prev-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.v124-prev-toggle{display:inline-flex;align-items:center;gap:7px;margin:0!important;padding:7px 10px;border:1px solid #cfe2d4;border-radius:9px;background:#f5fbf7;color:#1d653a;font-size:12px;font-weight:750;cursor:pointer}
+.v124-prev-toggle input{width:16px!important;height:16px!important;margin:0!important;accent-color:#1f8247}
+#v123PreviousTitleHolder:not(.v124-prev-open){padding-top:9px;padding-bottom:9px}
+#v123PreviousTitleHolder:not(.v124-prev-open) .v123-prev-head small{display:none}
+#v124PrevBody[hidden]{display:none!important}
+#agricultureDeedFields>.v124-chauhadhi-heading{order:97;margin:8px 0 0!important;color:#1d5e39}
+#agricultureDeedFields>.v124-chauhadhi-grid{order:98;margin:0!important;padding:10px;border:1px solid #d8e7dc;border-radius:12px;background:#fff}
+#agricultureDeedFields>#v123PreviousTitleHolder{order:99}
+
+/* ===== Source: district-rate-fix.css ===== */
+/* Registry Pro v1.20.8 — exact main-road selection */
+.v1208-road-choice{margin-top:10px;padding-top:10px;border-top:1px solid #cfe5d5}
+.v1208-road-choice>label{font-size:12px!important;color:#285d3b;margin-bottom:6px!important}
+.v1208-road-control{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:center}
+#v1208RoadSelect{min-height:42px!important;height:42px;padding:7px 9px;font-size:12px;font-weight:700;color:#163524;background:#fff}
+#v1208RoadSelect:disabled{color:#697b70;background:#f4f7f5}
+#v1208RoadSource{height:42px;white-space:nowrap;padding:0 10px}
+.v1208-road-status{margin-top:6px;padding:7px 9px;border-radius:8px;background:#edf8f0;color:#286740;font-size:11px;line-height:1.35}
+.v1208-road-status.pending,.v123-distance-hint.v1208-pending{background:#fff7e7;color:#8b5a00;border:1px solid #f0d28d}
+@media(max-width:760px){.v1208-road-control{grid-template-columns:1fr}#v1208RoadSource{width:100%}}
+
+/* ===== Source: agriculture-compact.css ===== */
+/* Registry Pro v1.20.16 — approved compact Agriculture UI (layout only). */
+#registryView.v1216-agri-active .app-layout{display:block!important;grid-template-columns:1fr!important;background:#f7faf8}
+#registryView.v1216-agri-active .main-panel{grid-column:auto!important;width:100%;min-width:0}
+#registryView.v1216-agri-active .sidebar{transform:translateX(-105%);transition:transform .2s ease;width:250px;box-shadow:8px 0 30px rgba(9,45,27,.12)}
+#registryView.v1216-agri-active .sidebar.open{transform:translateX(0)}
+#registryView.v1216-agri-active .dash-topbar{height:60px!important;min-height:60px;padding:0 20px!important;gap:12px;background:#fff;z-index:10010}
+#registryView.v1216-agri-active .dash-topbar .menu-btn{order:1;width:36px;height:36px;background:#edf7f1;color:#075e35;border-radius:8px;font-size:20px}
+#registryView.v1216-agri-active .dash-topbar .mobile-brand,
+#registryView.v1216-agri-active .dash-topbar .draft-title-mini,
+#registryView.v1216-agri-active .dash-topbar .top-actions{display:none!important}
+.v1216-top-brand{display:none}
+#registryView.v1216-agri-active .v1216-top-brand{order:9;margin-left:auto;display:flex;align-items:center;gap:9px;color:#0b4f30;font-size:16px;font-weight:850}
+#registryView.v1216-agri-active .v1216-top-brand>span{width:38px;height:38px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(145deg,#0d6b40,#063d26);color:#fff;font-size:13px;font-weight:900;box-shadow:0 4px 10px rgba(8,70,40,.16)}
+
+#registryView.v1216-agri-active .draft-workspace{max-width:1560px!important;width:100%;padding:14px 20px 38px!important;margin:0 auto}
+#registryView.v1216-agri-active #v114DraftBack{position:fixed!important;top:70px!important;left:20px!important;z-index:10020!important;min-width:84px!important;height:38px!important;margin:0!important;padding:7px 13px!important;border-radius:8px!important;border:1px solid #a9bfb2!important;background:#fff!important;color:#123c2a!important;font-size:13px!important;font-weight:800!important;box-shadow:0 3px 10px rgba(23,67,45,.08)!important}
+#registryView.v1216-agri-active #v1212DraftName{display:none!important}
+#registryView.v1216-agri-active #v120DraftJurisdiction{margin:0 0 10px 125px!important;padding:0!important;min-height:48px;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;display:grid!important;grid-template-columns:repeat(3,minmax(150px,1fr)) minmax(280px,1.4fr)!important;gap:14px!important;align-items:end!important}
+#registryView.v1216-agri-active #v120DraftJurisdiction>small{display:none!important}
+#registryView.v1216-agri-active #v120DraftJurisdiction label{gap:3px!important;margin:0!important}
+#registryView.v1216-agri-active #v120DraftJurisdiction label span{font-size:11px!important;color:#173d2c!important}
+#registryView.v1216-agri-active #v120DraftJurisdiction select{height:38px!important;min-height:38px!important;padding:5px 10px!important;border-radius:7px!important;background:#fff;font-size:13px!important}
+.v1216-draft-title{display:none}
+#registryView.v1216-agri-active .v1216-draft-title{display:flex;align-items:center;justify-content:center;min-height:38px;padding:0 14px;border-left:1px solid #7e9789;color:#07582f;font-size:18px;line-height:1.2;text-align:center;white-space:nowrap}
+
+#registryView.v1216-agri-active .wizard-steps{margin:0 0 12px!important;padding:4px 8px 7px!important;min-height:54px;border:0!important;border-bottom:1px solid #a9bbb1!important;border-radius:0!important;background:transparent!important;overflow:visible}
+#registryView.v1216-agri-active .wizard-step{min-width:112px!important;gap:3px!important}
+#registryView.v1216-agri-active .wizard-step b{width:25px!important;height:25px!important;font-size:11px!important;border:1px solid #9aafa3}
+#registryView.v1216-agri-active .wizard-step span{font-size:10px!important}
+#registryView.v1216-agri-active .wizard-line{height:1px!important;background:#8fa69a!important;margin-top:13px!important}
+
+#registryView.v1216-agri-active #draftStep1{display:flex;flex-direction:column;gap:10px}
+#registryView.v1216-agri-active #draftStep1>.form-card{margin:0!important;padding:0!important;border:1px solid #b7ddc3!important;border-radius:10px!important;background:#fff!important;box-shadow:none!important;overflow:hidden}
+#registryView.v1216-agri-active #draftStep1>.v1216-property-card{border:0!important;background:transparent!important;overflow:visible!important}
+#registryView.v1216-agri-active .form-card-head,
+#registryView.v1216-agri-active .v1216-section-head,
+#registryView.v1216-agri-active .v1216-transaction-card>h2,
+#registryView.v1216-agri-active .v1216-stamp-card>h2{margin:0!important;padding:7px 12px!important;min-height:30px;background:linear-gradient(90deg,#d9f4e1,#e8f8ed)!important;border:0!important;border-bottom:1px solid #b7ddc3!important;color:#0b3e27!important;font-size:17px!important;font-weight:850!important;line-height:1.15}
+#registryView.v1216-agri-active .form-card-head p{display:none!important}
+#registryView.v1216-agri-active .v1216-property-card>.form-card-head{border:1px solid #b7ddc3!important;border-radius:10px 10px 0 0!important}
+
+#registryView.v1216-agri-active .v1216-location-grid{margin:0!important;padding:9px 12px 7px!important;display:grid!important;grid-template-columns:1.05fr 1fr 1.08fr 1.08fr!important;gap:8px 12px!important;border:1px solid #b7ddc3!important;border-top:0!important;background:#fff}
+#registryView.v1216-agri-active .v1216-location-grid>div{min-width:0}
+#registryView.v1216-agri-active .v1216-location-grid label,
+#registryView.v1216-agri-active .v1216-section label,
+#registryView.v1216-agri-active .v1216-transaction-card label{margin:0 0 4px!important;font-size:11px!important;line-height:1.2!important;font-weight:780!important;color:#163b2a}
+#registryView.v1216-agri-active input,
+#registryView.v1216-agri-active select,
+#registryView.v1216-agri-active textarea,
+#registryView.v1216-agri-active .circle-rate-picker{min-height:36px!important;height:36px!important;padding:6px 9px!important;border-radius:7px!important;font-size:12px!important;line-height:1.2!important}
+#registryView.v1216-agri-active textarea{resize:vertical}
+#registryView.v1216-agri-active .circle-rate-picker{width:100%;text-align:left}
+#registryView.v1216-agri-active #v123DistanceWrap{display:block!important}
+#registryView.v1216-agri-active #v123DistanceWrap>label{display:block!important}
+#registryView.v1216-agri-active #v123DistanceWrap>select{width:100%;min-height:36px!important;height:36px!important}
+#registryView.v1216-agri-active #v1208RoadChoice{margin:0!important;padding:0!important;border:0!important;background:transparent!important}
+#registryView.v1216-agri-active #v1208RoadChoice>.v1208-road-control{display:block!important}
+#registryView.v1216-agri-active #v1208RoadChoice select{width:100%!important}
+#registryView.v1216-agri-active #v1208RoadSource,
+#registryView.v1216-agri-active #v1208RoadStatus,
+#registryView.v1216-agri-active #v123DistanceHint,
+#registryView.v1216-agri-active .auto-rate-note,
+#registryView.v1216-agri-active #selectedLocationMeta,
+#registryView.v1216-agri-active #v114DraftOpenFullRate{display:none!important}
+#registryView.v1216-agri-active .v1216-road-width-field{grid-column:1/2!important}
+#registryView.v1216-agri-active .v1216-main-road-detail{grid-column:2/-1!important;display:grid!important;grid-template-columns:1fr!important;margin:0!important;gap:0!important}
+#registryView.v1216-agri-active .v1216-main-road-detail>.full{grid-column:1/-1!important}
+#registryView.v1216-agri-active .v1216-main-road-detail textarea{min-height:36px!important;height:36px!important}
+#registryView.v1216-agri-active #roadRateNote{display:none!important}
+#registryView.v1216-agri-active .rate-reference-strip,
+#registryView.v1216-agri-active .pdf-source-note,
+#registryView.v1216-agri-active #deedTemplateNotice,
+#registryView.v1216-agri-active .previous-title-holder-row,
+#registryView.v1216-agri-active #v123CircleSummary{display:none!important}
+
+#registryView.v1216-agri-active .v1216-rebate{margin:0!important;padding:0 12px 9px!important;border:1px solid #b7ddc3!important;border-top:0!important;border-radius:0 0 10px 10px!important;background:#fff!important}
+#registryView.v1216-agri-active .v1216-rebate .rebate-title{font-size:11px!important;margin:0 0 5px!important}
+#registryView.v1216-agri-active .v1216-rebate .rebate-options{display:flex!important;flex-wrap:wrap;gap:6px 20px!important}
+#registryView.v1216-agri-active .v1216-rebate .rebate-choice{padding:0!important;border:0!important;background:transparent!important;font-size:11px!important;min-height:22px}
+#registryView.v1216-agri-active .v1216-rebate input{width:15px!important;height:15px!important;min-height:0!important;padding:0!important}
+#registryView.v1216-agri-active .v1216-rebate .rebate-extra{margin-top:7px!important;padding:7px!important}
+
+#registryView.v1216-agri-active #agricultureDeedFields{display:flex!important;flex-direction:column!important;gap:10px!important;margin:10px 0 0!important;padding:0!important;border:0!important;background:transparent!important}
+#registryView.v1216-agri-active #agricultureDeedFields>.agri-panel-head,
+#registryView.v1216-agri-active #agricultureDeedFields>.agri-subheading,
+#registryView.v1216-agri-active .v1216-original-boundary-heading{display:none!important}
+#registryView.v1216-agri-active .v1216-section{order:5!important;margin:0!important;padding:0!important;border:1px solid #b7ddc3!important;border-radius:10px!important;background:#fff!important;overflow:hidden}
+#registryView.v1216-agri-active .v1216-section-body{padding:8px 12px!important}
+#registryView.v1216-agri-active .v1216-section .form-grid{margin:0!important;gap:7px 12px!important}
+#registryView.v1216-agri-active .v1216-section .form-grid.four{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+#registryView.v1216-agri-active .v1216-section .form-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+#registryView.v1216-agri-active .v1216-section .form-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+#registryView.v1216-agri-active .v1216-basic-status{margin-top:7px!important}
+#registryView.v1216-agri-active .agri-detail-panel{margin:7px 0 0!important;padding:7px!important;border-radius:8px!important}
+#registryView.v1216-agri-active .v1216-enhancement-pair{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:7px}
+#registryView.v1216-agri-active .boundary-wall-box,
+#registryView.v1216-agri-active .agri-total-row{margin:0!important;padding:0!important;border:0!important;background:transparent!important}
+#registryView.v1216-agri-active .boundary-wall-box>.agri-subheading{display:none!important}
+#registryView.v1216-agri-active .boundary-wall-box .form-grid{grid-template-columns:1fr 1fr!important}
+#registryView.v1216-agri-active #boundarySideCountWrap{grid-column:1/-1}
+#registryView.v1216-agri-active .agri-total-row>div{width:100%!important}
+#registryView.v1216-agri-active .agri-total-row .input-unit{width:100%}
+#registryView.v1216-agri-active .agri-total-row>div>small{display:none!important}
+#registryView.v1216-agri-active .agri-total-valuation{margin:7px 0 0!important;padding:0!important;display:grid!important;grid-template-columns:repeat(3,1fr)!important;border:1px solid #b7ddc3!important;border-radius:7px!important;overflow:hidden;background:#e8f7ed!important}
+#registryView.v1216-agri-active .agri-total-valuation>span{min-height:43px;padding:6px 10px!important;border-right:1px solid #c4e3cd;font-size:10px!important}
+#registryView.v1216-agri-active .agri-total-valuation>span:last-child{border-right:0}
+#registryView.v1216-agri-active .agri-total-valuation strong{display:block;font-size:14px!important;margin-top:2px}
+
+#registryView.v1216-agri-active .v1216-ownership-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+#registryView.v1216-agri-active #v123GataBlock{margin:0!important;padding:0!important;border:0!important;background:transparent!important}
+#registryView.v1216-agri-active #v123GataBlock>.agri-subheading{display:none!important}
+#registryView.v1216-agri-active #v123GataBlock .form-grid{grid-template-columns:minmax(240px,1fr) auto!important;align-items:end}
+#registryView.v1216-agri-active #v123GataBlock .gata-table-wrap{margin-top:6px!important;border-radius:7px!important}
+#registryView.v1216-agri-active .gata-table{min-width:760px!important}
+#registryView.v1216-agri-active .gata-table th,
+#registryView.v1216-agri-active .gata-table td{padding:5px 7px!important;font-size:10px!important}
+#registryView.v1216-agri-active .gata-table input{height:32px!important;min-height:32px!important}
+#registryView.v1216-agri-active .v124-gata-actions{margin:5px 0 0!important}
+#registryView.v1216-agri-active .v124-gata-actions .btn{height:32px!important;padding:5px 11px!important;background:#087341!important;color:#fff!important;border-color:#087341!important}
+#registryView.v1216-agri-active .v18-road-map-panel{position:relative;margin:7px 0 0!important;padding:0!important;border:0!important;background:transparent!important}
+#registryView.v1216-agri-active .v18-road-map-panel .v18-panel-title{margin:0 0 5px!important;align-items:end}
+#registryView.v1216-agri-active .v18-road-map-panel .v18-panel-title h3{font-size:13px!important;margin:0!important}
+#registryView.v1216-agri-active .v18-road-map-panel .v18-panel-title small{display:none!important}
+#registryView.v1216-agri-active .v18-road-map-panel .form-grid{display:grid!important;grid-template-columns:1.05fr 1fr .65fr auto!important;gap:10px!important;align-items:end}
+#registryView.v1216-agri-active .v18-road-map-panel .v18-panel-title .btn{position:absolute;right:12px;transform:translateY(44px);height:34px!important;padding:5px 10px!important;font-size:10px!important}
+#registryView.v1216-agri-active .v18-khasra-auto-note,
+#registryView.v1216-agri-active #v122OfficialRuleBanner{display:none!important}
+#registryView.v1216-agri-active .v1216-gis-check{display:flex;align-items:center;gap:7px;width:max-content;margin:4px 175px 0 auto!important;font-size:11px;font-weight:700;color:#173c2b}
+#registryView.v1216-agri-active .v1216-gis-check input{width:15px!important;height:15px!important;min-height:0!important;padding:0!important}
+
+#registryView.v1216-agri-active .v1216-legal-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+#registryView.v1216-agri-active .v1216-boundary-fields{margin:0}
+#registryView.v1216-agri-active .v1216-boundary-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px 12px!important;margin:0!important;padding:0!important;border:0!important;background:transparent!important}
+#registryView.v1216-agri-active #v123PreviousTitleHolder{margin:7px 0 0!important;padding:6px 8px!important;border:1px solid #d2e3d7!important;border-radius:7px!important;background:#fff!important}
+#registryView.v1216-agri-active #v123PreviousTitleHolder .v123-prev-head h3{font-size:12px!important;color:#173b2a}
+#registryView.v1216-agri-active #v123PreviousTitleHolder .v124-prev-toggle{padding:3px 7px!important;font-size:10px!important;border:0!important;background:transparent!important}
+#registryView.v1216-agri-active #v123PreviousTitleHolder .v123-prev-grid{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:6px!important}
+#registryView.v1216-agri-active .v1216-calc-summary{margin:7px 0 0!important;padding:0!important;display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:0!important;border:1px solid #b7ddc3!important;border-radius:7px!important;background:#eaf7ee!important;overflow:hidden}
+#registryView.v1216-agri-active .v1216-calc-summary>div{min-height:48px!important;padding:6px 10px!important;border-right:1px solid #c6dfcd!important;background:transparent!important}
+#registryView.v1216-agri-active .v1216-calc-summary>div:last-child{border-right:0!important}
+#registryView.v1216-agri-active .v1216-calc-summary small{font-size:9px!important}
+#registryView.v1216-agri-active .v1216-calc-summary strong{font-size:14px!important;margin:2px 0!important}
+#registryView.v1216-agri-active .v1216-calc-summary em{font-size:8px!important}
+#registryView.v1216-agri-active .v1216-records-card{display:none!important}
+
+#registryView.v1216-agri-active .v1216-transaction-card .v1216-transaction-grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important;margin:0!important;padding:7px 12px 9px!important}
+#registryView.v1216-agri-active .v1216-transaction-card .transaction-compact-grid{display:none!important}
+#registryView.v1216-agri-active .v1216-stamp-card .stamp-grid{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:10px!important;padding:7px 12px 5px!important}
+#registryView.v1216-agri-active .v1216-stamp-card .stamp-grid>div{min-height:54px!important;padding:5px 7px!important;border-radius:7px!important}
+#registryView.v1216-agri-active .v1216-stamp-card .stamp-grid small{font-size:9px!important}
+#registryView.v1216-agri-active .v1216-stamp-card .stamp-grid strong{font-size:14px!important}
+#registryView.v1216-agri-active .v1216-stamp-card .stamp-edit-input{height:31px!important;min-height:31px!important}
+#registryView.v1216-agri-active .v1216-stamp-card .stamp-auto-hint{font-size:8px!important}
+#registryView.v1216-agri-active .v1216-stamp-card .stamp-rule-breakdown{margin:0 12px 7px!important;padding:4px 7px!important;font-size:9px!important}
+#registryView.v1216-agri-active .wizard-footer{margin-top:0!important;padding:4px 0 0!important}
+#registryView.v1216-agri-active .wizard-footer .btn.primary{min-height:38px!important;height:38px!important;padding:7px 15px!important;border-radius:7px!important;background:#087341!important}
+
+@media(max-width:1100px){
+  #registryView.v1216-agri-active #v120DraftJurisdiction{grid-template-columns:repeat(3,1fr)!important;margin-left:105px!important}
+  #registryView.v1216-agri-active .v1216-draft-title{grid-column:1/-1;border-left:0;border-top:1px solid #cbd9d1;padding-top:5px}
+  #registryView.v1216-agri-active .v1216-location-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #registryView.v1216-agri-active .v1216-road-width-field{grid-column:1/2!important}
+  #registryView.v1216-agri-active .v1216-main-road-detail{grid-column:2/-1!important}
+  #registryView.v1216-agri-active .v18-road-map-panel .form-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  #registryView.v1216-agri-active .v1216-gis-check{margin-right:0!important}
+}
+@media(max-width:760px){
+  #registryView.v1216-agri-active .draft-workspace{padding:10px 10px 28px!important}
+  #registryView.v1216-agri-active #v114DraftBack{top:66px!important;left:10px!important;min-width:76px!important}
+  #registryView.v1216-agri-active #v120DraftJurisdiction{margin-left:88px!important;grid-template-columns:1fr!important;gap:6px!important}
+  #registryView.v1216-agri-active .v1216-draft-title{grid-column:auto;font-size:15px;white-space:normal}
+  #registryView.v1216-agri-active .wizard-steps{justify-content:flex-start;overflow-x:auto}
+  #registryView.v1216-agri-active .v1216-location-grid,
+  #registryView.v1216-agri-active .v1216-section .form-grid.four,
+  #registryView.v1216-agri-active .v1216-section .form-grid.three,
+  #registryView.v1216-agri-active .v1216-section .form-grid.two,
+  #registryView.v1216-agri-active .v1216-ownership-grid,
+  #registryView.v1216-agri-active .v1216-legal-grid,
+  #registryView.v1216-agri-active .v1216-boundary-grid,
+  #registryView.v1216-agri-active .v1216-enhancement-pair,
+  #registryView.v1216-agri-active .v1216-transaction-card .v1216-transaction-grid,
+  #registryView.v1216-agri-active .v1216-stamp-card .stamp-grid{grid-template-columns:1fr!important}
+  #registryView.v1216-agri-active .v1216-road-width-field,
+  #registryView.v1216-agri-active .v1216-main-road-detail{grid-column:auto!important}
+  #registryView.v1216-agri-active .v18-road-map-panel .form-grid{grid-template-columns:1fr!important;padding-right:0!important}
+  #registryView.v1216-agri-active .v18-road-map-panel .v18-panel-title .btn{position:static;transform:none}
+  #registryView.v1216-agri-active .agri-total-valuation,
+  #registryView.v1216-agri-active .v1216-calc-summary{grid-template-columns:1fr!important}
+  #registryView.v1216-agri-active .agri-total-valuation>span,
+  #registryView.v1216-agri-active .v1216-calc-summary>div{border-right:0!important;border-bottom:1px solid #c6dfcd}
+}
+
+@media print{
+  #registryView.v1216-agri-active .dash-topbar,
+  #registryView.v1216-agri-active #v114DraftBack{display:none!important}
+}
+
+/* ===== Source: agriculture-lag-clean-fix.css ===== */
+/* Agriculture-only cleanup. These rules intentionally do not affect other drafts. */
+#registryView.v1216-agri-active #v1211PlotRoad,
+#registryView.v1231-agri-clean #v1211PlotRoad{display:none!important}
+#registryView.v1216-agri-active .previous-title-holder-row,
+#registryView.v1231-agri-clean .previous-title-holder-row{display:none!important}
+
+/* ===== Source: agriculture-four-target-fixes.css ===== */
+/* Four targeted Agriculture fixes only */
+#registryView .tree-total-value[readonly]{background:#f7faf8;font-weight:700;}
+#registryView .agri-mini-table th:nth-child(4),
+#registryView .agri-mini-table th:nth-child(5){white-space:nowrap;}
+#draftStepsScreen .draft-step-panel[hidden]{display:none!important;}
