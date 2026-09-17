@@ -1,0 +1,11 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Registry Pro - F5 (clean app)",
+      "type": "pwa-msedge",
+      "request": "launch",
+      "file": "${workspaceFolder}/RegistryPro_v1.20.78_ALL_MODULES_F5_NO_PATCH (2)/RegistryPro_v1.20.78_ALL_MODULES_F5_NO_PATCH/RegistryPro_Compact_Final/index.html"
+    }
+  ]
+}
